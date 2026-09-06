@@ -1,0 +1,4253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Alacena Mágica: tu asistente de cocina inteligente. Genera recetas con lo que ya tienes en la nevera, reduce el desperdicio y ahorra tiempo.">
+  <title>Alacena Mágica — Crea magia con lo que tienes</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/logos/favicon.svg" type="image/svg+xml">
+
+  <!-- Open Graph (compartir en redes) -->
+  <meta property="og:title" content="Alacena Mágica — Crea magia con lo que tienes">
+  <meta property="og:description" content="Transforma los ingredientes que ya tienes en recetas deliciosas. Sin desperdicio, sin complicaciones.">
+  <meta property="og:image" content="assets/images/frittata-alacena-magica.webp">
+  <meta property="og:url" content="https://www.alacenamagica.com">
+  <meta name="twitter:card" content="summary_large_image">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..900,0..100,0..1&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ══════════════════════════════════════════
+    MAGICAL.CSS — PARTE 1/2 (base + componentes)
+    ══════════════════════════════════════════ */
+    :root{
+    --verde-marca:#459b5b;   --verde-vivo:#22c55e;  --verde-oscuro:#1d381c;
+    --verde-suave:#86efac;   --terracota:#e28538;   --naranja-vivo:#f97316;
+    --amarillo:#eacc34;      --amarillo-vivo:#fbbf24;
+    --gris-oscuro:#40403f;   --gris-medio:#5b6472;  --crema:#f5f1e8;
+    --blanco:#ffffff;        --gris-claro:#e8e4dc;
+    --radio-lg:32px;         --radio-md:20px;       --nav-h:76px;
+    --grad-marca:linear-gradient(135deg,var(--verde-vivo),var(--amarillo-vivo));
+    --grad-calido:linear-gradient(135deg,var(--naranja-vivo),var(--amarillo-vivo));
+    --sombra-card:0 8px 32px rgba(29,56,28,.10);
+    --glass:rgba(255,255,255,.62);
+    --glass-borde:rgba(255,255,255,.55);
+    --verde-claro:#6bb87f;
+    --verde-texto:#2f7044;
+    --texto-suave:#6b6862;
+    --crema-profunda:#ece6d8;
+    --terracota-suave:#fbeadb;
+    --terracota-texto:#a0501a;
+    --amarillo-suave:#fbf4cf;
+    --oro-texto:#7a6100;
+    --r-2xl:56px;
+    --r-lg:28px;
+    --r-xl:40px;
+    --r-md:20px;
+    --r-pill:999px;
+    --r-blob:62% 38% 46% 54% / 44% 52% 48% 56%;
+    --ease:cubic-bezier(0.22, 1, 0.36, 1);
+    --t-fast:0.22s cubic-bezier(0.22, 1, 0.36, 1);
+    --t-med:0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    --t-slow:0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 16px)}
+    body{font-family:'Outfit',system-ui,sans-serif;color:var(--gris-oscuro);background:var(--crema);line-height:1.6;overflow-x:hidden}
+    h1,h2,h3,h4,h5{font-family:'Fraunces',Georgia,serif;color:var(--verde-oscuro);line-height:1.05;letter-spacing:-.02em}
+    img{max-width:100%}
+    a{text-decoration:none;color:inherit}
+    button{font-family:inherit;cursor:pointer;border:none;background:none}
+    .container{max-width:1200px;margin:0 auto;padding:0 24px}
+    .skip{position:absolute;left:-999px;top:0;background:var(--verde-oscuro);color:#fff;padding:10px 18px;border-radius:0 0 12px 0;z-index:999}
+    .skip:focus{left:0}
+    /* Títulos de sección */
+    .section-title{font-family:'Fraunces',Georgia,serif;font-size:clamp(2rem,4.5vw,3rem);font-weight:800;text-align:center;letter-spacing:-.02em;margin-bottom:14px}
+    .section-sub{text-align:center;color:var(--gris-medio);font-size:1.1rem;max-width:640px;margin:0 auto 56px}
+    /* Reveal on scroll */
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.is-visible{opacity:1;transform:none}
+    .reveal[data-delay="1"]{transition-delay:.12s}
+    .reveal[data-delay="2"]{transition-delay:.24s}
+    .reveal[data-delay="3"]{transition-delay:.36s}
+    .reveal--delay{transition-delay:.18s}
+        /* ══════════════════════════════════════════
+       HERO FINAL — Fondo cálido sin patrón
+       ══════════════════════════════════════════ */
+    .hero {
+      position: relative;
+      background: linear-gradient(165deg, #fbf4cf 0%, #fbeadb 30%, #f5f1e8 60%, #fbf4cf 100%);
+      color: var(--gris-oscuro);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: clamp(6rem, 14vw, 9rem);
+      padding-bottom: clamp(4rem, 8vw, 6rem);
+      overflow: hidden;
+    }
+    
+    /* Blobs decorativos suaves */
+    .hero__blobs {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero__blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      animation: heroBlobFloat 15s var(--ease) infinite alternate;
+    }
+    .hero__blob--1 {
+      width: 450px;
+      height: 450px;
+      top: -10%;
+      right: -5%;
+      background: radial-gradient(circle, rgba(234, 204, 52, 0.4), transparent 70%);
+    }
+    .hero__blob--2 {
+      width: 400px;
+      height: 400px;
+      bottom: -8%;
+      left: -8%;
+      background: radial-gradient(circle, rgba(226, 133, 56, 0.3), transparent 70%);
+      animation-delay: -7s;
+    }
+    .hero__blob--3 {
+      width: 350px;
+      height: 350px;
+      top: 40%;
+      left: 35%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.6), transparent 70%);
+      animation-delay: -12s;
+    }
+    
+    @keyframes heroBlobFloat {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(25px, -15px) scale(1.1); }
+      100% { transform: translate(-20px, 20px) scale(0.95); }
+    }
+    
+    .hero__grid {
+      position: relative; z-index: 2;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: clamp(2.5rem, 6vw, 5rem);
+      align-items: center;
+    }
+    
+    /* Badge */
+    .hero .pill--light {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.85rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.6rem 1.2rem; border-radius: var(--r-pill, 999px);
+      background: var(--terracota, #e28538);
+      color: #fff;
+      border: none;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 6px 18px rgba(226, 133, 56, 0.32);
+    }
+    .hero .pill--light img {
+      height: 1.5em;
+      width: auto;
+      filter: brightness(0) invert(1);
+    }
+    
+    /* Título — verde oscuro, peso bold, sin shimmer */
+    .hero__title {
+      font-size: clamp(2.5rem, 5.5vw + 0.5rem, 5rem);
+      font-weight: 700;
+      color: var(--verde-oscuro, #1d381c);
+      line-height: 1.05;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.03em;
+    }
+    .hero__title em {
+      font-style: italic;
+      font-weight: 700;
+      color: var(--verde-oscuro, #1d381c);
+    }
+    
+    .hero__subtitle {
+      font-size: clamp(1.05rem, 0.8vw + 0.8rem, 1.25rem);
+      margin-bottom: 2.2rem;
+      max-width: 32rem;
+      color: var(--texto-suave, #6b6862);
+      line-height: 1.6;
+    }
+    
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+    }
+    
+    /* Composición visual — imagen rectangular simple */
+    .hero__visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+    
+    .hero__photo {
+      position: relative;
+      border-radius: var(--r-lg, 28px);
+      overflow: hidden;
+      box-shadow: 0 30px 70px rgba(29, 56, 28, 0.15);
+      border: 4px solid #fff;
+      aspect-ratio: 4 / 5;
+      width: 100%;
+      max-width: 450px;
+      z-index: 1;
+    }
+    .hero__photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--t-slow, 0.8s);
+    }
+    .hero__visual:hover .hero__photo img {
+      transform: scale(1.03);
+    }
+    
+    /* Glow detrás de la foto */
+    .hero__visual::before {
+      content: '';
+      position: absolute;
+      inset: 8% -4%;
+      background: radial-gradient(closest-side, rgba(234, 204, 52, 0.3), transparent 72%);
+      filter: blur(40px);
+      z-index: 0;
+    }
+    
+    /* Tarjetas flotantes */
+    .float-card {
+      position: absolute; z-index: 3;
+      display: flex; align-items: center; gap: 0.7rem;
+      padding: 0.9rem 1.2rem;
+      border-radius: var(--r-md, 20px);
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(255,255,255,0.95);
+      backdrop-filter: blur(16px) saturate(1.4);
+      box-shadow: 0 16px 40px rgba(160, 80, 26, 0.12);
+      animation: heroFloat 6s var(--ease) infinite;
+      transition: transform var(--t-fast), box-shadow var(--t-fast);
+    }
+    .float-card:hover {
+      transform: translateY(-4px) !important;
+      box-shadow: 0 20px 50px rgba(160, 80, 26, 0.2);
+    }
+    .float-card__icon {
+      width: 42px; height: 42px;
+      border-radius: 12px; flex: 0 0 auto;
+      display: grid; place-items: center; font-size: 1.2rem;
+    }
+    .float-card__icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 4px;
+    }
+    .float-card__num {
+      display: block;
+      font-family: var(--font-display, 'Fraunces', Georgia, serif);
+      font-weight: 700;
+      color: var(--verde-oscuro, #1d381c);
+      font-size: 1.05rem;
+      line-height: 1.15;
+    }
+    .float-card__label {
+      font-size: 0.78rem;
+      color: var(--texto-suave, #6b6862);
+    }
+    
+    .float-card--a { top: 8%; left: -8%; animation-delay: -1s; }
+    .float-card--a .float-card__icon { background: rgba(234,204,52,0.2); }
+    
+    .float-card--b { bottom: 16%; right: -6%; animation-delay: -3.5s; }
+    .float-card--b .float-card__icon { background: rgba(107,184,127,0.2); }
+    
+    .float-card--c { bottom: -4%; left: 6%; animation-delay: -2s; }
+    .float-card--c .float-card__icon { background: rgba(226,133,56,0.2); }
+    
+    @keyframes heroFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+    
+    /* Responsive del hero */
+    @media (max-width: 968px) {
+      .hero__grid { grid-template-columns: 1fr; }
+      .hero__visual { max-width: 400px; margin-inline: auto; }
+      .float-card--a { left: -2%; top: 4%; }
+      .float-card--b { right: -2%; bottom: 10%; }
+      .float-card--c { display: none; }
+    }
+    
+    @media (max-width: 480px) {
+      .hero__actions { flex-direction: column; align-items: stretch; }
+      .hero__actions .btn { width: 100%; }
+      .float-card { padding: 0.65rem 0.85rem; }
+      .float-card__num { font-size: 0.9rem; }
+      .float-card__label { font-size: 0.68rem; }
+      .hero__photo {
+        border-radius: var(--r-md, 20px);
+      }
+    }
+    
+    /* Aurora clara (usada por CTA FINAL) */
+    .aurora { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+    .aurora span {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.6;
+      will-change: transform;
+    }
+    .aurora span:nth-child(1) {
+      width: 50vw; height: 50vw; top: -15%; left: -8%;
+      background: radial-gradient(circle, rgba(107,184,127,0.5), transparent 70%);
+      animation: hero-drift-a 22s var(--ease) infinite alternate;
+    }
+    .aurora span:nth-child(2) {
+      width: 40vw; height: 40vw; top: 10%; right: -10%;
+      background: radial-gradient(circle, rgba(226,133,56,0.35), transparent 70%);
+      animation: hero-drift-b 26s var(--ease) infinite alternate;
+    }
+    .aurora span:nth-child(3) {
+      width: 32vw; height: 32vw; bottom: -12%; left: 32%;
+      background: radial-gradient(circle, rgba(234,204,52,0.3), transparent 70%);
+      animation: hero-drift-c 30s var(--ease) infinite alternate;
+    }
+    
+    @keyframes hero-drift-a { to { transform: translate(12%, 14%) scale(1.15); } }
+    @keyframes hero-drift-b { to { transform: translate(-14%, 10%) scale(1.2); } }
+    @keyframes hero-drift-c { to { transform: translate(8%, -12%) scale(1.1); } }
+
+    /* ══ TELÉFONO 3D ═ */
+    .hero-mockup{display:flex;justify-content:center}
+    .phone{width:300px;height:620px;background:#1f2937;border-radius:44px;padding:12px;position:relative;box-shadow:0 50px 100px rgba(29,56,28,.28);animation:phoneFloat 7s ease-in-out infinite}
+    .phone::before{content:'';position:absolute;top:12px;left:50%;transform:translateX(-50%);width:110px;height:24px;background:#1f2937;border-radius:0 0 14px 14px;z-index:6}
+    .phone:hover{animation-play-state:paused;transform:perspective(1200px) rotateY(0) rotateX(0)}
+    @keyframes phoneFloat{0%,100%{transform:perspective(1200px) rotateY(-10deg) rotateX(4deg) translateY(0)}50%{transform:perspective(1200px) rotateY(-6deg) rotateX(2deg) translateY(-16px)}}
+    .phone-screen{background:var(--crema);border-radius:32px;height:100%;overflow:hidden;display:flex;flex-direction:column}
+    /* ═ MOCKUPS INTERNOS (app) ══ */
+    .m-pad{padding:44px 14px 12px;display:flex;flex-direction:column;height:100%;font-size:.75rem}
+    .m-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .m-head .small{opacity:.65;font-size:.68rem}
+    .m-head .name{font-family:'Outfit';font-weight:800;font-size:1.05rem;color:var(--verde-oscuro)}
+    .m-avatar{width:34px;height:34px;border-radius:50%;background:var(--grad-marca);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+    .m-card{background:var(--grad-marca);border-radius:18px;padding:14px;color:#fff;margin-bottom:12px;position:relative;box-shadow:0 10px 24px rgba(34,197,94,.3)}
+    .m-card::after{content:'✨';position:absolute;top:10px;right:12px;font-size:1.3rem;animation:sparkle 2s infinite}
+    .m-card h4{color:#fff;font-size:.85rem;margin-bottom:4px}
+    .m-card p{font-size:.68rem;opacity:.95;line-height:1.35}
+    .m-title{font-family:'Outfit';font-weight:700;font-size:.78rem;color:var(--verde-oscuro);margin:8px 0 8px}
+    .m-chips{display:flex;flex-wrap:wrap;gap:6px}
+    .m-chip{background:#fff;border:1px solid var(--gris-claro);border-radius:20px;padding:5px 11px;font-size:.66rem;font-weight:600;color:var(--verde-oscuro)}
+    .m-chip.is-on{background:var(--amarillo);border-color:var(--amarillo)}
+    .m-recipe{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 14px rgba(29,56,28,.08);margin-top:10px}
+    .m-recipe-img{height:92px;background:var(--grad-calido);display:flex;align-items:center;justify-content:center;font-size:2.4rem}
+    .m-recipe-info{padding:10px 12px}
+    .m-recipe-info h5{font-size:.78rem;color:var(--verde-oscuro);margin-bottom:4px}
+    .m-meta{display:flex;gap:10px;font-size:.62rem;opacity:.7}
+    .m-nav{margin-top:auto;display:flex;justify-content:space-around;border-top:1px solid var(--gris-claro);padding:8px 0 4px}
+    .m-nav div{text-align:center;font-size:.58rem;opacity:.5}
+    .m-nav div.is-active{opacity:1;color:var(--verde-marca);font-weight:700}
+    .m-nav .ic{display:block;font-size:1.1rem;margin-bottom:2px}
+    /* Resto de mockups internos */
+    .m-search{background:#fff;border-radius:14px;padding:9px 14px;font-size:.7rem;opacity:.6;margin-bottom:12px}
+    .m-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:12px}
+    .m-item{background:#fff;border-radius:12px;padding:9px 4px;text-align:center;font-size:.62rem;font-weight:600;color:var(--verde-oscuro);border:2px solid transparent}
+    .m-item .em{display:block;font-size:1.4rem;margin-bottom:3px}
+    .m-item.is-sel{border-color:var(--verde-vivo);background:rgba(34,197,94,.08)}
+    .m-btn{margin-top:auto;background:var(--grad-marca);color:#fff;border-radius:24px;padding:11px;text-align:center;font-family:'Outfit';font-weight:700;font-size:.8rem;box-shadow:0 8px 20px rgba(34,197,94,.3)}
+    .m-filters{display:flex;gap:6px;margin-bottom:12px}
+    .m-filter{background:#fff;border-radius:20px;padding:5px 11px;font-size:.66rem;font-weight:600;white-space:nowrap}
+    .m-filter.is-active{background:var(--verde-vivo);color:#fff}
+    .m-row{background:#fff;border-radius:14px;padding:9px;display:flex;gap:9px;align-items:center;margin-bottom:8px}
+    .m-thumb{width:52px;height:52px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0}
+    .t1{background:linear-gradient(135deg,#f6d365,#fda085)}.t2{background:linear-gradient(135deg,#a8e063,#56ab2f)}.t3{background:linear-gradient(135deg,#ff9a9e,#fad0c4)}
+    .m-row h5{font-size:.74rem;color:var(--verde-oscuro)}
+    .m-row .meta{font-size:.6rem;opacity:.65}
+    .m-match{margin-left:auto;background:var(--amarillo);border-radius:10px;padding:3px 8px;font-size:.62rem;font-weight:700;color:var(--verde-oscuro)}
+    .m-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+    .m-stat{background:#fff;border-radius:14px;padding:11px;text-align:center}
+    .m-stat .em{font-size:1.3rem}
+    .m-stat .val{font-family:'Outfit';font-weight:800;font-size:1.2rem;color:var(--verde-marca)}
+    .m-stat .lbl{font-size:.6rem;opacity:.65}
+    .m-list{background:#fff;border-radius:14px;padding:11px;flex:1;overflow:hidden}
+    .m-list h4{font-size:.78rem;margin-bottom:8px}
+    .m-item-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--gris-claro);font-size:.7rem}
+    .m-item-row:last-child{border-bottom:none}
+    .exp{font-size:.6rem;font-weight:700;padding:3px 8px;border-radius:10px}
+    .exp.ok{background:rgba(34,197,94,.14);color:var(--verde-marca)}
+    .exp.warn{background:rgba(234,204,52,.3);color:#a16207}
+    .exp.urgent{background:rgba(249,115,22,.16);color:var(--naranja-vivo)}
+    /* ══════════════════════════════════════════
+       DEMO INTERACTIVA — Dos columnas
+       Fondo cálido con patrón de marca
+       ══════════════════════════════════════════ */
+    .demo {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(165deg, #fbf4cf 0%, #fbeadb 30%, #f5f1e8 60%, #fbf4cf 100%);
+      padding-block: clamp(4rem, 8vw, 7rem);
+    }
+    
+    .demo__bg {
+      position: absolute;
+      inset: 0;
+      background: url('assets/logos/Alacena_Magica_Pattern.svg') center / cover no-repeat;
+      opacity: 0.08;
+      pointer-events: none;
+    }
+    
+    .demo__aurora {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .demo__aurora span {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      will-change: transform;
+    }
+    .demo__aurora span:nth-child(1) {
+      width: 40vw; height: 40vw; top: -15%; left: -5%;
+      background: radial-gradient(circle, rgba(234,204,52,0.4), transparent 70%);
+      animation: demo-drift-a 22s var(--ease) infinite alternate;
+    }
+    .demo__aurora span:nth-child(2) {
+      width: 35vw; height: 35vw; bottom: -10%; right: -8%;
+      background: radial-gradient(circle, rgba(226,133,56,0.3), transparent 70%);
+      animation: demo-drift-b 26s var(--ease) infinite alternate;
+    }
+    .demo__aurora span:nth-child(3) {
+      width: 30vw; height: 30vw; top: 30%; left: 40%;
+      background: radial-gradient(circle, rgba(255,255,255,0.5), transparent 70%);
+      animation: demo-drift-c 30s var(--ease) infinite alternate;
+    }
+    
+    @keyframes demo-drift-a { to { transform: translate(12%, 14%) scale(1.15); } }
+    @keyframes demo-drift-b { to { transform: translate(-14%, 10%) scale(1.2); } }
+    @keyframes demo-drift-c { to { transform: translate(8%, -12%) scale(1.1); } }
+    
+    .section__head {
+      text-align: center;
+      max-width: 44rem;
+      margin: 0 auto clamp(3rem, 6vw, 5rem);
+      position: relative;
+      z-index: 1;
+    }
+    .pill--light {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.5rem 1rem;
+      border-radius: var(--r-pill, 999px);
+      background: #fff;
+      color: var(--terracota-texto, #a0501a);
+      border: 1px solid rgba(226, 133, 56, 0.2);
+      margin-bottom: 1.25rem;
+    }
+    .section__title {
+      font-size: clamp(2rem, 3.4vw + 0.6rem, 3.2rem);
+      color: var(--verde-oscuro, #1d381c);
+      margin-bottom: 0.75rem;
+    }
+    .section__sub {
+      font-size: 1.05rem;
+      color: var(--texto-suave, #6b6862);
+      max-width: 38rem;
+      margin: 0 auto;
+    }
+    
+    .demo__grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: clamp(2rem, 4vw, 3.5rem);
+      align-items: start;
+    }
+    
+    .demo__ingredients {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(12px);
+      border-radius: var(--r-lg, 28px);
+      padding: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 8px 32px rgba(160, 80, 26, 0.08);
+    }
+    .demo__label {
+      font-family: var(--font-display, 'Fraunces', Georgia, serif);
+      font-size: 1.3rem;
+      color: var(--terracota-texto, #a0501a);
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+    
+    .pantry-picker {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    .pantry-picker__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.65rem 1.15rem;
+      border-radius: var(--r-pill, 999px);
+      background: #fff;
+      border: 2px solid rgba(226, 133, 56, 0.2);
+      color: var(--verde-oscuro, #1d381c);
+      font-size: 0.92rem;
+      font-weight: 600;
+      font-family: var(--font-body, 'Outfit', sans-serif);
+      cursor: pointer;
+      transition: all var(--t-fast, 0.22s);
+    }
+    .pantry-picker__btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--terracota, #e28538);
+      box-shadow: 0 6px 16px rgba(226, 133, 56, 0.15);
+    }
+    .pantry-picker__btn[aria-pressed="true"] {
+      background: var(--terracota, #e28538);
+      border-color: var(--terracota, #e28538);
+      color: #fff;
+      box-shadow: 0 6px 20px rgba(226, 133, 56, 0.35);
+    }
+    
+    .demo__hint {
+      margin-top: 1.5rem;
+      font-size: 0.88rem;
+      color: var(--texto-suave, #6b6862);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-style: italic;
+    }
+    
+    .spell-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--r-xl, 40px);
+      background: #fff;
+      border: 1px solid rgba(226, 133, 56, 0.15);
+      box-shadow: 0 20px 50px rgba(160, 80, 26, 0.1);
+      transition: all var(--t-med, 0.45s);
+    }
+    .spell-card.is-casting {
+      animation: cast 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes cast {
+      0% { opacity: 0.2; transform: scale(0.94) translateY(14px); filter: blur(10px); }
+      100% { opacity: 1; transform: none; filter: none; }
+    }
+    
+    .spell-card__media {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: var(--crema-profunda, #ece6d8);
+    }
+    .spell-card__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--t-slow, 0.8s);
+    }
+    .spell-card:hover .spell-card__media img {
+      transform: scale(1.04);
+    }
+    
+    .spell-card__match {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      color: var(--terracota-texto, #a0501a);
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: var(--r-pill, 999px);
+      box-shadow: 0 4px 16px rgba(160, 80, 26, 0.15);
+    }
+    
+    .spell-card__body {
+      padding: 1.5rem 1.6rem 1.75rem;
+    }
+    .spell-card__name {
+      font-size: 1.55rem;
+      color: var(--verde-oscuro, #1d381c);
+      margin-bottom: 0.7rem;
+      letter-spacing: -0.02em;
+    }
+    .spell-card__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.1rem;
+      font-size: 0.86rem;
+      color: var(--texto-suave, #6b6862);
+    }
+    .spell-card__uses {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .spell-card__use {
+      font-size: 0.76rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: var(--r-pill, 999px);
+      background: var(--terracota-suave, #fbeadb);
+      color: var(--terracota-texto, #a0501a);
+      font-weight: 600;
+    }
+    .spell-card__use--missing {
+      background: var(--crema-profunda, #ece6d8);
+      color: var(--texto-suave, #6b6862);
+      text-decoration: line-through;
+      opacity: 0.7;
+    }
+    
+    .spell-card__empty {
+      padding: 3.5rem 1.75rem;
+      text-align: center;
+    }
+    .spell-card__empty p {
+      color: var(--texto-suave, #6b6862);
+      margin-top: 0.6rem;
+    }
+    .spell-card__empty .spark {
+      font-size: 2.5rem;
+      display: inline-block;
+      animation: float 3.5s var(--ease, cubic-bezier(0.22,1,0.36,1)) infinite;
+    }
+    
+    .demo__more {
+      margin-top: 1rem;
+      font-size: 0.88rem;
+      color: var(--texto-suave, #6b6862);
+      text-align: center;
+    }
+    .demo__more strong {
+      color: var(--terracota, #e28538);
+      font-weight: 700;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s var(--ease, cubic-bezier(0.22,1,0.36,1)), transform 0.8s var(--ease, cubic-bezier(0.22,1,0.36,1));
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal--delay { transition-delay: 0.15s; }
+    
+    @media (max-width: 968px) {
+      .demo__grid {
+        grid-template-columns: 1fr;
+        max-width: 520px;
+        margin-inline: auto;
+      }
+      .demo__ingredients {
+        order: 1;
+      }
+      .demo__result {
+        order: 2;
+      }
+    }
+    /* Confeti */
+    .confetti{position:fixed;top:-14px;width:10px;height:14px;border-radius:3px;z-index:999;pointer-events:none;animation:confettiFall 2.3s ease-in forwards}
+    @keyframes confettiFall{to{transform:translateY(105vh) rotate(720deg)}}
+    /* ══════════════════════════════════════════
+       SECCIÓN PROBLEMA — Bento Pinterest
+       ══════════════════════════════════════════ */
+    .problemas {
+      padding-block: clamp(4rem, 8vw, 7rem);
+      background: var(--blanco);
+    }
+    
+    .bento {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: minmax(120px, auto);
+      gap: clamp(1rem, 2vw, 1.5rem);
+    }
+    
+    /* ── Imagen vertical grande (izquierda) ── */
+    .bento__vertical {
+      grid-column: span 5;
+      grid-row: span 3;
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--r-xl, 40px);
+      box-shadow: 0 30px 70px rgba(29, 56, 28, 0.15);
+    }
+    .bento__vertical img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform var(--t-slow, 0.8s);
+    }
+    .bento__vertical:hover img {
+      transform: scale(1.03);
+    }
+    .bento__vertical::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(29,56,28,0.5));
+    }
+    .bento__vertical-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2.25rem) clamp(1.5rem, 2vw, 1.75rem);
+      color: #fff;
+    }
+    .bento__vertical-caption h3 {
+      color: #fff;
+      font-size: clamp(1.3rem, 2vw + 0.5rem, 1.8rem);
+      margin-bottom: 0.5rem;
+    }
+    .bento__vertical-caption p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    
+    /* ── Tarjetas pequeñas (derecha) ── */
+    .bento__card {
+      position: relative;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid var(--gris-claro, #e8e4dc);
+      border-radius: var(--r-lg, 28px);
+      padding: clamp(1.5rem, 2.5vw, 2rem);
+      transition: transform var(--t-med, 0.45s), box-shadow var(--t-med, 0.45s), border-color var(--t-med, 0.45s);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .bento__card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(29, 56, 28, 0.1);
+      border-color: rgba(69, 155, 91, 0.3);
+    }
+    
+    .bento__card--top {
+      grid-column: span 7;
+      grid-row: span 1;
+      background: linear-gradient(135deg, #fff 0%, var(--crema, #f5f1e8) 100%);
+    }
+    
+    .bento__card--middle {
+      grid-column: span 7;
+      grid-row: span 1;
+      background: linear-gradient(135deg, #fff 0%, var(--amarillo-suave, #fbf4cf) 100%);
+    }
+    
+    .bento__card--bottom {
+      grid-column: span 7;
+      grid-row: span 1;
+      background: linear-gradient(135deg, #fff 0%, var(--terracota-suave, #fbeadb) 100%);
+    }
+    
+    /* ── Tarjeta verde con efectos mágicos ── */
+    .bento__card--solution {
+      grid-column: span 12;
+      grid-row: span 1;
+      background: linear-gradient(135deg, var(--verde-marca, #459b5b), #245c33);
+      border: none;
+      color: #fff;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+      padding: clamp(2rem, 4vw, 3rem);
+      position: relative;
+      overflow: hidden;
+    }
+    .bento__card--solution:hover {
+      box-shadow: 0 30px 70px rgba(69, 155, 91, 0.3);
+      border-color: transparent;
+    }
+    
+    /* Isotipo como fondo decorativo transparente */
+    .bento__solution-bg-isotipo {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      width: 350px;
+      height: 350px;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.12;
+      filter: brightness(0) invert(1);
+    }
+    .bento__solution-bg-isotipo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    
+    .bento__card--solution h3 {
+      color: #fff;
+      font-size: clamp(1.5rem, 2.5vw + 0.5rem, 2.2rem);
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 2;
+    }
+    .bento__card--solution p {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 1.1rem;
+      line-height: 1.6;
+      position: relative;
+      z-index: 2;
+    }
+    
+    /* Efectos mágicos */
+    .solution-sparkles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .solution-sparkle {
+      position: absolute;
+      width: var(--s, 6px);
+      height: var(--s, 6px);
+      color: var(--amarillo, #eacc34);
+      opacity: 0;
+      animation: solution-twinkle var(--dur, 4s) var(--ease, cubic-bezier(0.22,1,0.36,1)) var(--delay, 0s) infinite;
+      filter: drop-shadow(0 0 6px rgba(234, 204, 52, 0.6));
+    }
+    .solution-sparkle::before,
+    .solution-sparkle::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: currentColor;
+      clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
+    }
+    .solution-sparkle::after {
+      transform: rotate(45deg) scale(0.6);
+      opacity: 0.7;
+    }
+    .solution-sparkle--white {
+      color: #fff;
+      filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.7));
+    }
+    .solution-sparkle--gold {
+      color: var(--amarillo, #eacc34);
+      filter: drop-shadow(0 0 8px rgba(234, 204, 52, 0.8));
+    }
+    
+    @keyframes solution-twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+      35% { opacity: 1; transform: scale(1) rotate(35deg); }
+      60% { opacity: 0.3; transform: scale(0.75) rotate(70deg); }
+    }
+    
+    .solution-aurora {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .solution-aurora span {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.3;
+    }
+    .solution-aurora span:nth-child(1) {
+      width: 300px;
+      height: 300px;
+      top: -50%;
+      right: -10%;
+      background: radial-gradient(circle, rgba(234, 204, 52, 0.5), transparent 70%);
+      animation: solution-drift-a 8s var(--ease, cubic-bezier(0.22,1,0.36,1)) infinite alternate;
+    }
+    .solution-aurora span:nth-child(2) {
+      width: 250px;
+      height: 250px;
+      bottom: -30%;
+      left: -5%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent 70%);
+      animation: solution-drift-b 10s var(--ease, cubic-bezier(0.22,1,0.36,1)) infinite alternate;
+    }
+    
+    @keyframes solution-drift-a { to { transform: translate(-20px, 15px) scale(1.1); } }
+    @keyframes solution-drift-b { to { transform: translate(15px, -10px) scale(1.15); } }
+    
+    .bento__solution-image {
+      border-radius: var(--r-lg, 28px);
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      position: relative;
+      z-index: 2;
+    }
+    .bento__solution-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .bento__title {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: var(--verde-oscuro, #1d381c);
+    }
+    .bento__copy {
+      font-size: 0.95rem;
+      color: var(--texto-suave, #6b6862);
+      line-height: 1.5;
+    }
+    .bento__tag {
+      display: inline-block;
+      margin-top: 0.9rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.7rem;
+      border-radius: var(--r-pill, 999px);
+      background: var(--crema-profunda, #ece6d8);
+      color: var(--verde-texto, #2f7044);
+    }
+    
+    /* Responsive */
+    @media (max-width: 968px) {
+      .bento__vertical {
+        grid-column: span 12;
+        grid-row: span 1;
+        aspect-ratio: 16 / 9;
+      }
+      .bento__card--top,
+      .bento__card--middle,
+      .bento__card--bottom {
+        grid-column: span 12;
+      }
+      .bento__card--solution {
+        grid-template-columns: 1fr;
+      }
+      .bento__solution-bg-isotipo {
+        width: 250px;
+        height: 250px;
+      }
+    }
+        /* ══════════════════════════════════════════
+       SECCIÓN FUNCIONES — Elaborada
+       ══════════════════════════════════════════ */
+    .funciones {
+      position: relative;
+      overflow: hidden;
+      background: var(--blanco);
+      padding-block: clamp(5rem, 10vw, 8rem);
+    }
+    
+    /* ── Blobs de color grandes y difuminados ── */
+    .funciones__blobs {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob {
+      position: absolute;
+      border-radius: var(--r-blob, 62% 38% 46% 54% / 44% 52% 48% 56%);
+      filter: blur(70px);
+      opacity: 0.45;
+      animation: blobMorph 18s var(--ease, cubic-bezier(0.22,1,0.36,1)) infinite alternate;
+    }
+    .blob--1 {
+      width: 550px;
+      height: 550px;
+      top: -5%;
+      left: -8%;
+      background: radial-gradient(circle at 30% 40%, rgba(107, 184, 127, 0.6), rgba(107, 184, 127, 0.2) 50%, transparent 70%);
+    }
+    .blob--2 {
+      width: 480px;
+      height: 480px;
+      top: 25%;
+      right: -10%;
+      background: radial-gradient(circle at 60% 50%, rgba(234, 204, 52, 0.5), rgba(234, 204, 52, 0.15) 50%, transparent 70%);
+      animation-delay: -6s;
+    }
+    .blob--3 {
+      width: 420px;
+      height: 420px;
+      bottom: -8%;
+      left: 20%;
+      background: radial-gradient(circle at 40% 60%, rgba(226, 133, 56, 0.4), rgba(226, 133, 56, 0.1) 50%, transparent 70%);
+      animation-delay: -12s;
+    }
+    .blob--4 {
+      width: 350px;
+      height: 350px;
+      top: 45%;
+      left: 40%;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.7), transparent 70%);
+      animation-delay: -3s;
+      opacity: 0.3;
+    }
+    
+    @keyframes blobMorph {
+      0% { border-radius: 62% 38% 46% 54% / 44% 52% 48% 56%; transform: translate(0, 0) rotate(0deg) scale(1); }
+      50% { border-radius: 45% 55% 55% 45% / 55% 45% 55% 45%; transform: translate(25px, -15px) rotate(8deg) scale(1.08); }
+      100% { border-radius: 55% 45% 50% 50% / 50% 55% 45% 50%; transform: translate(-20px, 20px) rotate(-5deg) scale(0.95); }
+    }
+    
+    /* ── Capa de destellos flotantes ── */
+    .funciones__sparkles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .sparkle {
+      position: absolute;
+      width: var(--s, 6px);
+      height: var(--s, 6px);
+      color: var(--amarillo, #eacc34);
+      opacity: 0;
+      animation: funciones-twinkle var(--dur, 4s) var(--ease, cubic-bezier(0.22,1,0.36,1)) var(--delay, 0s) infinite;
+    }
+    .sparkle::before,
+    .sparkle::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: currentColor;
+      clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
+    }
+    .sparkle::after {
+      transform: rotate(45deg) scale(0.6);
+      opacity: 0.7;
+    }
+    .sparkle--verde { color: var(--verde-claro, #6bb87f); filter: drop-shadow(0 0 8px rgba(107, 184, 127, 0.7)); }
+    .sparkle--amarillo { color: var(--amarillo, #eacc34); filter: drop-shadow(0 0 10px rgba(234, 204, 52, 0.8)); }
+    .sparkle--terracota { color: var(--terracota, #e28538); filter: drop-shadow(0 0 8px rgba(226, 133, 56, 0.7)); }
+    .sparkle--blanco { color: #fff; filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.6)); }
+    .sparkle--grande { --s: 12px !important; }
+    .sparkle--mediano { --s: 8px !important; }
+    .sparkle--pequeno { --s: 4px !important; }
+    
+    @keyframes funciones-twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.3) rotate(0deg); }
+      30% { opacity: 1; transform: scale(1.1) rotate(40deg); }
+      55% { opacity: 0.4; transform: scale(0.8) rotate(80deg); }
+      70% { opacity: 0.8; transform: scale(1) rotate(120deg); }
+    }
+    
+    /* ── Feature row ── */
+    .feature-row {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 6vw, 5rem);
+      align-items: center;
+      margin-bottom: clamp(4rem, 8vw, 6rem);
+    }
+    .feature-row:last-child {
+      margin-bottom: 0;
+    }
+    
+    /* ── Texto del feature ── */
+    .feature-text {
+      position: relative;
+    }
+    .feature-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--r-pill, 999px);
+      margin-bottom: 1rem;
+    }
+    .feature-badge--verde {
+      background: var(--verde-suave, #e6f2ea);
+      color: var(--verde-texto, #2f7044);
+    }
+    .feature-badge--amarillo {
+      background: var(--amarillo-suave, #fbf4cf);
+      color: var(--oro-texto, #7a6100);
+    }
+    .feature-badge--terracota {
+      background: var(--terracota-suave, #fbeadb);
+      color: var(--terracota-texto, #a0501a);
+    }
+    
+    .feature-text h3 {
+      font-size: clamp(1.6rem, 2.5vw + 0.5rem, 2.3rem);
+      margin-bottom: 0.9rem;
+      color: var(--verde-oscuro, #1d381c);
+      letter-spacing: -0.02em;
+    }
+    .feature-text p {
+      font-size: 1.05rem;
+      color: var(--texto-suave, #6b6862);
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+      max-width: 420px;
+    }
+    .feature-microcopy {
+      display: inline-block;
+      background: var(--amarillo-suave, #fbf4cf);
+      color: var(--oro-texto, #7a6100);
+      padding: 0.7rem 1.2rem;
+      border-radius: var(--r-md, 20px) var(--r-md, 20px) var(--r-md, 20px) 6px;
+      font-weight: 600;
+      font-style: italic;
+      font-size: 0.95rem;
+      border-left: 3px solid var(--amarillo, #eacc34);
+      box-shadow: 0 4px 12px rgba(234, 204, 52, 0.2);
+    }
+    
+    /* ── Contenedor del teléfono ── */
+    .feature-phone-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+    
+    /* ── Teléfono 3D ── */
+    .phone-3d {
+      width: 290px;
+      height: 580px;
+      background: #1a1a1a;
+      border-radius: 48px;
+      padding: 14px;
+      position: relative;
+      box-shadow: 0 50px 100px rgba(29, 56, 28, 0.2), 0 20px 40px rgba(29, 56, 28, 0.15);
+      transition: transform var(--t-med, 0.45s);
+      animation: phone3dFloat 8s var(--ease, cubic-bezier(0.22,1,0.36,1)) infinite;
+    }
+    .phone-3d:hover {
+      transform: perspective(1200px) rotateY(-4deg) rotateX(2deg) translateY(-6px);
+      animation-play-state: paused;
+    }
+    @keyframes phone3dFloat {
+      0%, 100% { transform: perspective(1200px) rotateY(-6deg) rotateX(3deg) translateY(0); }
+      50% { transform: perspective(1200px) rotateY(-3deg) rotateX(1deg) translateY(-14px); }
+    }
+    
+    .phone-3d--delay { animation-delay: -3s; }
+    .phone-3d--delay-2 { animation-delay: -6s; }
+    
+    .phone__notch {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 110px;
+      height: 26px;
+      background: #1a1a1a;
+      border-radius: 0 0 16px 16px;
+      z-index: 3;
+    }
+    .phone__screen {
+      background: var(--crema, #f5f1e8);
+      border-radius: 34px;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 2.8rem 1rem 1rem;
+    }
+    
+    /* ── Elementos flotantes alrededor del teléfono ── */
+    .float-badge {
+      position: absolute;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.7rem 1rem;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border-radius: var(--r-md, 20px);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 12px 32px rgba(29, 56, 28, 0.12);
+      animation: floatBadge 5s var(--ease, cubic-bezier(0.22,1,0.36,1)) infinite;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--verde-oscuro, #1d381c);
+    }
+    .float-badge__icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .float-badge--a { top: 8%; left: -12%; animation-delay: -1s; }
+    .float-badge--a .float-badge__icon { background: var(--amarillo-suave, #fbf4cf); }
+    .float-badge--b { bottom: 12%; right: -10%; animation-delay: -2.5s; }
+    .float-badge--b .float-badge__icon { background: var(--verde-suave, #e6f2ea); }
+    .float-badge--c { bottom: -5%; left: 8%; animation-delay: -4s; }
+    .float-badge--c .float-badge__icon { background: var(--terracota-suave, #fbeadb); }
+    
+    @keyframes floatBadge {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(-2deg); }
+    }
+    
+    /* ── Contenido del mockup ── */
+    .m-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .m-head .small { opacity: 0.6; font-size: 0.7rem; }
+    .m-head .name { font-weight: 800; font-size: 1.1rem; color: var(--verde-oscuro, #1d381c); }
+    .m-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--verde-claro, #6bb87f), var(--verde-marca, #459b5b));
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .m-card {
+      background: linear-gradient(135deg, var(--verde-marca, #459b5b), #245c33);
+      border-radius: 18px;
+      padding: 16px;
+      color: #fff;
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(69, 155, 91, 0.3);
+    }
+    .m-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+    }
+    .m-card h4 { color: #fff; font-size: 0.85rem; margin-bottom: 4px; position: relative; }
+    .m-card p { font-size: 0.7rem; opacity: 0.9; position: relative; }
+    .m-title {
+      font-weight: 700;
+      font-size: 0.78rem;
+      color: var(--verde-oscuro, #1d381c);
+      margin: 10px 0;
+    }
+    .m-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .m-chip {
+      background: #fff;
+      border: 1.5px solid var(--gris-claro, #e8e4dc);
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--verde-oscuro, #1d381c);
+    }
+    .m-chip.is-on {
+      background: var(--amarillo-suave, #fbf4cf);
+      border-color: var(--amarillo, #eacc34);
+    }
+    .m-recipe {
+      background: #fff;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 6px 16px rgba(29, 56, 28, 0.1);
+      margin-top: 10px;
+    }
+    .m-recipe-img {
+      height: 90px;
+      background: linear-gradient(135deg, var(--terracota, #e28538), var(--amarillo, #eacc34));
+      display: grid;
+      place-items: center;
+      font-size: 2.2rem;
+    }
+    .m-recipe-info { padding: 12px 14px; }
+    .m-recipe-info h5 { font-size: 0.8rem; color: var(--verde-oscuro, #1d381c); }
+    .m-meta {
+      display: flex;
+      gap: 10px;
+      font-size: 0.65rem;
+      opacity: 0.7;
+      margin-top: 4px;
+    }
+    
+    /* ── Línea decorativa entre features ── */
+    .feature-divider {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      margin-block: clamp(2rem, 4vw, 3rem);
+    }
+    .feature-divider::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 15%;
+      right: 15%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gris-claro, #e8e4dc), transparent);
+    }
+    .feature-divider span {
+      position: relative;
+      display: inline-block;
+      background: var(--blanco, #ffffff);
+      padding: 0 1rem;
+      font-size: 1.1rem;
+      color: var(--verde-marca, #459b5b);
+    }
+    
+    /* Responsive */
+    @media (max-width: 968px) {
+      .feature-row {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+      .feature-row:nth-child(even) .feature-text {
+        order: 1;
+      }
+      .feature-row:nth-child(even) .feature-phone-wrapper {
+        order: 2;
+      }
+      .float-badge--a { left: -2%; }
+      .float-badge--b { right: -2%; }
+      .float-badge--c { display: none; }
+    }
+    @media (max-width: 480px) {
+      .phone-3d {
+        width: 260px;
+        height: 520px;
+      }
+      .float-badge {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.75rem;
+      }
+    }
+
+    /* ══════════════════════════════════════════
+       SECCIÓN CÓMO FUNCIONA — Timeline moderno
+       ══════════════════════════════════════════ */
+    .how {
+      position: relative;
+      overflow: hidden;
+      background: var(--crema);
+      padding-block: clamp(4rem, 8vw, 7rem);
+    }
+    
+    .how::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('assets/logos/Alacena_Magica_Pattern.svg') center / cover no-repeat;
+      opacity: 0.04;
+      pointer-events: none;
+    }
+    
+    .section__head {
+      text-align: center;
+      max-width: 44rem;
+      margin: 0 auto clamp(3rem, 6vw, 5rem);
+      position: relative;
+      z-index: 1;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.45rem 1rem;
+      border-radius: var(--r-pill, 999px);
+      background: var(--verde-suave, #e6f2ea);
+      color: var(--verde-texto, #2f7044);
+      margin-bottom: 1.25rem;
+    }
+    .section__title {
+      font-size: clamp(2rem, 3.4vw + 0.6rem, 3.2rem);
+      color: var(--verde-oscuro, #1d381c);
+      margin-bottom: 0.75rem;
+    }
+    .section__sub {
+      font-size: 1.05rem;
+      color: var(--texto-suave, #6b6862);
+    }
+    
+    /* Timeline */
+    .timeline {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(1.5rem, 3vw, 2.5rem);
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background: linear-gradient(90deg, 
+        var(--verde-claro, #6bb87f) 0%, 
+        var(--amarillo, #eacc34) 50%, 
+        var(--terracota, #e28538) 100%);
+      opacity: 0.4;
+      border-radius: 2px;
+    }
+    
+    .step {
+      position: relative;
+      text-align: center;
+      transition: transform var(--t-med, 0.45s);
+    }
+    .step:hover {
+      transform: translateY(-8px);
+    }
+    
+    /* Icono circular */
+    .step__icon {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+      border-radius: 50%;
+      background: #fff;
+      border: 2px solid var(--gris-claro, #e8e4dc);
+      display: grid;
+      place-items: center;
+      z-index: 1;
+      transition: all var(--t-med, 0.45s);
+      box-shadow: 0 8px 24px rgba(29, 56, 28, 0.08);
+    }
+    .step:hover .step__icon {
+      background: var(--verde-marca, #459b5b);
+      border-color: var(--verde-marca, #459b5b);
+      box-shadow: 0 12px 32px rgba(69, 155, 91, 0.3);
+      transform: scale(1.08);
+    }
+    
+    /* Icono SVG (archivo externo) */
+    .step__icon img {
+      width: 40px;
+      height: 40px;
+      transition: all var(--t-med, 0.45s);
+      filter: brightness(0) saturate(100%) invert(47%) sepia(36%) saturate(380%) hue-rotate(85deg) brightness(95%) contrast(90%);
+    }
+    .step:hover .step__icon img {
+      filter: brightness(0) saturate(100%) invert(74%) sepia(55%) saturate(500%) hue-rotate(5deg) brightness(100%) contrast(95%);
+    }
+    
+    /* Número flotante */
+    .step__num {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 28px;
+      height: 28px;
+      background: var(--amarillo, #eacc34);
+      color: var(--verde-oscuro, #1d381c);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-body, 'Outfit', sans-serif);
+      font-weight: 700;
+      font-size: 0.8rem;
+      z-index: 2;
+      box-shadow: 0 4px 12px rgba(234, 204, 52, 0.4);
+    }
+    
+    .step__title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--verde-oscuro, #1d381c);
+    }
+    .step__text {
+      font-size: 0.95rem;
+      color: var(--texto-suave, #6b6862);
+      max-width: 220px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+    
+    .step__tag {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: var(--r-pill, 999px);
+      background: var(--crema-profunda, #ece6d8);
+      color: var(--verde-texto, #2f7044);
+      transition: background var(--t-fast, 0.22s);
+    }
+    .step:hover .step__tag {
+      background: var(--verde-suave, #e6f2ea);
+    }
+    
+    /* Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s var(--ease, cubic-bezier(0.22,1,0.36,1)), transform 0.8s var(--ease, cubic-bezier(0.22,1,0.36,1));
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal--delay { transition-delay: 0.15s; }
+    .reveal--delay-2 { transition-delay: 0.3s; }
+    .reveal--delay-3 { transition-delay: 0.45s; }
+    
+    /* Responsive */
+    @media (max-width: 968px) {
+      .timeline {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+      }
+      .timeline::before {
+        display: none;
+      }
+    }
+    @media (max-width: 480px) {
+      .timeline {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .step__text {
+        max-width: 100%;
+      }
+    }
+        /* ══════════════════════════════════════════
+       SECCIÓN GALERÍA — Carrusel Coverflow
+       ══════════════════════════════════════════ */
+    .galeria {
+      position: relative;
+      overflow: hidden;
+      background: var(--blanco);
+      padding-block: clamp(5rem, 10vw, 8rem);
+    }
+    
+    .galeria__blobs {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .galeria__blobs .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      animation: galeriaBlobFloat 15s var(--ease, cubic-bezier(0.22,1,0.36,1)) infinite alternate;
+    }
+    .galeria__blobs .blob--1 {
+      width: 500px;
+      height: 500px;
+      top: -10%;
+      right: -8%;
+      background: radial-gradient(circle, rgba(107, 184, 127, 0.5), transparent 70%);
+    }
+    .galeria__blobs .blob--2 {
+      width: 450px;
+      height: 450px;
+      bottom: -8%;
+      left: -5%;
+      background: radial-gradient(circle, rgba(234, 204, 52, 0.4), transparent 70%);
+      animation-delay: -7s;
+    }
+    .galeria__blobs .blob--3 {
+      width: 350px;
+      height: 350px;
+      top: 40%;
+      left: 35%;
+      background: radial-gradient(circle, rgba(226, 133, 56, 0.3), transparent 70%);
+      animation-delay: -12s;
+    }
+    
+    @keyframes galeriaBlobFloat {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(30px, -20px) scale(1.1); }
+      100% { transform: translate(-20px, 15px) scale(0.95); }
+    }
+    
+    .galeria__sparkles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .galeria__sparkles .sparkle {
+      position: absolute;
+      width: var(--s, 5px);
+      height: var(--s, 5px);
+      color: var(--amarillo);
+      opacity: 0;
+      animation: galeriaTwinkle var(--dur, 4s) var(--ease) var(--delay, 0s) infinite;
+    }
+    .galeria__sparkles .sparkle::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: currentColor;
+      clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
+    }
+    @keyframes galeriaTwinkle {
+      0%, 100% { opacity: 0; transform: scale(0.3) rotate(0deg); }
+      35% { opacity: 1; transform: scale(1) rotate(40deg); }
+      60% { opacity: 0.3; transform: scale(0.7) rotate(80deg); }
+    }
+    
+    /* ── Carrusel ── */
+    .carousel {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .carousel__viewport {
+      overflow: hidden;
+      width: 100%;
+      position: relative;
+      padding-block: 1rem;
+    }
+    
+    .carousel__track {
+      display: flex;
+      align-items: center;
+      transition: transform var(--t-slow, 0.6s);
+      will-change: transform;
+    }
+    
+    .carousel__slide {
+      flex: 0 0 auto;
+      width: 280px;
+      transition: all var(--t-slow, 0.6s);
+      cursor: pointer;
+      opacity: 0.4;
+      transform: scale(0.75);
+      margin: 0 8px;
+    }
+    
+    .carousel__slide.is-active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 3;
+      width: 340px;
+    }
+    
+    .carousel__slide.is-adjacent {
+      opacity: 0.6;
+      transform: scale(0.85);
+    }
+    
+    /* Phone mini */
+    .phone-mini {
+      background: #1a1a1a;
+      border-radius: 32px;
+      padding: 8px;
+      box-shadow: 0 20px 40px rgba(29, 56, 28, 0.12);
+      transition: box-shadow var(--t-slow, 0.6s);
+    }
+    .carousel__slide.is-active .phone-mini {
+      box-shadow: 0 30px 60px rgba(29, 56, 28, 0.22);
+    }
+    .phone-mini__screen {
+      background: var(--crema, #f5f1e8);
+      border-radius: 24px;
+      overflow: hidden;
+      aspect-ratio: 9 / 16;
+      padding: 1.5rem 0.7rem 0.7rem;
+      display: flex;
+      flex-direction: column;
+      font-size: 0.65rem;
+    }
+    
+    /* Contenido mini */
+    .mini-bar {
+      height: 10px;
+      width: 50%;
+      border-radius: 5px;
+      background: var(--gris-claro, #e8e4dc);
+      margin-bottom: 10px;
+    }
+    .mini-card {
+      background: linear-gradient(135deg, var(--verde-marca, #459b5b), #245c33);
+      border-radius: 14px;
+      padding: 12px;
+      color: #fff;
+      margin-bottom: 10px;
+      font-size: 0.6rem;
+    }
+    .mini-card strong { font-size: 0.68rem; }
+    .mini-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+    .mini-chip {
+      background: #fff;
+      border: 1.5px solid var(--gris-claro, #e8e4dc);
+      border-radius: 12px;
+      padding: 4px 9px;
+      font-size: 0.55rem;
+      font-weight: 600;
+      color: var(--verde-oscuro, #1d381c);
+    }
+    .mini-chip.is-on {
+      background: var(--amarillo-suave, #fbf4cf);
+      border-color: var(--amarillo, #eacc34);
+    }
+    .mini-recipe {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 3px 8px rgba(29, 56, 28, 0.08);
+    }
+    .mini-recipe-img {
+      height: 55px;
+      background: linear-gradient(135deg, var(--terracota, #e28538), var(--amarillo, #eacc34));
+      display: grid;
+      place-items: center;
+      font-size: 1.6rem;
+    }
+    .mini-recipe-info {
+      padding: 8px 10px;
+    }
+    .mini-recipe-info strong {
+      font-size: 0.62rem;
+      color: var(--verde-oscuro, #1d381c);
+      display: block;
+    }
+    .mini-meta {
+      font-size: 0.5rem;
+      opacity: 0.7;
+      margin-top: 3px;
+    }
+    .mini-stat {
+      display: flex;
+      gap: 8px;
+    }
+    .mini-stat-box {
+      flex: 1;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+    }
+    .mini-stat-box--green { background: var(--verde-suave, #e6f2ea); }
+    .mini-stat-box--yellow { background: var(--amarillo-suave, #fbf4cf); }
+    .mini-stat-box strong {
+      font-size: 0.75rem;
+      color: var(--verde-oscuro, #1d381c);
+      display: block;
+    }
+    .mini-stat-box span {
+      font-size: 0.5rem;
+      color: var(--texto-suave, #6b6862);
+    }
+    
+    /* Etiqueta */
+    .carousel__label {
+      text-align: center;
+      margin-top: 0.75rem;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--verde-oscuro, #1d381c);
+      opacity: 0;
+      transition: opacity var(--t-med, 0.45s);
+    }
+    .carousel__slide.is-active .carousel__label {
+      opacity: 1;
+    }
+    
+    /* Botones */
+    .carousel__btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2px solid var(--gris-claro, #e8e4dc);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: all var(--t-fast, 0.22s);
+      font-size: 1.3rem;
+      color: var(--verde-oscuro, #1d381c);
+      box-shadow: 0 8px 24px rgba(29, 56, 28, 0.1);
+    }
+    .carousel__btn:hover {
+      background: var(--verde-marca, #459b5b);
+      border-color: var(--verde-marca, #459b5b);
+      color: #fff;
+      box-shadow: 0 12px 32px rgba(69, 155, 91, 0.35);
+    }
+    .carousel__btn--prev { left: 0; }
+    .carousel__btn--next { right: 0; }
+    
+    /* Dots */
+    .carousel__dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      position: relative;
+      z-index: 2;
+    }
+    .carousel__dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gris-claro, #e8e4dc);
+      cursor: pointer;
+      transition: all var(--t-fast, 0.22s);
+      border: none;
+    }
+    .carousel__dot.is-active {
+      background: var(--verde-marca, #459b5b);
+      width: 28px;
+      border-radius: 5px;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .carousel__btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+      .carousel__slide {
+        width: 220px;
+      }
+      .carousel__slide.is-active {
+        width: 260px;
+      }
+    }
+    @media (max-width: 480px) {
+      .carousel__btn {
+        display: none;
+      }
+      .carousel__slide {
+        width: 180px;
+      }
+      .carousel__slide.is-active {
+        width: 220px;
+      }
+    }
+
+    /* ══════════════════════════════════════════
+       CTA FINAL — Verde suave con patrón SVG
+       ══════════════════════════════════════════ */
+    .cta-final {
+      position: relative; overflow: hidden;
+      background-color: var(--verde-suave, #e6f2ea);
+      background-image: url('assets/logos/Alacena_Magica_Pattern.svg');
+      background-size: cover;
+      background-position: center;
+      color: var(--verde-oscuro, #1d381c);
+      text-align: center;
+      padding-block: clamp(2.5rem, 5vw, 4rem);
+    }
+    .cta-final::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(230, 242, 234, 0.85);
+      z-index: 0;
+    }
+    .cta-final__inner {
+      position: relative; z-index: 2;
+      max-width: 44rem;
+      margin-inline: auto;
+    }
+    .cta-final__spark {
+      display: inline-block;
+      animation: float 3.5s var(--ease, cubic-bezier(0.22,1,0.36,1)) infinite;
+    }
+    .cta-final__spark img {
+      width: clamp(40px, 5vw, 56px);
+      height: auto;
+    }
+    .cta-final__title {
+      font-size: clamp(1.8rem, 3vw + 0.6rem, 2.8rem);
+      margin-top: 0.5rem;
+      color: var(--verde-oscuro, #1d381c);
+    }
+    .cta-final__sub {
+      font-size: clamp(1rem, 0.7vw + 0.8rem, 1.15rem);
+      margin: 1rem auto 1.75rem;
+      max-width: 34rem;
+      color: var(--verde-texto, #2f7044);
+      line-height: 1.5;
+    }
+    
+    /* Aurora del CTA */
+    .cta-final .aurora span:nth-child(1) {
+      background: radial-gradient(circle, rgba(107,184,127,0.5), transparent 70%);
+    }
+    .cta-final .aurora span:nth-child(2) {
+      background: radial-gradient(circle, rgba(234,204,52,0.35), transparent 70%);
+    }
+    .cta-final .aurora span:nth-child(3) {
+      background: radial-gradient(circle, rgba(255,246,224,0.4), transparent 70%);
+    }
+    .cta-final .sparkle { color: var(--amarillo, #eacc34); }
+    
+    /* Formulario */
+    .cta-final__form {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .cta-final__input {
+      flex: 1 1 280px;
+      min-width: 0;
+      font-family: var(--font-body, 'Outfit', sans-serif);
+      font-size: 1rem;
+      padding: 1rem 1.5rem;
+      border-radius: var(--r-pill, 999px);
+      border: 1.5px solid rgba(69, 155, 91, 0.3);
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--verde-oscuro, #1d381c);
+      transition: border-color var(--t-fast, 0.22s), background var(--t-fast, 0.22s), box-shadow var(--t-fast, 0.22s);
+    }
+    .cta-final__input::placeholder {
+      color: var(--texto-suave, #6b6862);
+    }
+    .cta-final__input:focus {
+      background: #fff;
+      border-color: var(--verde-marca, #459b5b);
+      box-shadow: 0 0 0 3px rgba(69, 155, 91, 0.16);
+    }
+    .cta-final__input.is-invalid {
+      border-color: #8c2d10;
+      background: #fff;
+    }
+    
+    .btn--verde {
+      background: var(--verde-oscuro, #1d381c);
+      color: var(--crema, #f5f1e8);
+      box-shadow: 0 10px 28px rgba(29, 56, 28, 0.28);
+    }
+    .btn--verde:hover {
+      background: #12250f;
+      color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 18px 42px rgba(29, 56, 28, 0.38);
+    }
+    
+    .cta-final__note {
+      margin-top: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--verde-texto, #2f7044);
+    }
+    .cta-final__social-proof {
+      margin-top: 0.35rem;
+      font-size: 0.9rem;
+      color: var(--verde-texto, #2f7044);
+      font-weight: 500;
+    }
+    
+    .cta-final__stores {
+      display: flex;
+      justify-content: center;
+      gap: 0.85rem;
+      margin-top: 1.5rem;
+    }
+    .cta-final__stores img {
+      height: 40px;
+      width: auto;
+      transition: transform var(--t-fast, 0.22s);
+    }
+    .cta-final__stores a:hover img {
+      transform: translateY(-3px);
+    }
+    
+    /* Onda de transición */
+    .cta-final__wave {
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      z-index: 3;
+      line-height: 0;
+      pointer-events: none;
+    }
+    .cta-final__wave svg {
+      width: 100%;
+      height: 60px;
+      display: block;
+    }
+    
+    /* ══════════════════════════════════════════
+       FOOTER RENOVADO — Logo grande + patrón sutil
+       ══════════════════════════════════════════ */
+    .footer {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      background: var(--crema, #f5f1e8);
+      color: var(--texto-suave, #6b6862);
+      padding-top: clamp(3rem, 6vw, 4.5rem);
+    }
+    .footer::before {
+      content: '';
+      position: absolute; inset: 0; z-index: -2;
+      background: url('assets/logos/Alacena_Magica_Pattern.svg') center / cover no-repeat;
+      opacity: 0.08;
+      -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 38%, transparent 72%);
+      mask-image: linear-gradient(180deg, #000 0%, #000 38%, transparent 72%);
+    }
+    .footer__brand {
+      display: flex;
+      justify-content: center;
+      padding-inline: 24px;
+    }
+    .footer__brand img {
+      height: clamp(100px, 14vw, 180px);
+      width: auto;
+      transition: transform var(--t-med, 0.45s);
+    }
+    .footer__brand a:hover img {
+      transform: translateY(-4px);
+    }
+    .footer__legal {
+      margin-top: clamp(2rem, 4vw, 3rem);
+      padding-block: clamp(1.5rem, 3vw, 2rem);
+    }
+    .footer__legal-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem clamp(1.5rem, 4vw, 3.5rem);
+    }
+    .footer__legal-links a {
+      color: var(--verde-texto, #2f7044);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color var(--t-fast, 0.22s);
+    }
+    .footer__legal-links a:hover {
+      color: var(--verde-marca, #459b5b);
+    }
+    .footer__stores {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.75rem;
+    }
+    .footer__stores img {
+      height: 46px;
+      width: auto;
+      transition: transform var(--t-fast, 0.22s);
+    }
+    .footer__stores a:hover img {
+      transform: translateY(-3px);
+    }
+    .footer__copy {
+      text-align: center;
+      font-size: 0.85rem;
+      margin-top: 1.75rem;
+    }
+    
+    @media (max-width: 768px) {
+      .cta-final__wave svg {
+        height: 40px;
+      }
+    }
+    @media (max-width: 480px) {
+      .cta-final__form {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .cta-final__input {
+        flex: 0 0 auto;
+        width: 100%;
+      }
+      .cta-final__form .btn {
+        width: 100%;
+      }
+      .footer__legal-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.9rem;
+      }
+      .footer__stores img {
+        height: 42px;
+      }
+    }
+    /* ══ RESPONSIVE ══ */
+    @media (max-width:480px){
+    .phone{width:260px;height:550px}
+    }
+        /* ── NAVBAR (estilo index con glassmorphism) ── */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      transition: background var(--t-med, 0.45s ease), box-shadow var(--t-med, 0.45s ease), backdrop-filter var(--t-med, 0.45s ease), border-color var(--t-med, 0.45s ease);
+      border-bottom: 1px solid transparent;
+    }
+    
+    .navbar__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100px;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+      gap: 20px;
+    }
+    
+    /* Logo */
+    .navbar__brand {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    
+    .navbar__logo {
+      height: 70px;
+      width: auto;
+      transition: height var(--t-med, 0.45s), transform var(--t-med, 0.45s);
+      display: block;
+    }
+    .navbar__brand:hover .navbar__logo {
+      transform: scale(1.05);
+    }
+    
+    /* Navegación */
+    .navbar__nav {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    
+    .navbar__links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .navbar__links a {
+      color: var(--verde-oscuro, #1d381c);
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      position: relative;
+      transition: color var(--t-fast, 0.22s ease);
+      text-decoration: none;
+    }
+    
+    .navbar__links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -7px;
+      height: 2px;
+      width: 0;
+      background: var(--amarillo, #eacc34);
+      border-radius: 2px;
+      transition: width var(--t-fast, 0.22s ease);
+    }
+    
+    .navbar__links a:hover::after,
+    .navbar__links a.is-active::after {
+      width: 100%;
+    }
+    
+    .navbar__links a:hover {
+      color: var(--verde-marca, #459b5b);
+    }
+    
+    /* Botón CTA */
+    .navbar__cta {
+      background: var(--verde-oscuro, #1d381c);
+      color: #fff !important;
+      border: none;
+      padding: 0.7rem 1.4rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: var(--r-pill, 999px);
+      box-shadow: 0 4px 16px rgba(29, 56, 28, 0.2);
+      transition: all var(--t-fast, 0.22s);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    
+    .navbar__cta:hover {
+      background: var(--verde-marca, #459b5b);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(69, 155, 91, 0.35);
+      color: #fff !important;
+    }
+    
+    .navbar__cta::after {
+      display: none !important;
+    }
+    
+    .navbar__toggle {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 10px;
+      min-width: 44px;
+      min-height: 44px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .navbar__toggle span {
+      display: block;
+      width: 26px;
+      height: 2.5px;
+      border-radius: 3px;
+      background: var(--verde-oscuro, #1d381c);
+      transition: transform var(--t-fast, 0.22s ease), opacity var(--t-fast, 0.22s ease);
+    }
+    
+    .navbar__toggle[aria-expanded="true"] span:nth-child(1) {
+      transform: translateY(7.5px) rotate(45deg);
+    }
+    
+    .navbar__toggle[aria-expanded="true"] span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .navbar__toggle[aria-expanded="true"] span:nth-child(3) {
+      transform: translateY(-7.5px) rotate(-45deg);
+    }
+    
+    /* ── ESTADO SCROLLED ── */
+    .navbar.is-scrolled {
+      background: rgba(245, 241, 232, 0.92);
+      backdrop-filter: blur(16px) saturate(1.4);
+      -webkit-backdrop-filter: blur(16px) saturate(1.4);
+      border-bottom-color: var(--gris-claro, #e8e4dc);
+      box-shadow: 0 6px 30px rgba(29, 56, 28, 0.08);
+    }
+    
+    .navbar.is-scrolled .navbar__inner {
+      height: 80px;
+    }
+    
+    .navbar.is-scrolled .navbar__logo {
+      height: 55px;
+    }
+    
+    /* ── MENÚ MÓVIL ── */
+    @media (max-width: 1080px) {
+      .navbar__toggle {
+        display: flex;
+      }
+      
+      .navbar__nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        background: rgba(245, 241, 232, 0.97);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        padding: 1rem 24px 2rem;
+        box-shadow: 0 10px 30px rgba(29, 56, 28, 0.1);
+        border-top: 1px solid var(--gris-claro, #e8e4dc);
+        max-height: calc(100dvh - 80px);
+        overflow-y: auto;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
+      }
+      
+      .navbar__nav.is-open {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s;
+      }
+      
+      .navbar__links {
+        flex-direction: column;
+        gap: 0;
+      }
+      
+      .navbar__links a {
+        display: block;
+        padding: 0.95rem 0;
+        border-bottom: 1px solid var(--gris-claro, #e8e4dc);
+        font-size: 0.95rem;
+      }
+      
+      .navbar__links a::after {
+        display: none;
+      }
+      
+      .navbar__cta {
+        margin-top: 1.25rem;
+        text-align: center;
+        justify-content: center;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .navbar__inner {
+        height: 80px;
+      }
+      .navbar__logo {
+        height: 55px;
+      }
+      .navbar.is-scrolled .navbar__inner {
+        height: 70px;
+      }
+      .navbar.is-scrolled .navbar__logo {
+        height: 45px;
+      }
+    }
+
+/* ══════════════════════════════════════════
+   SECCIÓN PROOF — Rediseño editorial
+   ══════════════════════════════════════════ */
+.proof {
+  position: relative;
+  overflow: hidden;
+  background: var(--blanco);
+  padding-block: clamp(4rem, 8vw, 7rem);
+}
+
+/* Patrón sutil */
+.proof::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('assets/logos/Alacena_Magica_Pattern.svg') center / cover no-repeat;
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+/* Cabecera centrada */
+.section__head {
+  text-align: center;
+  max-width: 44rem;
+  margin: 0 auto clamp(2.5rem, 5vw, 4rem);
+  position: relative;
+  z-index: 1;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.45rem 1rem;
+  border-radius: var(--r-pill, 999px);
+  background: var(--verde-suave, #e6f2ea);
+  color: var(--verde-texto, #2f7044);
+  margin-bottom: 1.25rem;
+}
+.section__title {
+  font-size: clamp(2rem, 3.4vw + 0.6rem, 3.2rem);
+  color: var(--verde-oscuro, #1d381c);
+  margin-bottom: 0.75rem;
+}
+.section__sub {
+  font-size: 1.05rem;
+  color: var(--texto-suave, #6b6862);
+}
+
+/* Imagen horizontal destacada */
+.proof__moment {
+  position: relative;
+  border-radius: var(--r-2xl, 56px);
+  overflow: hidden;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  box-shadow: 0 30px 70px rgba(29, 56, 28, 0.15);
+  aspect-ratio: 16 / 7;
+  z-index: 1;
+}
+.proof__moment img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+}
+.proof__moment::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(200deg, transparent 40%, rgba(29,56,28,0.55));
+}
+
+/* Caption sobre la imagen */
+.proof__moment-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 3vw, 2.5rem) clamp(1.25rem, 2vw, 1.75rem);
+  color: #fff;
+}
+.proof__moment-spark {
+  font-size: 1.75rem;
+  flex: 0 0 auto;
+  animation: float 3.5s var(--ease, cubic-bezier(0.22,1,0.36,1)) infinite;
+}
+.proof__moment-caption p {
+  font-size: clamp(0.95rem, 1vw + 0.6rem, 1.15rem);
+  line-height: 1.4;
+}
+.proof__moment-caption strong {
+  color: var(--amarillo, #eacc34);
+  font-weight: 600;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Stats en línea minimalista */
+.proof__stats {
+  display: flex;
+  justify-content: center;
+  gap: clamp(2rem, 6vw, 5rem);
+  flex-wrap: wrap;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  z-index: 1;
+  position: relative;
+}
+.proof__stat {
+  text-align: center;
+}
+.proof__stat__num {
+  display: block;
+  font-family: var(--font-display, 'Fraunces', Georgia, serif);
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--verde-marca, #459b5b);
+  line-height: 1;
+}
+.proof__stat__label {
+  font-size: 0.9rem;
+  color: var(--texto-suave, #6b6862);
+  margin-top: 0.3rem;
+  display: block;
+}
+
+/* Separador decorativo */
+.proof__divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  position: relative;
+  z-index: 1;
+}
+.proof__divider::before,
+.proof__divider::after {
+  content: '';
+  width: 80px;
+  height: 1px;
+  background: var(--gris-claro, #e8e4dc);
+}
+.proof__divider span {
+  font-size: 1.2rem;
+  color: var(--verde-marca, #459b5b);
+}
+
+/* Testimonios en fila */
+.proof__testimonials {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  position: relative;
+  z-index: 1;
+}
+.testimonial {
+  text-align: center;
+  padding: 0 1rem;
+}
+.testimonial__quote {
+  font-family: var(--font-display, 'Fraunces', Georgia, serif);
+  font-size: 1.35rem;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--verde-oscuro, #1d381c);
+  line-height: 1.4;
+  margin-bottom: 1rem;
+}
+.testimonial__author {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+.testimonial__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(140deg, var(--verde-claro, #6bb87f), var(--verde-marca, #459b5b));
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.testimonial__author cite {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--verde-oscuro, #1d381c);
+  font-size: 0.95rem;
+}
+.testimonial__author small {
+  display: block;
+  font-weight: 400;
+  color: var(--texto-suave, #6b6862);
+  font-size: 0.8rem;
+}
+
+/* Reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s var(--ease, cubic-bezier(0.22,1,0.36,1)), transform 0.8s var(--ease, cubic-bezier(0.22,1,0.36,1));
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+.reveal--delay { transition-delay: 0.15s; }
+.reveal--delay-2 { transition-delay: 0.3s; }
+.reveal--delay-3 { transition-delay: 0.45s; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .proof__moment {
+    aspect-ratio: 4 / 3;
+  }
+  .proof__moment-caption {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .proof__testimonials {
+    grid-template-columns: 1fr;
+  }
+  .proof__stats {
+    gap: 2rem;
+  }
+}
+
+/* ══ REDUCED MOTION ══ */
+    @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+    html{scroll-behavior:auto}
+    .sparkle-layer,.cursor-spark{display:none}
+    .reveal{opacity:1;transform:none}
+    }
+    /* ── FIN MAGICAL.CSS ── */
+
+    /* Accesibilidad: solo lectores de pantalla */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+    }
+
+    /* ══════════════════════════════════════════
+       GRAIN + EFECTOS MÁGICOS
+       ══════════════════════════════════════════ */
+    .grain { position: relative; isolation: isolate; }
+    .grain::after {
+      content: ''; position: absolute; inset: 0; z-index: 1;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+      mix-blend-mode: overlay;
+    }
+    .grain > * { position: relative; z-index: 2; }
+
+    /* ══════════════════════════════════════════
+       BOTONES
+       ══════════════════════════════════════════ */
+    .btn {
+      position: relative; overflow: hidden;
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem;
+      font-family: 'Outfit', system-ui, sans-serif; font-weight: 600; font-size: 1rem;
+      padding: 0.95rem 1.8rem; border-radius: var(--r-pill);
+      transition: transform 0.22s var(--ease), box-shadow 0.22s var(--ease),
+                  background 0.22s var(--ease), color 0.22s var(--ease);
+      will-change: transform; text-align: center; line-height: 1.2;
+      isolation: isolate; text-decoration: none;
+    }
+    .btn--sm { padding: 0.62rem 1.25rem; font-size: 0.92rem; }
+    .btn--lg { padding: 1.1rem 2.2rem; font-size: 1.08rem; }
+    .btn::before {
+      content: ''; position: absolute; inset: 0; z-index: -1;
+      background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.45) 50%, transparent 70%);
+      transform: translateX(-120%);
+      transition: transform 0.7s var(--ease);
+    }
+    .btn:hover::before { transform: translateX(120%); }
+    .btn--primary { background: var(--verde-marca); color: #fff; box-shadow: 0 8px 24px rgba(69,155,91,0.32); }
+    .btn--primary:hover { background: #3d8c52; color: #fff; transform: translateY(-3px); box-shadow: 0 16px 38px rgba(69,155,91,0.42); }
+    .btn--outline {
+      background: rgba(255,255,255,0.6);
+      color: var(--verde-oscuro);
+      box-shadow: inset 0 0 0 2px rgba(69,155,91,0.3);
+      backdrop-filter: blur(10px);
+    }
+    .btn--outline:hover {
+      background: rgba(255,255,255,0.9);
+      color: var(--verde-oscuro);
+      transform: translateY(-3px);
+      box-shadow: inset 0 0 0 2px rgba(69,155,91,0.5), 0 8px 24px rgba(69,155,91,0.15);
+    }
+    .btn--glass {
+      background: rgba(255,255,255,0.62);
+      color: var(--verde-oscuro);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.55);
+      backdrop-filter: blur(12px);
+    }
+    .btn--glass:hover { background: var(--blanco); color: var(--verde-oscuro); transform: translateY(-3px); }
+
+    /* ══════════════════════════════════════════
+       DESTELLOS + CURSOR (efectos mágicos)
+       ══════════════════════════════════════════ */
+    .sparkle-layer{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+    .sparkle{position:absolute;width:var(--s,6px);height:var(--s,6px);color:var(--amarillo);opacity:0;animation:twinkle var(--dur,5s) ease var(--delay,0s) infinite}
+    .sparkle::before,.sparkle::after{content:'';position:absolute;inset:0;background:currentColor;clip-path:polygon(50% 0%,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0% 50%,40% 40%)}
+    .sparkle::after{transform:rotate(45deg) scale(.6);opacity:.7}
+    @keyframes twinkle{0%,100%{opacity:0;transform:scale(.4) rotate(0deg)}35%{opacity:var(--peak,.9);transform:scale(1) rotate(35deg)}60%{opacity:.25;transform:scale(.75) rotate(70deg)}}
+    .cursor-spark{position:fixed;z-index:4000;pointer-events:none;width:10px;height:10px;color:var(--amarillo);margin:-5px 0 0 -5px;animation:spark-pop .75s ease forwards}
+    .cursor-spark::before{content:'';position:absolute;inset:0;background:currentColor;clip-path:polygon(50% 0%,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0% 50%,40% 40%)}
+    @keyframes spark-pop{0%{opacity:1;transform:scale(.2) rotate(0deg)}100%{opacity:0;transform:scale(1.3) rotate(120deg) translateY(-18px)}}
+    @keyframes sparkle{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.25)}}
+    @keyframes floatItem{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-32px) rotate(8deg)}}
+    @keyframes shimmer-bg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+    /* ══════════════════════════════════════════
+       PRELOADER MÁGICO
+       ══════════════════════════════════════════ */
+    .m-preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(165deg, #fbf4cf 0%, #fbeadb 30%, #f5f1e8 60%, #fbf4cf 100%);
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.8s var(--ease), visibility 0s linear 0.8s;
+    }
+
+    .m-preloader.is-hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .m-preloader__escena {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      display: grid;
+      place-items: center;
+    }
+
+    /* Logo central */
+    .m-preloader__logo {
+      position: relative;
+      z-index: 10;
+      width: 72px;
+      height: auto;
+      filter: drop-shadow(0 0 12px rgba(234, 204, 52, 0.6));
+      animation: preloaderLogoPulse 2s var(--ease) infinite;
+    }
+
+    @keyframes preloaderLogoPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    /* Resplandor pulsante */
+    .m-preloader__resplandor {
+      position: absolute;
+      width: 50%;
+      height: 50%;
+      background: radial-gradient(circle, rgba(234, 204, 52, 0.35) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: preloaderResplandor 2s var(--ease) infinite;
+    }
+
+    @keyframes preloaderResplandor {
+      0%, 100% { opacity: 0.5; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.3); }
+    }
+
+    /* Anillos giratorios */
+    .m-preloader__aro {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid transparent;
+    }
+
+    .m-preloader__aro--1 {
+      width: 100%;
+      height: 100%;
+      border-top-color: var(--verde-marca);
+      border-right-color: rgba(69, 155, 91, 0.3);
+      animation: preloaderGiro 2.5s linear infinite;
+    }
+
+    .m-preloader__aro--2 {
+      width: 80%;
+      height: 80%;
+      border-bottom-color: var(--amarillo);
+      border-left-color: rgba(234, 204, 52, 0.3);
+      animation: preloaderGiro 3s linear infinite reverse;
+    }
+
+    .m-preloader__aro--3 {
+      width: 60%;
+      height: 60%;
+      border-top-color: var(--terracota);
+      border-left-color: rgba(226, 133, 56, 0.3);
+      animation: preloaderGiro 3.5s linear infinite;
+    }
+
+    @keyframes preloaderGiro {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Partículas orbitando */
+    .m-preloader__orbita {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      animation: preloaderGiro 3s linear infinite;
+    }
+
+    .m-preloader__orbita i {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      transform: translateX(-50%);
+    }
+
+    .m-preloader__orbita--1 { animation-duration: 2.2s; }
+    .m-preloader__orbita--1 i {
+      background: var(--verde-marca);
+      box-shadow: 0 0 8px rgba(69, 155, 91, 0.7);
+    }
+
+    .m-preloader__orbita--2 { animation-duration: 3.5s; animation-direction: reverse; }
+    .m-preloader__orbita--2 i {
+      background: var(--amarillo);
+      box-shadow: 0 0 8px rgba(234, 204, 52, 0.8);
+      width: 8px;
+      height: 8px;
+    }
+
+    .m-preloader__orbita--3 { animation-duration: 4.5s; }
+    .m-preloader__orbita--3 i {
+      background: var(--terracota);
+      box-shadow: 0 0 6px rgba(226, 133, 56, 0.7);
+      width: 4px;
+      height: 4px;
+    }
+
+    .m-preloader__orbita--4 { animation-duration: 5.5s; animation-direction: reverse; }
+    .m-preloader__orbita--4 i {
+      background: #fff;
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+      width: 3px;
+      height: 3px;
+    }
+
+    .m-preloader__orbita--5 { animation-duration: 2.8s; animation-delay: -1s; }
+    .m-preloader__orbita--5 i {
+      background: var(--verde-claro);
+      box-shadow: 0 0 6px rgba(107, 184, 127, 0.7);
+      width: 5px;
+      height: 5px;
+    }
+
+    .m-preloader__orbita--6 { animation-duration: 6s; animation-direction: reverse; animation-delay: -2s; }
+    .m-preloader__orbita--6 i {
+      background: var(--oro-texto);
+      box-shadow: 0 0 6px rgba(122, 97, 0, 0.6);
+      width: 7px;
+      height: 7px;
+      clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
+    }
+
+    /* Destellos flotantes dentro del preloader */
+    .m-preloader__sparkles {
+      position: absolute;
+      inset: -40px;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .m-preloader__sparkles span {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      color: var(--amarillo);
+      animation: preloaderTwinkle 2s var(--ease) infinite;
+      filter: drop-shadow(0 0 5px rgba(234, 204, 52, 0.6));
+    }
+
+    .m-preloader__sparkles span::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: currentColor;
+      clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
+    }
+
+    .m-preloader__sparkles span:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
+    .m-preloader__sparkles span:nth-child(2) { top: 5%; right: 25%; animation-delay: 0.3s; }
+    .m-preloader__sparkles span:nth-child(3) { top: 30%; left: 5%; animation-delay: 0.6s; color: var(--terracota); }
+    .m-preloader__sparkles span:nth-child(4) { top: 25%; right: 5%; animation-delay: 0.9s; }
+    .m-preloader__sparkles span:nth-child(5) { bottom: 20%; left: 15%; animation-delay: 1.2s; }
+    .m-preloader__sparkles span:nth-child(6) { bottom: 10%; right: 20%; animation-delay: 1.5s; color: var(--verde-claro); }
+    .m-preloader__sparkles span:nth-child(7) { bottom: 30%; left: 3%; animation-delay: 1.8s; }
+    .m-preloader__sparkles span:nth-child(8) { top: 45%; right: 0%; animation-delay: 2.1s; color: #fff; }
+    .m-preloader__sparkles span:nth-child(9) { top: 0%; left: 50%; animation-delay: 0.15s; }
+    .m-preloader__sparkles span:nth-child(10) { bottom: 5%; left: 45%; animation-delay: 0.45s; }
+
+    @keyframes preloaderTwinkle {
+      0%, 100% { opacity: 0; transform: scale(0.3) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1.2) rotate(45deg); }
+    }
+
+    /* Accesibilidad: reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .m-preloader {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- PRELOADER MÁGICO -->
+  <div class="m-preloader" id="preloader" aria-hidden="true">
+    <div class="m-preloader__escena">
+      <!-- Anillos giratorios -->
+      <div class="m-preloader__aro m-preloader__aro--1"></div>
+      <div class="m-preloader__aro m-preloader__aro--2"></div>
+      <div class="m-preloader__aro m-preloader__aro--3"></div>
+      
+      <!-- Resplandor pulsante -->
+      <div class="m-preloader__resplandor"></div>
+      
+      <!-- Partículas orbitando -->
+      <div class="m-preloader__orbita m-preloader__orbita--1"><i></i></div>
+      <div class="m-preloader__orbita m-preloader__orbita--2"><i></i></div>
+      <div class="m-preloader__orbita m-preloader__orbita--3"><i></i></div>
+      <div class="m-preloader__orbita m-preloader__orbita--4"><i></i></div>
+      <div class="m-preloader__orbita m-preloader__orbita--5"><i></i></div>
+      <div class="m-preloader__orbita m-preloader__orbita--6"><i></i></div>
+      
+      <!-- Isotipo central -->
+      <img src="assets/logos/Isotipo.svg" alt="" class="m-preloader__logo" />
+      
+      <!-- Destellos flotantes -->
+      <div class="m-preloader__sparkles">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+
+  <a href="#main" class="skip">Saltar al contenido</a>
+  
+  <!-- NAVBAR -->
+  <header class="navbar" id="nav" role="banner">
+    <div class="container navbar__inner">
+      <a href="#" class="navbar__brand" aria-label="Alacena Mágica · Inicio">
+        <img src="assets/logos/Alacena_Magica_Alacena_Magica_Logo_Color.webp" alt="Alacena Mágica" class="navbar__logo" />
+      </a>
+
+      <nav class="navbar__nav" id="menu" aria-label="Navegación principal">
+        <ul class="navbar__links">
+          <li><a href="#problemas">El problema</a></li>
+          <li><a href="#demo">Pruébalo</a></li>
+          <li><a href="#funciones">Funciones</a></li>
+          <li><a href="#como-funciona">Cómo funciona</a></li>
+          <li><a href="#opiniones">Opiniones</a></li>
+        </ul>
+        
+        <a href="#cta" class="btn btn--primary btn--sm navbar__cta">Descubre la magia →</a>
+      </nav>
+
+      <button class="navbar__toggle" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+        <!-- HERO FINAL -->
+    <section class="hero" id="hero" aria-labelledby="hero-title">
+      
+      <!-- Blobs decorativos -->
+      <div class="hero__blobs" aria-hidden="true">
+        <div class="hero__blob hero__blob--1"></div>
+        <div class="hero__blob hero__blob--2"></div>
+        <div class="hero__blob hero__blob--3"></div>
+      </div>
+      
+      <!-- Destellos flotantes -->
+      <div class="sparkle-layer" data-sparkles="30" aria-hidden="true"></div>
+      
+      <div class="container hero__grid">
+        
+        <!-- Contenido izquierdo -->
+        <div class="hero__content reveal">
+          <span class="pill pill--light">
+            <img src="assets/logos/Isotipo.svg" alt="" aria-hidden="true" />
+            Tu asistente de cocina inteligente
+          </span>
+          
+          <h1 id="hero-title" class="hero__title">
+            ¿Qué tienes en la nevera?<br />
+            <em>Veamos qué podemos crear.</em>
+          </h1>
+          
+          <p class="hero__subtitle">
+            Transforma los ingredientes que ya tienes en recetas deliciosas.
+            Sin desperdicio, sin complicaciones, pura magia culinaria.
+          </p>
+          
+          <div class="hero__actions">
+            <a href="#demo" class="btn btn--primary btn--lg">Pruébalo ahora →</a>
+            <a href="#como-funciona" class="btn btn--outline btn--lg">Ver cómo funciona</a>
+          </div>
+        </div>
+        
+        <!-- Composición visual derecha -->
+        <div class="hero__visual reveal reveal--delay">
+          <div class="hero__photo">
+            <img src="assets/images/Alacena Magica 5.webp" alt="Mujer en la cocina preparando ingredientes frescos con luz natural" />
+          </div>
+          
+          <!-- Tarjetas flotantes -->
+          <div class="float-card float-card--a">
+            <div class="float-card__icon"><img src="assets/logos/Isotipo.svg" alt="" aria-hidden="true" /></div>
+            <div>
+              <span class="float-card__num">12 recetas</span>
+              <span class="float-card__label">con lo que ya tienes</span>
+            </div>
+          </div>
+          
+          <div class="float-card float-card--b">
+            <div class="float-card__icon">💚</div>
+            <div>
+              <span class="float-card__num">3 ingredientes</span>
+              <span class="float-card__label">salvados hoy</span>
+            </div>
+          </div>
+          
+          <div class="float-card float-card--c">
+            <div class="float-card__icon">🥑</div>
+            <div>
+              <span class="float-card__num">Modo Keto</span>
+              <span class="float-card__label">activado</span>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+
+    <!-- PROBLEMAS — ¿Te suena familiar? -->
+    <section class="problemas" id="problemas" aria-labelledby="problem-title">
+      <div class="container">
+        
+        <!-- Cabecera -->
+        <div class="section__head reveal">
+          <span class="pill">Seguro que te pasa</span>
+          <h2 id="problem-title" class="section__title">¿Te suena familiar?</h2>
+          <p class="section__sub">
+            Si alguna vez has vivido esto, Alacena Mágica está hecha para ti.
+          </p>
+        </div>
+        
+        <!-- Bento Grid estilo Pinterest -->
+        <div class="bento">
+          
+          <!-- Imagen vertical grande (izquierda) -->
+          <div class="bento__vertical reveal">
+            <img src="assets/images/Alacena Magica 6.webp" alt="Plato delicioso preparado con ingredientes frescos" loading="lazy" />
+            <div class="bento__vertical-caption">
+              <h3>Tu despensa merece una segunda oportunidad</h3>
+              <p>Alacena Mágica convierte el caos en creatividad.</p>
+            </div>
+          </div>
+          
+          <!-- Tarjeta 1 (derecha arriba) -->
+          <article class="bento__card bento__card--top reveal reveal--delay">
+            <h3 class="bento__title">Abres la nevera y... nada te inspira</h3>
+            <p class="bento__copy">
+              Está llena, pero no ves una comida ahí dentro. Y acabas pidiendo comida otra vez.
+            </p>
+            <span class="bento__tag">Sin ideas</span>
+          </article>
+          
+          <!-- Tarjeta 2 (derecha medio) -->
+          <article class="bento__card bento__card--middle reveal reveal--delay-2">
+            <h3 class="bento__title">Ingredientes que se echan a perder</h3>
+            <p class="bento__copy">
+              Cada semana, comida (y dinero) acaba en la basura sin que te des cuenta.
+            </p>
+            <span class="bento__tag">Desperdicio</span>
+          </article>
+          
+          <!-- Tarjeta 3 (derecha abajo) -->
+          <article class="bento__card bento__card--bottom reveal reveal--delay-3">
+            <h3 class="bento__title">Las dietas parecen complicadas</h3>
+            <p class="bento__copy">
+              Keto, paleo, sin gluten... ¿Y si fuera tan fácil como activar un interruptor?
+            </p>
+            <span class="bento__tag">Complejidad</span>
+          </article>
+          
+          <!-- Tarjeta 4: Solución verde con isotipo de fondo y efectos mágicos -->
+          <article class="bento__card bento__card--solution reveal reveal--delay-3">
+            <!-- Aurora interna -->
+            <div class="solution-aurora" aria-hidden="true">
+              <span></span><span></span>
+            </div>
+            
+            <!-- Destellos flotantes -->
+            <div class="solution-sparkles" data-sparkles="15" aria-hidden="true"></div>
+            
+            <!-- Isotipo decorativo de fondo -->
+            <div class="bento__solution-bg-isotipo" aria-hidden="true">
+              <img src="assets/logos/Isotipo.svg" alt="" loading="lazy" />
+            </div>
+            
+            <div>
+              <h3>Alacena Mágica convierte ese caos en creatividad.</h3>
+              <p>Crea magia con lo que tienes.</p>
+            </div>
+            
+            <div class="bento__solution-image">
+              <img src="assets/images/Alacena Magica 4.webp" alt="Plato delicioso creado con ingredientes de la nevera" loading="lazy" />
+            </div>
+          </article>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- DEMO INTERACTIVA — Pruébalo aquí mismo -->
+    <section class="demo" id="demo" aria-labelledby="demo-title">
+      <div class="demo__bg" aria-hidden="true"></div>
+      <div class="demo__aurora" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
+      
+      <div class="container">
+        
+        <!-- Cabecera -->
+        <div class="section__head reveal">
+          <span class="pill--light">
+            <img src="assets/logos/Isotipo.svg" alt="" aria-hidden="true" style="height:1.2em;width:auto;" />
+            Pruébalo aquí mismo
+          </span>
+          <h2 id="demo-title" class="section__title">Dinos qué tienes.<br />Nosotros ponemos la magia.</h2>
+          <p class="section__sub">
+            Toca los ingredientes que hay ahora mismo en tu nevera.
+            La receta aparece sola, sin listas de la compra imposibles.
+          </p>
+        </div>
+        
+        <!-- Grid dos columnas -->
+        <div class="demo__grid">
+          
+          <!-- Columna izquierda: Ingredientes -->
+          <div class="demo__ingredients reveal">
+            <h3 class="demo__label">Tus ingredientes</h3>
+            <div class="pantry-picker" id="pantryPicker" role="group" aria-label="Selecciona los ingredientes que tienes"></div>
+            <p class="demo__hint">
+              <span aria-hidden="true">👆</span>
+              Toca para añadir o quitar. Prueba a quitar los huevos y mira qué pasa.
+            </p>
+          </div>
+          
+          <!-- Columna derecha: Resultado -->
+          <div class="demo__result reveal reveal--delay">
+            <div class="spell-card" id="spellCard" aria-live="polite"></div>
+            <p class="demo__more" id="trickMore"></p>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+        <!-- FUNCIONES — Tu asistente de cocina -->
+    <section class="funciones" id="funciones" aria-labelledby="funciones-title">
+      
+      <!-- Blobs de colores -->
+      <div class="funciones__blobs" aria-hidden="true">
+        <div class="blob blob--1"></div>
+        <div class="blob blob--2"></div>
+        <div class="blob blob--3"></div>
+        <div class="blob blob--4"></div>
+      </div>
+      
+      <!-- Destellos flotantes -->
+      <div class="funciones__sparkles" data-sparkles="40" aria-hidden="true"></div>
+      
+      <div class="container">
+        
+        <!-- Cabecera -->
+        <div class="section__head reveal">
+          <span class="pill"><img src="assets/logos/Isotipo.svg" alt="" aria-hidden="true" style="height:1.2em;width:auto;" /> Qué hace</span>
+          <h2 id="funciones-title" class="section__title">Tu asistente de cocina que sí te entiende</h2>
+          <p class="section__sub">
+            Tres cosas, muy bien hechas. Nada de menús interminables ni funciones que nunca usarás.
+          </p>
+        </div>
+        
+        <!-- Feature 1: Recetas que se adaptan -->
+        <div class="feature-row">
+          <div class="feature-text reveal">
+            <span class="feature-badge feature-badge--verde">Inteligente</span>
+            <h3>Recetas que se adaptan a TI</h3>
+            <p>No más «te faltan 5 ingredientes». Alacena Mágica trabaja con lo que realmente tienes en la nevera hoy, no con lo que deberías haber comprado.</p>
+            <div class="feature-microcopy">«¿Qué tienes en la nevera? ¡Veamos qué podemos crear!»</div>
+          </div>
+          
+          <div class="feature-phone-wrapper reveal reveal--delay">
+            <div class="phone-3d">
+              <div class="phone__notch"></div>
+              <div class="phone__screen">
+                <div class="m-head">
+                  <div>
+                    <div class="small">Buenos días 👋</div>
+                    <div class="name">María</div>
+                  </div>
+                  <div class="m-avatar">M</div>
+                </div>
+                <div class="m-card">
+                  <h4>✨ 8 ingredientes listos</h4>
+                  <p><strong>12 recetas mágicas</strong> disponibles</p>
+                </div>
+                <div class="m-title">Tus ingredientes</div>
+                <div class="m-chips">
+                  <span class="m-chip is-on">🍅 Tomate</span>
+                  <span class="m-chip is-on">🧀 Queso</span>
+                  <span class="m-chip is-on">🥚 Huevos</span>
+                </div>
+                <div class="m-recipe">
+                  <div class="m-recipe-img">🍳</div>
+                  <div class="m-recipe-info">
+                    <h5>Tortilla española express</h5>
+                    <div class="m-meta">
+                      <span>⏱ 20 min</span>
+                      <span>✨ 95% match</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Badges flotantes -->
+            <div class="float-badge float-badge--a">
+              <div class="float-badge__icon">🥚</div>
+              <span>Huevos añadidos</span>
+            </div>
+            <div class="float-badge float-badge--b">
+              <div class="float-badge__icon">✨</div>
+              <span>95% match</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Separador decorativo -->
+        <div class="feature-divider reveal" aria-hidden="true">
+          <span>✦</span>
+        </div>
+        
+        <!-- Feature 2: Tu dieta, tus reglas -->
+        <div class="feature-row">
+          <div class="feature-phone-wrapper reveal">
+            <div class="phone-3d phone-3d--delay">
+              <div class="phone__notch"></div>
+              <div class="phone__screen">
+                <div class="m-head">
+                  <div class="name">Recetas para ti</div>
+                </div>
+                <div class="m-title">Filtra por tu dieta</div>
+                <div class="m-chips">
+                  <span class="m-chip is-on">Todas</span>
+                  <span class="m-chip">Keto 🥑</span>
+                  <span class="m-chip">Paleo</span>
+                  <span class="m-chip">Vegana</span>
+                </div>
+                <div class="m-recipe">
+                  <div class="m-recipe-img">🥗</div>
+                  <div class="m-recipe-info">
+                    <h5>Ensalada mediterránea</h5>
+                    <div class="m-meta">
+                      <span>⏱ 10 min</span>
+                      <span>✨ 88% match</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="m-recipe" style="margin-top:8px;">
+                  <div class="m-recipe-img">🍝</div>
+                  <div class="m-recipe-info">
+                    <h5>Pasta al ajo y tomate</h5>
+                    <div class="m-meta">
+                      <span>⏱ 15 min</span>
+                      <span>✨ 82% match</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Badges flotantes -->
+            <div class="float-badge float-badge--a">
+              <div class="float-badge__icon">🥑</div>
+              <span>Modo Keto</span>
+            </div>
+            <div class="float-badge float-badge--c">
+              <div class="float-badge__icon">📊</div>
+              <span>3 dietas activas</span>
+            </div>
+          </div>
+          
+          <div class="feature-text reveal reveal--delay">
+            <span class="feature-badge feature-badge--amarillo">Personalizable</span>
+            <h3>Tu dieta, tus reglas</h3>
+            <p>Keto, Paleo, Tradicional o «lo que me apetezca». Filtra recetas que se adapten a tu estilo de vida, no al revés.</p>
+            <div class="feature-microcopy">«Modo Keto activado 🥑»</div>
+          </div>
+        </div>
+        
+        <!-- Separador decorativo -->
+        <div class="feature-divider reveal" aria-hidden="true">
+          <span>✦</span>
+        </div>
+        
+        <!-- Feature 3: Menos desperdicio -->
+        <div class="feature-row">
+          <div class="feature-text reveal">
+            <span class="feature-badge feature-badge--terracota">Ahorro</span>
+            <h3>Menos desperdicio, más ahorro</h3>
+            <p>Controla tus ingredientes, recibe avisos amables y descubre recetas para usar lo que está por vencer. Tu bolsillo (y el planeta) te lo agradecerán.</p>
+            <div class="feature-microcopy">«¡Hoy has salvado 3 ingredientes!»</div>
+          </div>
+          
+          <div class="feature-phone-wrapper reveal reveal--delay">
+            <div class="phone-3d phone-3d--delay-2">
+              <div class="phone__notch"></div>
+              <div class="phone__screen">
+                <div class="m-head">
+                  <div class="name">Tu despensa mágica</div>
+                </div>
+                <div class="m-title">Ingredientes por vencer</div>
+                <div class="m-recipe" style="margin-top:0;">
+                  <div class="m-recipe-info">
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--gris-claro);">
+                      <span style="font-size:0.75rem;">🍅 Tomates</span>
+                      <span style="font-size:0.65rem;font-weight:700;color:var(--verde-marca);background:var(--verde-suave);padding:3px 10px;border-radius:10px;">5 días</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--gris-claro);">
+                      <span style="font-size:0.75rem;">🧀 Queso</span>
+                      <span style="font-size:0.65rem;font-weight:700;color:var(--oro-texto);background:var(--amarillo-suave);padding:3px 10px;border-radius:10px;">2 días</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;">
+                      <span style="font-size:0.75rem;">🥛 Leche</span>
+                      <span style="font-size:0.65rem;font-weight:700;color:var(--terracota-texto);background:var(--terracota-suave);padding:3px 10px;border-radius:10px;">¡Hoy!</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Badges flotantes -->
+            <div class="float-badge float-badge--b">
+              <div class="float-badge__icon">💚</div>
+              <span>3 salvados hoy</span>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- PASOS — Cómo funciona -->
+    <section class="how" id="como-funciona" aria-labelledby="how-title">
+      <div class="container">
+        
+        <!-- Cabecera -->
+        <div class="section__head reveal">
+          <span class="pill">Paso a paso</span>
+          <h2 id="how-title" class="section__title">Crear magia es más fácil de lo que piensas</h2>
+          <p class="section__sub">
+            Cuatro pasos y listo. Sin complicaciones, sin listas imposibles.
+          </p>
+        </div>
+        
+        <!-- Timeline -->
+        <div class="timeline">
+          
+          <!-- Paso 1: Nevera -->
+          <div class="step reveal">
+            <div class="step__icon">
+              <img src="assets/logos/nevera.svg" alt="Icono de nevera" loading="lazy" />
+              <span class="step__num">1</span>
+            </div>
+            <h3 class="step__title">Cuéntanos qué tienes</h3>
+            <p class="step__text">
+              Introduce los ingredientes de tu despensa o escanea el ticket de la compra.
+            </p>
+            <span class="step__tag">Tu despensa</span>
+          </div>
+          
+          <!-- Paso 2: Isotipo -->
+          <div class="step reveal reveal--delay">
+            <div class="step__icon">
+              <img src="assets/logos/Isotipo.svg" alt="Isotipo Alacena Mágica" loading="lazy" />
+              <span class="step__num">2</span>
+            </div>
+            <h3 class="step__title">Elige tu estilo</h3>
+            <p class="step__text">
+              Keto, Paleo, sin gluten, o lo que prefieras. Lo recordamos para la próxima.
+            </p>
+            <span class="step__tag">Tu dieta</span>
+          </div>
+          
+          <!-- Paso 3: Comida -->
+          <div class="step reveal reveal--delay-2">
+            <div class="step__icon">
+              <img src="assets/logos/comida.svg" alt="Icono de plato de comida" loading="lazy" />
+              <span class="step__num">3</span>
+            </div>
+            <h3 class="step__title">Descubre recetas</h3>
+            <p class="step__text">
+              Recibe opciones deliciosas que puedes hacer HOY, ordenadas por encaje.
+            </p>
+            <span class="step__tag">Tu menú</span>
+          </div>
+          
+          <!-- Paso 4: Corazón -->
+          <div class="step reveal reveal--delay-3">
+            <div class="step__icon">
+              <img src="assets/logos/corazon.svg" alt="Icono de corazón" loading="lazy" />
+              <span class="step__num">4</span>
+            </div>
+            <h3 class="step__title">Cocina y celebra</h3>
+            <p class="step__text">
+              Disfruta tu creación y mira cuánto has ahorrado. Sin culpa, sin desperdicio.
+            </p>
+            <span class="step__tag">Tu logro</span>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- PROOF — Magia real, resultados reales -->
+    <section class="proof" id="opiniones" aria-labelledby="proof-title">
+      <div class="container">
+        
+        <!-- Cabecera -->
+        <div class="section__head reveal">
+          <span class="pill">Impacto real</span>
+          <h2 id="proof-title" class="section__title">Magia real, resultados reales</h2>
+          <p class="section__sub">
+            Cocinar con lo que tienes no es solo práctico. Es un cambio de hábitos que se nota.
+          </p>
+        </div>
+        
+        <!-- Imagen horizontal destacada -->
+        <div class="proof__moment reveal">
+          <img src="assets/images/frittata-alacena-magica.webp" alt="Persona disfrutando de un plato recién cocinado con ingredientes de su nevera" />
+          <div class="proof__moment-caption">
+            <span class="proof__moment-spark" aria-hidden="true"><img src="assets/logos/Isotipo.svg" alt="" style="height:1.6rem;width:auto;" /></span>
+            <p>
+              <strong>"Tu Frittata de la Nevera está lista."</strong><br />
+              De cinco cosas sueltas a una comida de verdad, en 25 minutos.
+            </p>
+          </div>
+        </div>
+        
+        <!-- Stats minimalistas -->
+        <div class="proof__stats">
+          <div class="proof__stat reveal reveal--delay">
+            <span class="proof__stat__num" data-count="500" data-suffix="+">0</span>
+            <span class="proof__stat__label">recetas generadas</span>
+          </div>
+          <div class="proof__stat reveal reveal--delay-2">
+            <span class="proof__stat__num" data-count="80" data-suffix="%">0</span>
+            <span class="proof__stat__label">menos desperdicio</span>
+          </div>
+          <div class="proof__stat reveal reveal--delay-3">
+            <span class="proof__stat__num" data-count="3" data-suffix="h">0</span>
+            <span class="proof__stat__label">ahorradas / semana</span>
+          </div>
+        </div>
+        
+        <!-- Separador -->
+        <div class="proof__divider reveal" aria-hidden="true">
+          <span>✦</span>
+        </div>
+        
+        <!-- Testimonios -->
+        <div class="proof__testimonials">
+          <article class="testimonial reveal reveal--delay">
+            <p class="testimonial__quote">
+              "Pensé que cocinar con lo que tenía era imposible. ¡Alacena Mágica me ha sorprendido!"
+            </p>
+            <div class="testimonial__author">
+              <div class="testimonial__avatar" aria-hidden="true">M</div>
+              <div>
+                <cite>María</cite>
+                <small>Madrid</small>
+              </div>
+            </div>
+          </article>
+          
+          <article class="testimonial reveal reveal--delay-2">
+            <p class="testimonial__quote">
+              "Por fin una app que no me hace sentir culpable por no tener ingredientes gourmet."
+            </p>
+            <div class="testimonial__author">
+              <div class="testimonial__avatar" aria-hidden="true" style="background: linear-gradient(140deg, #e28538, #c96a24)">C</div>
+              <div>
+                <cite>Carlos</cite>
+                <small>Barcelona</small>
+              </div>
+            </div>
+          </article>
+        </div>
+        
+      </div>
+    </section>
+
+        <!-- GALERÍA — Carrusel Coverflow -->
+    <section class="galeria" id="galeria" aria-labelledby="galeria-title">
+      
+      <div class="galeria__blobs" aria-hidden="true">
+        <div class="blob blob--1"></div>
+        <div class="blob blob--2"></div>
+        <div class="blob blob--3"></div>
+      </div>
+      
+      <div class="galeria__sparkles" data-sparkles="25" aria-hidden="true"></div>
+      
+      <div class="container">
+        
+        <div class="section__head reveal">
+          <span class="pill">La app por dentro</span>
+          <h2 id="galeria-title" class="section__title">Así se ve la magia en acción</h2>
+          <p class="section__sub">
+            Desliza para descubrir cada pantalla de Alacena Mágica.
+          </p>
+        </div>
+        
+        <div class="carousel reveal">
+          <button class="carousel__btn carousel__btn--prev" aria-label="Pantalla anterior">←</button>
+          
+          <div class="carousel__viewport" id="carouselViewport">
+            <div class="carousel__track" id="carouselTrack">
+              
+              <!-- Slide 1: Inicio -->
+              <div class="carousel__slide is-active" data-index="0">
+                <div class="phone-mini">
+                  <div class="phone-mini__screen">
+                    <div class="mini-bar"></div>
+                    <div class="mini-card">
+                      <strong>✨ 8 ingredientes</strong><br />
+                      12 recetas disponibles
+                    </div>
+                    <div class="mini-chips">
+                      <span class="mini-chip is-on">🍅</span>
+                      <span class="mini-chip is-on">🧀</span>
+                      <span class="mini-chip">🥚</span>
+                    </div>
+                    <div class="mini-recipe">
+                      <div class="mini-recipe-img">🍳</div>
+                      <div class="mini-recipe-info">
+                        <strong>Tortilla express</strong>
+                        <div class="mini-meta">⏱ 20 min · ✨ 95%</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="carousel__label">Inicio</div>
+              </div>
+              
+              <!-- Slide 2: Generador -->
+              <div class="carousel__slide is-adjacent" data-index="1">
+                <div class="phone-mini">
+                  <div class="phone-mini__screen">
+                    <div class="mini-bar"></div>
+                    <div style="font-weight:700;font-size:0.65rem;color:var(--verde-oscuro);margin-bottom:8px;">¿Qué tienes?</div>
+                    <div class="mini-chips">
+                      <span class="mini-chip is-on">🍅</span>
+                      <span class="mini-chip is-on">🧅</span>
+                      <span class="mini-chip">🥕</span>
+                      <span class="mini-chip is-on">🧄</span>
+                    </div>
+                    <div style="background:var(--verde-marca);border-radius:12px;padding:10px;text-align:center;color:#fff;font-weight:700;font-size:0.6rem;margin-top:auto;">
+                      ✨ Crear magia
+                    </div>
+                  </div>
+                </div>
+                <div class="carousel__label">Generador</div>
+              </div>
+              
+              <!-- Slide 3: Recetas -->
+              <div class="carousel__slide" data-index="2">
+                <div class="phone-mini">
+                  <div class="phone-mini__screen">
+                    <div class="mini-bar"></div>
+                    <div style="font-weight:700;font-size:0.65rem;color:var(--verde-oscuro);margin-bottom:8px;">Recetas mágicas</div>
+                    <div class="mini-chips">
+                      <span class="mini-chip is-on">Todas</span>
+                      <span class="mini-chip">Keto</span>
+                    </div>
+                    <div class="mini-recipe" style="margin-bottom:8px;">
+                      <div class="mini-recipe-img">🥗</div>
+                      <div class="mini-recipe-info">
+                        <strong>Ensalada</strong>
+                        <div class="mini-meta">✨ 88%</div>
+                      </div>
+                    </div>
+                    <div class="mini-recipe">
+                      <div class="mini-recipe-img">🍝</div>
+                      <div class="mini-recipe-info">
+                        <strong>Pasta al ajo</strong>
+                        <div class="mini-meta">✨ 82%</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="carousel__label">Recetas</div>
+              </div>
+              
+              <!-- Slide 4: Despensa -->
+              <div class="carousel__slide" data-index="3">
+                <div class="phone-mini">
+                  <div class="phone-mini__screen">
+                    <div class="mini-bar"></div>
+                    <div style="font-weight:700;font-size:0.65rem;color:var(--verde-oscuro);margin-bottom:8px;">Tu despensa</div>
+                    <div class="mini-stat" style="margin-bottom:8px;">
+                      <div class="mini-stat-box mini-stat-box--green">
+                        <strong>12</strong>
+                        <span>Salvados</span>
+                      </div>
+                      <div class="mini-stat-box mini-stat-box--yellow">
+                        <strong>8,50€</strong>
+                        <span>Ahorrado</span>
+                      </div>
+                    </div>
+                    <div style="background:#fff;border-radius:10px;padding:8px;display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+                      <span style="font-size:0.55rem;">🍅 Tomates</span>
+                      <span style="font-size:0.5rem;font-weight:700;color:var(--verde-marca);background:var(--verde-suave);padding:2px 8px;border-radius:8px;">5 días</span>
+                    </div>
+                    <div style="background:#fff;border-radius:10px;padding:8px;display:flex;justify-content:space-between;align-items:center;">
+                      <span style="font-size:0.55rem;">🥛 Leche</span>
+                      <span style="font-size:0.5rem;font-weight:700;color:var(--terracota-texto);background:var(--terracota-suave);padding:2px 8px;border-radius:8px;">¡Hoy!</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="carousel__label">Despensa</div>
+              </div>
+              
+              <!-- Slide 5: Perfil -->
+              <div class="carousel__slide" data-index="4">
+                <div class="phone-mini">
+                  <div class="phone-mini__screen">
+                    <div class="mini-bar"></div>
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+                      <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--verde-claro),var(--verde-marca));display:grid;place-items:center;color:#fff;font-weight:700;font-size:0.75rem;">M</div>
+                      <div>
+                        <strong style="font-size:0.65rem;color:var(--verde-oscuro);">María</strong>
+                        <div style="font-size:0.5rem;opacity:0.6;">Madrid</div>
+                      </div>
+                    </div>
+                    <div style="background:var(--amarillo-suave);border-radius:10px;padding:8px;text-align:center;margin-bottom:8px;">
+                      <span style="font-size:0.55rem;font-weight:700;color:var(--oro-texto);">🥑 Modo Keto activo</span>
+                    </div>
+                    <div style="background:var(--verde-suave);border-radius:10px;padding:8px;text-align:center;">
+                      <span style="font-size:0.55rem;font-weight:700;color:var(--verde-texto);">💚 3 salvados esta semana</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="carousel__label">Perfil</div>
+              </div>
+              
+            </div>
+          </div>
+          
+          <button class="carousel__btn carousel__btn--next" aria-label="Pantalla siguiente">→</button>
+        </div>
+        
+        <div class="carousel__dots" id="carouselDots" role="tablist" aria-label="Indicadores del carrusel"></div>
+        
+      </div>
+    </section>
+
+
+    <!-- CTA FINAL — Verde suave con patrón -->
+    <section class="cta-final" id="cta" aria-labelledby="cta-title">
+      <div class="aurora" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="sparkle-layer" data-sparkles="20" aria-hidden="true"></div>
+
+      <div class="container cta-final__inner">
+        <div class="cta-final__spark" aria-hidden="true">
+          <img src="assets/logos/Isotipo.svg" alt="" />
+        </div>
+
+        <h2 id="cta-title" class="cta-final__title">
+          ¿Listo para crear magia?
+        </h2>
+        <p class="cta-final__sub">
+          Únete a la revolución de la cocina consciente. Sin complicaciones, sin desperdicio.
+        </p>
+
+        <form class="cta-final__form" id="cta-form" novalidate>
+          <label for="cta-email" class="sr-only">Tu correo electrónico</label>
+          <input
+            id="cta-email"
+            type="email"
+            class="cta-final__input"
+            placeholder="Tu correo electrónico"
+            required
+            autocomplete="email"
+          />
+          <button type="submit" class="btn btn--verde btn--lg">
+            Quiero probar Alacena Mágica →
+          </button>
+        </form>
+        <p class="cta-final__note" id="formNote">Disponible pronto. Sé de los primeros en saber cuándo lanzamos.</p>
+        <p class="cta-final__social-proof">🎉 1.247 personas ya están en la lista</p>
+
+        <div class="cta-final__stores">
+          <a href="#" aria-label="Descargar en App Store">
+            <img src="assets/images/app-store.webp" alt="" />
+          </a>
+          <a href="#" aria-label="Descargar en Google Play">
+            <img src="assets/images/google-play.webp" alt="" />
+          </a>
+        </div>
+      </div>
+      
+      <!-- Onda de transición -->
+      <div class="cta-final__wave" aria-hidden="true">
+        <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <path d="M0 80L60 66.7C120 53.3 240 26.7 360 20C480 13.3 600 26.7 720 33.3C840 40 960 40 1080 33.3C1200 26.7 1320 13.3 1380 6.7L1440 0V80H1380C1320 80 1200 80 1080 80C960 80 840 80 720 80C600 80 480 80 360 80C240 80 120 80 60 80H0V80Z" fill="#f5f1e8"/>
+        </svg>
+      </div>
+    </section>
+  </main>
+
+  <!-- ══════════ FOOTER NUEVO (ENLACES CORREGIDOS) ══════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__brand">
+        <a href="index.html" aria-label="Alacena Mágica · Inicio">
+          <img src="assets/logos/Alacena_Magica_Alacena_Magica_Logo_Color.webp" alt="Alacena Mágica · Crea magia con lo que tienes" loading="lazy" />
+        </a>
+      </div>
+
+      <div class="footer__legal">
+        <nav class="footer__legal-links" aria-label="Legal">
+          <a href="privacidad.html">Política de Privacidad</a>
+          <a href="terminos.html">Términos y Condiciones</a>
+          <a href="cancelar-suscripcion.html">Cancelar suscripción</a>
+          <a href="soporte.html">Soporte</a>
+        </nav>
+
+        <div class="footer__stores">
+          <a href="index.html#cta" aria-label="Descargar en App Store">
+            <img src="assets/images/app-store.webp" alt="" loading="lazy" />
+          </a>
+          <a href="index.html#cta" aria-label="Descargar en Google Play">
+            <img src="assets/images/google-play.webp" alt="" loading="lazy" />
+          </a>
+        </div>
+
+        <p class="footer__copy">
+          Copyright © <span data-year>2026</span> Alacena Mágica. Todos los derechos reservados.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ══════════════════════════════════════════
+    MAGICAL.JS — Interactividad de index.html
+    JS nativo ES6+ · Sin dependencias
+    ══════════════════════════════════════════ */
+    (function(){
+    'use strict';
+    var menosMov = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    /* ─ Navbar: estado al scroll ── */
+    var nav = document.getElementById('nav');
+    window.addEventListener('scroll', function(){
+      nav.classList.toggle('is-scrolled', window.scrollY > 30);
+    }, {passive:true});
+    
+    /* ── Menú móvil ── */
+    var burger = document.getElementById('burger');
+    var menu = document.getElementById('menu');
+    burger.addEventListener('click', function(){
+      var abierto = menu.classList.toggle('is-open');
+      burger.setAttribute('aria-expanded', abierto);
+    });
+    menu.addEventListener('click', function(e){
+      if (e.target.tagName === 'A') { menu.classList.remove('is-open'); burger.setAttribute('aria-expanded','false'); }
+    });
+    
+    /* ── Reveal on scroll ── */
+    var reveals = document.querySelectorAll('.reveal');
+    if (menosMov) {
+      reveals.forEach(function(el){ el.classList.add('is-visible'); });
+    } else {
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if (en.isIntersecting){ en.target.classList.add('is-visible'); io.unobserve(en.target); }
+        });
+      }, {threshold:.15});
+      reveals.forEach(function(el){ io.observe(el); });
+    }
+    
+    /* ── Contadores animados ── */
+    function animarContador(el){
+      var target = parseInt(el.dataset.count, 10);
+      var sufijo = el.dataset.suffix || '';
+      if (menosMov) { el.textContent = target + sufijo; return; }
+      var dur = 1400, inicio = null;
+      function paso(t){
+        if (!inicio) inicio = t;
+        var p = Math.min((t - inicio) / dur, 1);
+        el.textContent = Math.floor(p * target) + sufijo;
+        if (p < 1) requestAnimationFrame(paso);
+      }
+      requestAnimationFrame(paso);
+    }
+    var ioNum = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting){ animarContador(en.target); ioNum.unobserve(en.target); }
+      });
+    }, {threshold:.5});
+    document.querySelectorAll('[data-count]').forEach(function(el){ ioNum.observe(el); });
+    
+    /* ── Destellos flotantes de fondo ── */
+    document.querySelectorAll('.sparkle-layer').forEach(function(layer){
+      if (menosMov) return;
+      var count = parseInt(layer.dataset.sparkles, 10) || 20;
+      var frag = document.createDocumentFragment();
+      for (var i = 0; i < count; i++){
+        var s = document.createElement('span');
+        s.className = 'sparkle';
+        s.style.left = Math.random()*100 + '%';
+        s.style.top = Math.random()*100 + '%';
+        s.style.setProperty('--s', (4 + Math.random()*12) + 'px');
+        s.style.setProperty('--dur', (3.5 + Math.random()*5) + 's');
+        s.style.setProperty('--delay', (Math.random()*6) + 's');
+        s.style.setProperty('--peak', (0.45 + Math.random()*0.5).toFixed(2));
+        if (i % 4 === 0){ s.style.color = 'var(--terracota)'; }
+        frag.appendChild(s);
+      }
+      layer.appendChild(frag);
+    });
+    
+    /* ── Rastro de destellos del cursor ── */
+    if (!menosMov && window.matchMedia('(hover: hover) and (pointer: fine)').matches){
+      var lastSpark = 0;
+      document.addEventListener('pointermove', function(e){
+        var now = performance.now();
+        if (now - lastSpark < 90) return;
+        lastSpark = now;
+        var spark = document.createElement('span');
+        spark.className = 'cursor-spark';
+        spark.style.left = (e.clientX + (Math.random()*16 - 8)) + 'px';
+        spark.style.top = (e.clientY + (Math.random()*16 - 8)) + 'px';
+        if (Math.random() > 0.65){ spark.style.color = 'var(--terracota)'; }
+        document.body.appendChild(spark);
+        spark.addEventListener('animationend', function(){ spark.remove(); });
+      }, {passive:true});
+    }
+    
+    /* ── Demo interactiva de recetas ── */
+    var RECETAS = [
+      {n:'Frittata de la nevera', e:'🍳', ing:['huevos','tomate','queso','espinacas'], t:'25 min', d:'Fácil', tag:'Keto', img:'assets/images/recetas/frittata.webp', alt:'Frittata dorada con espinacas y tomates cherry'},
+      {n:'Tortilla española express', e:'🍳', ing:['huevos','cebolla','aceite'], t:'20 min', d:'Fácil', tag:'Tradicional', img:'assets/images/recetas/tortilla.webp', alt:'Tortilla española con cebolla caramelizada'},
+      {n:'Ensalada mediterránea', e:'🥗', ing:['tomate','queso','aceite','cebolla'], t:'10 min', d:'Fácil', tag:'Vegetariana', img:'assets/images/recetas/ensalada.webp', alt:'Ensalada mediterránea fresca con queso feta'},
+      {n:'Pasta al ajo y tomate', e:'🍝', ing:['pasta','ajo','tomate','aceite'], t:'15 min', d:'Fácil', tag:'Vegana', img:'assets/images/recetas/pasta.webp', alt:'Pasta con salsa de tomate y ajo'},
+      {n:'Tomates aliñados', e:'🍅', ing:['tomate','ajo','aceite'], t:'5 min', d:'Fácil', tag:'Vegana', img:'assets/images/recetas/tomates.webp', alt:'Tomates aliñados con ajo y aceite de oliva'}
+    ];
+    var picker = document.getElementById('pantryPicker');
+    var spellCard = document.getElementById('spellCard');
+    var trickMore = document.getElementById('trickMore');
+    var ultimaReceta = null;
+    
+    var DESPENSA = [
+      {i:'huevos', e:'🥚', n:'Huevos'},
+      {i:'tomate', e:'🍅', n:'Tomate'},
+      {i:'queso', e:'🧀', n:'Queso'},
+      {i:'ajo', e:'🧄', n:'Ajo'},
+      {i:'cebolla', e:'🧅', n:'Cebolla'},
+      {i:'espinacas', e:'🥬', n:'Espinacas'},
+      {i:'pasta', e:'🍝', n:'Pasta'},
+      {i:'aceite', e:'🫒', n:'Aceite'}
+    ];
+    var activos = {huevos:true, tomate:true, queso:true, ajo:false, cebolla:false, espinacas:false, pasta:false, aceite:false};
+    
+    function nombreDel(i){
+      for (var k = 0; k < DESPENSA.length; k++){ if (DESPENSA[k].i === i) return DESPENSA[k].e + ' ' + DESPENSA[k].n; }
+      return i;
+    }
+    
+    DESPENSA.forEach(function(x){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'pantry-picker__btn';
+      b.innerHTML = x.e + ' ' + x.n;
+      b.setAttribute('aria-pressed', activos[x.i]);
+      b.addEventListener('click', function(){
+        activos[x.i] = !activos[x.i];
+        b.setAttribute('aria-pressed', activos[x.i]);
+        pintarResultado();
+      });
+      picker.appendChild(b);
+    });
+    
+    function seleccionados(){
+      return DESPENSA.filter(function(x){ return activos[x.i]; }).map(function(x){ return x.i; });
+    }
+    
+    function mejorReceta(sel){
+      var mejor = null, mejorScore = 0;
+      RECETAS.forEach(function(r){
+        var coin = r.ing.filter(function(i){ return sel.indexOf(i) !== -1; }).length;
+        var score = coin / r.ing.length;
+        if (coin > 0 && score > mejorScore) { mejorScore = score; mejor = r; }
+      });
+      return mejor ? {r:mejor, pct:Math.round(mejorScore*100)} : null;
+    }
+    
+    function pintarResultado(){
+      var m = mejorReceta(seleccionados());
+      if (m && m.pct >= 100 && !(ultimaReceta && ultimaReceta.pct >= 100)) confeti();
+      ultimaReceta = m;
+      spellCard.classList.remove('is-casting');
+      void spellCard.offsetWidth;
+      spellCard.classList.add('is-casting');
+      if (!m){
+        spellCard.innerHTML = '<div class="spell-card__empty"><span class="spark">🤔</span><p>Añade algún ingrediente más<br>y volvemos a intentarlo.</p></div>';
+        trickMore.innerHTML = '';
+        return;
+      }
+      var faltan = m.r.ing.filter(function(i){ return seleccionados().indexOf(i) === -1; });
+      var mediaHtml = m.r.img 
+        ? '<img src="' + m.r.img + '" alt="' + m.r.alt + '" loading="lazy" width="800" height="500" />'
+        : '<div style="width:100%;height:100%;display:grid;place-items:center;font-size:4rem;background:var(--crema-profunda)">' + m.r.e + '</div>';
+      spellCard.innerHTML =
+        '<div class="spell-card__media">' + mediaHtml + '</div>' +
+        '<div class="spell-card__match">✨ ' + m.pct + '% match</div>' +
+        '<div class="spell-card__body">' +
+          '<h3 class="spell-card__name">' + m.r.n + '</h3>' +
+          '<div class="spell-card__meta"><span>⏱ ' + m.r.t + '</span> <span>🔥 ' + m.r.d + '</span> <span>🍽 ' + m.r.tag + '</span></div>' +
+          '<div class="spell-card__uses">' + m.r.ing.map(function(i){
+            return '<span class="spell-card__use' + (faltan.indexOf(i) !== -1 ? ' spell-card__use--missing' : '') + '">' + nombreDel(i) + '</span>';
+          }).join('') + '</div>' +
+        '</div>';
+      trickMore.innerHTML = m.pct < 100
+        ? 'Magia al <strong>' + m.pct + '%</strong> — añade <strong>' + faltan.map(nombreDel).join(', ') + '</strong> para llegar al 100%.'
+        : 'Match perfecto: <strong>100%</strong>. ¡A cocinar!';
+    }
+    
+    /* ── Confeti ─ */
+    function confeti(){
+      if (menosMov) return;
+      var colores = ['#459b5b','#eacc34','#e28538','#22c55e','#fbbf24'];
+      for (var i = 0; i < 70; i++){
+        var p = document.createElement('span');
+        p.className = 'confetti';
+        p.style.left = Math.random()*100 + 'vw';
+        p.style.background = colores[i % colores.length];
+        p.style.animationDelay = (Math.random()*4) + 's';
+        document.body.appendChild(p);
+        setTimeout(function(el){ return function(){ el.remove(); }; }(p), 2800);
+      }
+    }
+    
+    pintarResultado();
+    
+    /* ── Generar destellos mágicos en tarjeta verde ── */
+    document.querySelectorAll('.solution-sparkles').forEach(function(layer) {
+      var count = parseInt(layer.dataset.sparkles, 10) || 15;
+      var frag = document.createDocumentFragment();
+      
+      for (var i = 0; i < count; i++) {
+        var s = document.createElement('span');
+        s.className = 'solution-sparkle';
+        
+        if (i % 3 === 0) {
+          s.classList.add('solution-sparkle--white');
+        } else if (i % 3 === 1) {
+          s.classList.add('solution-sparkle--gold');
+        }
+        
+        s.style.left = Math.random() * 100 + '%';
+        s.style.top = Math.random() * 100 + '%';
+        s.style.setProperty('--s', (4 + Math.random() * 8) + 'px');
+        s.style.setProperty('--dur', (3.5 + Math.random() * 4) + 's');
+        s.style.setProperty('--delay', (Math.random() * 6) + 's');
+        
+        frag.appendChild(s);
+      }
+      
+      layer.appendChild(frag);
+    });
+    
+    /* ── Generar destellos flotantes en funciones ── */
+    document.querySelectorAll('.funciones__sparkles').forEach(function(layer) {
+      var count = parseInt(layer.dataset.sparkles, 10) || 40;
+      var frag = document.createDocumentFragment();
+      
+      for (var i = 0; i < count; i++) {
+        var s = document.createElement('span');
+        s.className = 'sparkle';
+        
+        if (i % 4 === 0) {
+          s.classList.add('sparkle--verde');
+        } else if (i % 4 === 1) {
+          s.classList.add('sparkle--amarillo');
+        } else if (i % 4 === 2) {
+          s.classList.add('sparkle--terracota');
+        } else {
+          s.classList.add('sparkle--blanco');
+        }
+        
+        if (i % 3 === 0) {
+          s.classList.add('sparkle--grande');
+        } else if (i % 3 === 1) {
+          s.classList.add('sparkle--mediano');
+        } else {
+          s.classList.add('sparkle--pequeno');
+        }
+        
+        s.style.left = Math.random() * 100 + '%';
+        s.style.top = Math.random() * 100 + '%';
+        s.style.setProperty('--s', (4 + Math.random() * 8) + 'px');
+        s.style.setProperty('--dur', (3 + Math.random() * 5) + 's');
+        s.style.setProperty('--delay', (Math.random() * 8) + 's');
+        
+        frag.appendChild(s);
+      }
+      
+      layer.appendChild(frag);
+    });
+    
+    /* ── Carrusel de galería ── */
+    (function() {
+      var track = document.getElementById('carouselTrack');
+      var slides = Array.from(document.querySelectorAll('.carousel__slide'));
+      var dotsContainer = document.getElementById('carouselDots');
+      var prevBtn = document.querySelector('.carousel__btn--prev');
+      var nextBtn = document.querySelector('.carousel__btn--next');
+      var viewport = document.getElementById('carouselViewport');
+      
+      if (!track || !slides.length || !viewport) return;
+      
+      var currentIndex = 0;
+      
+      // Crear dots
+      slides.forEach(function(_, i) {
+        var dot = document.createElement('button');
+        dot.className = 'carousel__dot' + (i === 0 ? ' is-active' : '');
+        dot.setAttribute('aria-label', 'Ir a la pantalla ' + (i + 1));
+        dot.addEventListener('click', function() { goToSlide(i); });
+        dotsContainer.appendChild(dot);
+      });
+      
+      var dots = Array.from(document.querySelectorAll('.carousel__dot'));
+      
+      function updateSlides() {
+        slides.forEach(function(slide, i) {
+          slide.classList.remove('is-active', 'is-adjacent');
+          
+          if (i === currentIndex) {
+            slide.classList.add('is-active');
+          } else if (i === currentIndex - 1 || i === currentIndex + 1 ||
+                     (currentIndex === 0 && i === slides.length - 1) ||
+                     (currentIndex === slides.length - 1 && i === 0)) {
+            slide.classList.add('is-adjacent');
+          }
+        });
+        
+        dots.forEach(function(dot, i) {
+          dot.classList.toggle('is-active', i === currentIndex);
+        });
+        
+        // Centrar el slide activo
+        var slideWidth = slides[currentIndex].offsetWidth;
+        var viewportWidth = viewport.offsetWidth;
+        var slideOffset = slides[currentIndex].offsetLeft;
+        var centerOffset = slideOffset - (viewportWidth / 2) + (slideWidth / 2);
+        
+        track.style.transform = 'translateX(' + (-centerOffset) + 'px)';
+      }
+      
+      function goToSlide(index) {
+        currentIndex = index;
+        if (currentIndex < 0) currentIndex = slides.length - 1;
+        if (currentIndex >= slides.length) currentIndex = 0;
+        updateSlides();
+      }
+      
+      if (prevBtn) prevBtn.addEventListener('click', function() { goToSlide(currentIndex - 1); });
+      if (nextBtn) nextBtn.addEventListener('click', function() { goToSlide(currentIndex + 1); });
+      
+      // Touch swipe
+      var startX = 0;
+      
+      viewport.addEventListener('touchstart', function(e) {
+        startX = e.touches[0].clientX;
+      }, { passive: true });
+      
+      viewport.addEventListener('touchend', function(e) {
+        var endX = e.changedTouches[0].clientX;
+        var diff = startX - endX;
+        
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) {
+            goToSlide(currentIndex + 1);
+          } else {
+            goToSlide(currentIndex - 1);
+          }
+        }
+      }, { passive: true });
+      
+      // Click en slide
+      slides.forEach(function(slide, i) {
+        slide.addEventListener('click', function() {
+          if (i !== currentIndex) goToSlide(i);
+        });
+      });
+      
+      // Iniciar
+      updateSlides();
+      
+      // Recalcular en resize
+      window.addEventListener('resize', updateSlides);
+      
+      // Destellos
+      document.querySelectorAll('.galeria__sparkles').forEach(function(layer) {
+        var count = parseInt(layer.dataset.sparkles, 10) || 25;
+        var frag = document.createDocumentFragment();
+        
+        for (var i = 0; i < count; i++) {
+          var s = document.createElement('span');
+          s.className = 'sparkle';
+          
+          if (i % 2 === 0) {
+            s.classList.add('sparkle--verde');
+          } else {
+            s.classList.add('sparkle--amarillo');
+          }
+          
+          s.style.left = Math.random() * 100 + '%';
+          s.style.top = Math.random() * 100 + '%';
+          s.style.setProperty('--s', (3 + Math.random() * 7) + 'px');
+          s.style.setProperty('--dur', (3 + Math.random() * 4) + 's');
+          s.style.setProperty('--delay', (Math.random() * 6) + 's');
+          
+          frag.appendChild(s);
+        }
+        
+        layer.appendChild(frag);
+      });
+    })();
+    
+    /* ── Formulario CTA final ── */
+    var ctaForm = document.getElementById('cta-form');
+    var ctaEmail = document.getElementById('cta-email');
+    var formNote = document.getElementById('formNote');
+    
+    if (ctaForm && ctaEmail) {
+      ctaForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var email = ctaEmail.value.trim();
+        
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          ctaEmail.classList.add('is-invalid');
+          ctaEmail.focus();
+          if (formNote) formNote.textContent = 'Ups, revisa tu email y volvemos a intentarlo 🙂';
+          return;
+        }
+        
+        ctaEmail.classList.remove('is-invalid');
+        if (formNote) {
+          formNote.textContent = '✨ ¡Magia hecha! Te avisaremos en cuanto Alacena Mágica esté lista.';
+          formNote.style.fontWeight = '700';
+          formNote.style.fontSize = '1.1rem';
+        }
+        this.outerHTML = '<p style="font-size:1.3rem;font-weight:700;color:var(--verde-oscuro);margin-top:1.5rem">✨ ¡Magia hecha! Te avisaremos en cuanto Alacena Mágica esté lista.</p>';
+        if (typeof confeti === 'function') confeti();
+      });
+      
+      ctaEmail.addEventListener('input', function() {
+        this.classList.remove('is-invalid');
+      });
+    }
+
+    /* ── Año del copyright ── */
+    document.querySelectorAll('[data-year]').forEach(function(el) {
+      el.textContent = new Date().getFullYear();
+    });
+
+    /* ── Preloader mágico ── */
+    (function() {
+      var preloader = document.getElementById('preloader');
+      if (!preloader) return;
+      
+      var TIEMPO_MINIMO = 2500; // 2.5 segundos mínimo de visualización
+      var tiempoInicio = Date.now();
+      var paginaCargada = false;
+      var preloaderOculto = false;
+      
+      function hidePreloader() {
+        if (preloaderOculto) return;
+        preloaderOculto = true;
+        
+        preloader.classList.add('is-hidden');
+        
+        // Eliminar del DOM después de la transición
+        setTimeout(function() {
+          preloader.remove();
+        }, 900);
+      }
+      
+      function intentarOcultar() {
+        if (paginaCargada) {
+          var tiempoTranscurrido = Date.now() - tiempoInicio;
+          var tiempoRestante = Math.max(0, TIEMPO_MINIMO - tiempoTranscurrido);
+          
+          // Esperar el tiempo restante antes de ocultar
+          setTimeout(hidePreloader, tiempoRestante);
+        }
+      }
+      
+      // Cuando la página esté cargada
+      if (document.readyState === 'complete') {
+        paginaCargada = true;
+        intentarOcultar();
+      } else {
+        window.addEventListener('load', function() {
+          paginaCargada = true;
+          intentarOcultar();
+        });
+      }
+      
+      // Fallback: ocultar después de 5 segundos máximo
+      setTimeout(hidePreloader, 5000);
+    })();
+    })();
+  </script>
+</body>
+</html>

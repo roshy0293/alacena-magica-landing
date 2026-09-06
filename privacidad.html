@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Política de Privacidad · Alacena Mágica</title>
+  <meta name="description" content="Cómo Alacena Mágica recoge, usa y protege tus datos personales." />
+  <meta name="theme-color" content="#0c1c0d" />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="icon" type="image/svg+xml" href="assets/logos/Isotipo.svg" />
+  <link rel="apple-touch-icon" href="assets/logos/Isotipo.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..700,0..100,0..1;1,9..144,400..700,0..100,0..1&family=Outfit:wght@300..700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ══════════════════════════════════════════
+       ALACENA MÁGICA · LEGAL COMPLETO
+       ══════════════════════════════════════════ */
+    :root {
+      --verde-marca: #459b5b;
+      --verde-claro: #6bb87f;
+      --verde-suave: #e6f2ea;
+      --verde-texto: #2f7044;
+      --amarillo: #eacc34;
+      --amarillo-suave: #fbf4cf;
+      --oro-texto: #7a6100;
+      --gris-oscuro: #40403f;
+      --texto-suave: #6b6862;
+      --crema: #f5f1e8;
+      --crema-profunda: #ece6d8;
+      --blanco: #ffffff;
+      --gris-claro: #e8e4dc;
+      --verde-oscuro: #1d381c;
+      --terracota: #e28538;
+      --terracota-suave: #fbeadb;
+      --terracota-texto: #a0501a;
+      --noche: #0c1c0d;
+      --noche-2: #12280f;
+      --noche-borde: rgba(255, 255, 255, 0.10);
+      --noche-vidrio: rgba(255, 255, 255, 0.06);
+      --noche-texto: #dfe8dc;
+      --noche-tenue: rgba(223, 232, 220, 0.62);
+
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body: 'Outfit', system-ui, sans-serif;
+
+      --r-sm: 12px;
+      --r-md: 20px;
+      --r-lg: 28px;
+      --r-xl: 40px;
+      --r-pill: 999px;
+      --nav-h: 76px;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --t-fast: 0.22s var(--ease);
+      --t-med: 0.45s var(--ease);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: var(--nav-h); }
+    body {
+      font-family: var(--font-body);
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      color: var(--gris-oscuro);
+      background: var(--crema);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      color: var(--verde-oscuro);
+      line-height: 1.1;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    ul, ol { list-style: none; padding: 0; margin: 0; }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin-inline: auto;
+      padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+    }
+
+    .skip-link {
+      position: fixed; left: 50%; top: 0; transform: translate(-50%, -100%);
+      background: var(--verde-oscuro); color: #fff; padding: 0.8rem 1.6rem;
+      border-radius: 0 0 var(--r-md) var(--r-md); z-index: 3000;
+      font-weight: 600; transition: transform var(--t-fast);
+    }
+    .skip-link:focus { transform: translate(-50%, 0); color: #fff; }
+
+    /* ═══ NAVBAR ═══ */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(245, 241, 232, 0.92);
+      backdrop-filter: blur(16px) saturate(1.4);
+      -webkit-backdrop-filter: blur(16px) saturate(1.4);
+      border-bottom: 1px solid var(--gris-claro);
+      box-shadow: 0 4px 20px rgba(29, 56, 28, 0.06);
+    }
+    .navbar__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: var(--nav-h);
+      gap: 20px;
+    }
+    .navbar__brand {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .navbar__logo {
+      height: 56px;
+      width: auto;
+      transition: transform var(--t-fast);
+    }
+    .navbar__brand:hover .navbar__logo {
+      transform: scale(1.04);
+    }
+    .navbar__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--verde-texto);
+      padding: 0.6rem 1.2rem;
+      border-radius: var(--r-pill);
+      background: var(--verde-suave);
+      border: 1px solid rgba(69, 155, 91, 0.2);
+      transition: all var(--t-fast);
+      white-space: nowrap;
+    }
+    .navbar__back:hover {
+      background: var(--verde-marca);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(69, 155, 91, 0.3);
+    }
+
+    /* ═══ LEGAL HERO ═══ */
+    .legal-hero {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(165deg, var(--noche) 0%, var(--noche-2) 50%, #1a3417 100%);
+      color: var(--noche-texto);
+      padding-top: clamp(7rem, 12vw, 9rem);
+      padding-bottom: clamp(3rem, 6vw, 5rem);
+      text-align: center;
+    }
+    .legal-hero__inner {
+      position: relative;
+      z-index: 2;
+      max-width: 44rem;
+      margin-inline: auto;
+    }
+    .pill--dark {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.5rem 1rem;
+      border-radius: var(--r-pill);
+      background: var(--noche-vidrio);
+      color: var(--amarillo);
+      border: 1px solid var(--noche-borde);
+      backdrop-filter: blur(10px);
+      margin-bottom: 1.25rem;
+    }
+    .legal-hero__title {
+      font-size: clamp(2.2rem, 4.5vw + 0.5rem, 3.5rem);
+      color: #fff;
+      margin-bottom: 1rem;
+      letter-spacing: -0.03em;
+    }
+    .legal-hero__sub {
+      font-size: 1.1rem;
+      color: var(--noche-tenue);
+      max-width: 34rem;
+      margin: 0 auto 1.25rem;
+      line-height: 1.6;
+    }
+    .legal-hero__meta {
+      font-size: 0.9rem;
+      color: var(--amarillo);
+      font-weight: 500;
+    }
+
+    /* Aurora */
+    .aurora { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+    .aurora span {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      will-change: transform;
+    }
+    .aurora span:nth-child(1) {
+      width: 45vw; height: 45vw; top: -15%; left: -5%;
+      background: radial-gradient(circle, rgba(107, 184, 127, 0.5), transparent 70%);
+      animation: drift-a 22s var(--ease) infinite alternate;
+    }
+    .aurora span:nth-child(2) {
+      width: 35vw; height: 35vw; top: 10%; right: -10%;
+      background: radial-gradient(circle, rgba(234, 204, 52, 0.3), transparent 70%);
+      animation: drift-b 26s var(--ease) infinite alternate;
+    }
+    .aurora span:nth-child(3) {
+      width: 30vw; height: 30vw; bottom: -10%; left: 30%;
+      background: radial-gradient(circle, rgba(226, 133, 56, 0.25), transparent 70%);
+      animation: drift-c 30s var(--ease) infinite alternate;
+    }
+    @keyframes drift-a { to { transform: translate(12%, 14%) scale(1.15); } }
+    @keyframes drift-b { to { transform: translate(-14%, 10%) scale(1.2); } }
+    @keyframes drift-c { to { transform: translate(8%, -12%) scale(1.1); } }
+
+    /* Grain */
+    .grain { position: relative; isolation: isolate; }
+    .grain::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+      mix-blend-mode: overlay;
+      z-index: 1;
+    }
+    .grain > * { position: relative; z-index: 2; }
+
+    /* ═══ CONTENIDO LEGAL ═══ */
+    .legal {
+      background: var(--crema);
+      padding-block: clamp(2.5rem, 5vw, 4rem);
+    }
+    .legal__layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: clamp(2rem, 4vw, 3rem);
+      align-items: start;
+    }
+
+    /* TOC */
+    .legal__toc {
+      position: sticky;
+      top: calc(var(--nav-h) + 20px);
+    }
+    .legal__toc-box {
+      background: #fff;
+      border-radius: var(--r-lg);
+      padding: 1.5rem;
+      border: 1px solid var(--gris-claro);
+      box-shadow: 0 8px 24px rgba(29, 56, 28, 0.06);
+    }
+    .legal__toc-title {
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--texto-suave);
+      margin-bottom: 1rem;
+    }
+    .legal__toc ol {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .legal__toc a {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--texto-suave);
+      padding: 0.4rem 0.6rem;
+      border-radius: var(--r-sm);
+      transition: all var(--t-fast);
+      font-weight: 500;
+    }
+    .legal__toc a:hover {
+      background: var(--verde-suave);
+      color: var(--verde-texto);
+    }
+    .legal__toc a.is-active {
+      background: var(--verde-marca);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Cuerpo */
+    .legal__body {
+      background: #fff;
+      border-radius: var(--r-xl);
+      padding: clamp(1.75rem, 3.5vw, 3rem);
+      border: 1px solid var(--gris-claro);
+      box-shadow: 0 8px 32px rgba(29, 56, 28, 0.06);
+    }
+    .legal__body h2 {
+      font-size: 1.4rem;
+      color: var(--verde-oscuro);
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--amarillo-suave);
+      scroll-margin-top: calc(var(--nav-h) + 20px);
+    }
+    .legal__body h2:first-child {
+      margin-top: 0;
+    }
+    .legal__body p {
+      font-size: 0.98rem;
+      color: var(--gris-oscuro);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .legal__body ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1rem 0;
+    }
+    .legal__body li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.98rem;
+      color: var(--gris-oscuro);
+      line-height: 1.6;
+    }
+    .legal__body li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--verde-marca);
+      font-weight: 700;
+    }
+    .legal__note {
+      background: var(--amarillo-suave);
+      border-radius: var(--r-md);
+      padding: 1.25rem;
+      border-left: 3px solid var(--amarillo);
+      margin-top: 1rem;
+    }
+    .legal__note p {
+      margin: 0;
+    }
+    .legal__note a {
+      color: var(--oro-texto);
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    /* ═══ FOOTER (NUEVO - igual que index.html) ═══ */
+    .footer {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      background: var(--crema);
+      color: var(--texto-suave);
+      padding-top: clamp(3rem, 6vw, 4.5rem);
+    }
+    .footer::before {
+      content: '';
+      position: absolute; inset: 0; z-index: -2;
+      background: url('assets/logos/Alacena_Magica_Pattern.svg') center / cover no-repeat;
+      opacity: 0.08;
+      -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 38%, transparent 72%);
+      mask-image: linear-gradient(180deg, #000 0%, #000 38%, transparent 72%);
+    }
+    .footer__brand {
+      display: flex;
+      justify-content: center;
+      padding-inline: 24px;
+    }
+    .footer__brand img {
+      height: clamp(100px, 14vw, 180px);
+      width: auto;
+      transition: transform var(--t-med);
+    }
+    .footer__brand a:hover img {
+      transform: translateY(-4px);
+    }
+    .footer__legal {
+      margin-top: clamp(2rem, 4vw, 3rem);
+      padding-block: clamp(1.5rem, 3vw, 2rem);
+    }
+    .footer__legal-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem clamp(1.5rem, 4vw, 3.5rem);
+    }
+    .footer__legal-links a {
+      color: var(--verde-texto);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color var(--t-fast);
+    }
+    .footer__legal-links a:hover {
+      color: var(--verde-marca);
+    }
+    .footer__legal-links a[aria-current="page"] {
+      color: var(--terracota-texto);
+      font-weight: 700;
+    }
+    .footer__stores {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.75rem;
+    }
+    .footer__stores img {
+      height: 46px;
+      width: auto;
+      transition: transform var(--t-fast);
+    }
+    .footer__stores a:hover img {
+      transform: translateY(-3px);
+    }
+    .footer__copy {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--texto-suave);
+      margin-top: 1.75rem;
+    }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 968px) {
+      .legal__layout {
+        grid-template-columns: 1fr;
+      }
+      .legal__toc {
+        position: static;
+        order: -1;
+      }
+      .legal__toc-box {
+        max-height: 200px;
+        overflow-y: auto;
+      }
+    }
+    @media (max-width: 480px) {
+      .navbar__back span {
+        display: none;
+      }
+      .navbar__logo {
+        height: 45px;
+      }
+      .legal__body {
+        padding: 1.25rem;
+        border-radius: var(--r-lg);
+      }
+      .legal-hero__title {
+        font-size: 1.8rem;
+      }
+      .footer__legal-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.9rem;
+      }
+      .footer__stores img {
+        height: 42px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido principal</a>
+
+  <!-- ══════════ NAVBAR ══════════ -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a class="navbar__brand" href="index.html" aria-label="Alacena Mágica, ir al inicio">
+        <img
+          src="assets/logos/Alacena_Magica_Alacena_Magica_Logo_Color.png"
+          alt="Alacena Mágica"
+          class="navbar__logo"
+          width="180" height="56"
+        />
+      </a>
+      <a class="navbar__back" href="index.html">← <span>Volver al inicio</span></a>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ══════════ CABECERA ══════════ -->
+    <section class="legal-hero grain">
+      <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="container legal-hero__inner">
+        <span class="pill pill--dark">🔒 Tus datos</span>
+        <h1 class="legal-hero__title">Política de Privacidad</h1>
+        <p class="legal-hero__sub">
+          Qué datos recogemos, para qué los usamos y cómo puedes controlarlos.
+          Sin letra pequeña innecesaria.
+        </p>
+        <p class="legal-hero__meta">
+          <span aria-hidden="true">📅</span>
+          Última actualización: <strong>18 de marzo de 2026</strong>
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════ CONTENIDO ══════════ -->
+    <section class="legal">
+      <div class="container legal__layout">
+
+        <aside class="legal__toc" id="legalToc" aria-label="Índice de la página">
+          <div class="legal__toc-box">
+            <p class="legal__toc-title">En esta página</p>
+            <ol id="tocList"></ol>
+          </div>
+        </aside>
+
+        <article class="legal__body" id="legalBody">
+
+          <p>
+            En Alacena Mágica, valoramos tu privacidad. Esta política explica cómo manejamos
+            la información cuando utilizas nuestra aplicación, específicamente en relación
+            con el uso de la cámara y tus datos de inventario.
+          </p>
+
+          <h2>1. Información que Recopilamos</h2>
+          <p>
+            Para ofrecerte un servicio de gestión de inventario eficiente, solicitamos
+            el siguiente permiso:
+          </p>
+          <ul>
+            <li>
+              <strong>Cámara (CAMERA):</strong> Accedemos a la cámara de tu dispositivo
+              únicamente cuando decides realizar una acción específica dentro de la app.
+            </li>
+          </ul>
+
+          <h2>2. Uso de la Cámara y Propósito</h2>
+          <p>El uso del permiso de cámara se limita a dos funcionalidades exclusivas:</p>
+          <ul>
+            <li>
+              <strong>Inventario Visual:</strong> Permitirte tomar fotos de la nevera o
+              alacena para registrar visualmente lo que tienes disponible.
+            </li>
+            <li>
+              <strong>Escaneo de Tickets:</strong> Escanear tus tickets de compra para
+              procesar automáticamente los ingredientes adquiridos e incorporarlos a tu
+              base de datos de inventario mediante tecnología de reconocimiento.
+            </li>
+          </ul>
+
+          <h2>3. Almacenamiento y Protección de Datos</h2>
+          <ul>
+            <li>
+              <strong>Imágenes:</strong> Las fotos tomadas se utilizan para el procesamiento
+              de datos. No las vendemos ni compartimos estas imágenes con terceros con fines
+              publicitarios.
+            </li>
+            <li>
+              <strong>Seguridad:</strong> Implementamos medidas de seguridad estándar para
+              proteger la información que se almacena en tu base de datos de inventario.
+            </li>
+          </ul>
+
+          <h2>4. Intercambio de Datos con Terceros</h2>
+          <p>
+            Alacena Mágica no vende, alquila o comparte tus datos personales o imágenes con
+            terceras empresas. Los datos solo se procesan para el funcionamiento interno de
+            la aplicación (por ejemplo, el reconocimiento de texto de los tickets).
+          </p>
+
+          <h2>5. Control de Usuario y Borrado de Datos</h2>
+          <p>Tienes el control total sobre tus datos:</p>
+          <ul>
+            <li>
+              <strong>Acceso y Rectificación:</strong> Puedes modificar tu inventario en
+              cualquier momento desde la app.
+            </li>
+            <li>
+              <strong>Eliminación:</strong> Si deseas eliminar tu cuenta y todos los datos
+              asociados (incluyendo imágenes procesadas), puedes solicitarlo enviando un
+              correo a nuestra dirección de contacto.
+            </li>
+          </ul>
+
+          <h2>6. Contacto</h2>
+          <p>
+            Si tienes preguntas sobre esta política o el manejo de tus datos, puedes
+            contactarnos en:
+          </p>
+          <div class="legal__note">
+            <p>
+              <strong>Correo electrónico:</strong>
+              <a href="mailto:franciscorueda2602@gmail.com">franciscorueda2602@gmail.com</a>
+            </p>
+          </div>
+
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- ══════════ FOOTER NUEVO ══════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__brand">
+        <a href="index.html" aria-label="Alacena Mágica · Inicio">
+          <img src="assets/logos/Alacena_Magica_Alacena_Magica_Logo_Color.png" alt="Alacena Mágica · Crea magia con lo que tienes" loading="lazy" />
+        </a>
+      </div>
+
+      <div class="footer__legal">
+        <nav class="footer__legal-links" aria-label="Legal">
+          <a href="privacidad.html" aria-current="page">Política de Privacidad</a>
+          <a href="terminos.html">Términos y Condiciones</a>
+          <a href="cancelar-suscripcion.html">Cancelar suscripción</a>
+          <a href="soporte.html">Soporte</a>
+        </nav>
+
+        <div class="footer__stores">
+          <a href="#" aria-label="Descargar en App Store">
+            <img src="assets/images/app-store.webp" alt="" loading="lazy" />
+          </a>
+          <a href="#" aria-label="Descargar en Google Play">
+            <img src="assets/images/google-play.webp" alt="" loading="lazy" />
+          </a>
+        </div>
+
+        <p class="footer__copy">
+          Copyright © <span data-year>2026</span> Alacena Mágica. Todos los derechos reservados.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      'use strict';
+      
+      // ── Generar índice (TOC) ──
+      const tocList = document.getElementById('tocList');
+      const legalBody = document.getElementById('legalBody');
+      
+      if (tocList && legalBody) {
+        const headings = legalBody.querySelectorAll('h2');
+        
+        headings.forEach((heading, index) => {
+          if (!heading.id) {
+            heading.id = 'seccion-' + (index + 1);
+          }
+          
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = '#' + heading.id;
+          a.textContent = heading.textContent;
+          li.appendChild(a);
+          tocList.appendChild(li);
+        });
+      }
+      
+      // ── Scroll-spy para el TOC ──
+      const tocLinks = document.querySelectorAll('.legal__toc a');
+      
+      if (tocLinks.length && 'IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              tocLinks.forEach((link) => {
+                link.classList.remove('is-active');
+                if (link.getAttribute('href') === '#' + entry.target.id) {
+                  link.classList.add('is-active');
+                }
+              });
+            }
+          });
+        }, { rootMargin: '-30% 0px -60% 0px' });
+        
+        document.querySelectorAll('.legal__body h2').forEach((h) => observer.observe(h));
+      }
+      
+      // ── Año del copyright ──
+      document.querySelectorAll('[data-year]').forEach((el) => {
+        el.textContent = new Date().getFullYear();
+      });
+    })();
+  </script>
+</body>
+</html>

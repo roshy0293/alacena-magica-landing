@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Gracias · Alacena Mágica</title>
+  <meta name="description" content="Hemos recibido tu solicitud. Revisaremos tu petición lo antes posible." />
+  <meta name="theme-color" content="#0c1c0d" />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="assets/logos/Isotipo.svg" />
+  <link rel="apple-touch-icon" href="assets/logos/Isotipo.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..700,0..100,0..1;1,9..144,400..700,0..100,0..1&family=Outfit:wght@300..700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ══════════════════════════════════════════
+       ALACENA MÁGICA · GRACIAS COMPLETO
+       ══════════════════════════════════════════ */
+    :root {
+      --verde-marca: #459b5b;
+      --verde-claro: #6bb87f;
+      --verde-suave: #e6f2ea;
+      --verde-texto: #2f7044;
+      --amarillo: #eacc34;
+      --amarillo-suave: #fbf4cf;
+      --oro-texto: #7a6100;
+      --gris-oscuro: #40403f;
+      --texto-suave: #6b6862;
+      --crema: #f5f1e8;
+      --crema-profunda: #ece6d8;
+      --blanco: #ffffff;
+      --gris-claro: #e8e4dc;
+      --verde-oscuro: #1d381c;
+      --terracota: #e28538;
+      --terracota-suave: #fbeadb;
+      --terracota-texto: #a0501a;
+      --noche: #0c1c0d;
+      --noche-2: #12280f;
+      --noche-borde: rgba(255, 255, 255, 0.10);
+      --noche-vidrio: rgba(255, 255, 255, 0.06);
+      --noche-texto: #dfe8dc;
+      --noche-tenue: rgba(223, 232, 220, 0.62);
+
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body: 'Outfit', system-ui, sans-serif;
+
+      --r-sm: 12px;
+      --r-md: 20px;
+      --r-lg: 28px;
+      --r-xl: 40px;
+      --r-pill: 999px;
+      --nav-h: 76px;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --t-fast: 0.22s var(--ease);
+      --t-med: 0.45s var(--ease);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: var(--nav-h); }
+    body {
+      font-family: var(--font-body);
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      color: var(--gris-oscuro);
+      background: var(--crema);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      color: var(--verde-oscuro);
+      line-height: 1.1;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    ul, ol { list-style: none; padding: 0; margin: 0; }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin-inline: auto;
+      padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+    }
+
+    .skip-link {
+      position: fixed; left: 50%; top: 0; transform: translate(-50%, -100%);
+      background: var(--verde-oscuro); color: #fff; padding: 0.8rem 1.6rem;
+      border-radius: 0 0 var(--r-md) var(--r-md); z-index: 3000;
+      font-weight: 600; transition: transform var(--t-fast);
+    }
+    .skip-link:focus { transform: translate(-50%, 0); color: #fff; }
+
+    /* ═══ NAVBAR ═══ */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(245, 241, 232, 0.92);
+      backdrop-filter: blur(16px) saturate(1.4);
+      -webkit-backdrop-filter: blur(16px) saturate(1.4);
+      border-bottom: 1px solid var(--gris-claro);
+      box-shadow: 0 4px 20px rgba(29, 56, 28, 0.06);
+    }
+    .navbar__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: var(--nav-h);
+      gap: 20px;
+    }
+    .navbar__brand {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .navbar__logo {
+      height: 56px;
+      width: auto;
+      transition: transform var(--t-fast);
+    }
+    .navbar__brand:hover .navbar__logo {
+      transform: scale(1.04);
+    }
+    .navbar__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--verde-texto);
+      padding: 0.6rem 1.2rem;
+      border-radius: var(--r-pill);
+      background: var(--verde-suave);
+      border: 1px solid rgba(69, 155, 91, 0.2);
+      transition: all var(--t-fast);
+      white-space: nowrap;
+    }
+    .navbar__back:hover {
+      background: var(--verde-marca);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(69, 155, 91, 0.3);
+    }
+
+    /* ═══ LEGAL HERO ═══ */
+    .legal-hero {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(165deg, var(--noche) 0%, var(--noche-2) 50%, #1a3417 100%);
+      color: var(--noche-texto);
+      padding-top: clamp(7rem, 12vw, 9rem);
+      padding-bottom: clamp(3rem, 6vw, 5rem);
+      text-align: center;
+    }
+    .legal-hero__inner {
+      position: relative;
+      z-index: 2;
+      max-width: 44rem;
+      margin-inline: auto;
+    }
+    .pill--dark {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.5rem 1rem;
+      border-radius: var(--r-pill);
+      background: var(--noche-vidrio);
+      color: var(--amarillo);
+      border: 1px solid var(--noche-borde);
+      backdrop-filter: blur(10px);
+      margin-bottom: 1.25rem;
+    }
+    .legal-hero__title {
+      font-size: clamp(2.2rem, 4.5vw + 0.5rem, 3.5rem);
+      color: #fff;
+      margin-bottom: 1rem;
+      letter-spacing: -0.03em;
+    }
+    .legal-hero__sub {
+      font-size: 1.1rem;
+      color: var(--noche-tenue);
+      max-width: 34rem;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Aurora */
+    .aurora { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+    .aurora span {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      will-change: transform;
+    }
+    .aurora span:nth-child(1) {
+      width: 45vw; height: 45vw; top: -15%; left: -5%;
+      background: radial-gradient(circle, rgba(107, 184, 127, 0.5), transparent 70%);
+      animation: drift-a 22s var(--ease) infinite alternate;
+    }
+    .aurora span:nth-child(2) {
+      width: 35vw; height: 35vw; top: 10%; right: -10%;
+      background: radial-gradient(circle, rgba(234, 204, 52, 0.3), transparent 70%);
+      animation: drift-b 26s var(--ease) infinite alternate;
+    }
+    .aurora span:nth-child(3) {
+      width: 30vw; height: 30vw; bottom: -10%; left: 30%;
+      background: radial-gradient(circle, rgba(226, 133, 56, 0.25), transparent 70%);
+      animation: drift-c 30s var(--ease) infinite alternate;
+    }
+    @keyframes drift-a { to { transform: translate(12%, 14%) scale(1.15); } }
+    @keyframes drift-b { to { transform: translate(-14%, 10%) scale(1.2); } }
+    @keyframes drift-c { to { transform: translate(8%, -12%) scale(1.1); } }
+
+    /* Destellos */
+    .sparkle-layer {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .sparkle {
+      position: absolute;
+      width: var(--s, 5px);
+      height: var(--s, 5px);
+      color: var(--amarillo);
+      opacity: 0;
+      animation: twinkle var(--dur, 4s) var(--ease) var(--delay, 0s) infinite;
+      filter: drop-shadow(0 0 6px rgba(234, 204, 52, 0.5));
+    }
+    .sparkle::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: currentColor;
+      clip-path: polygon(50% 0%, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0% 50%, 40% 40%);
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+      35% { opacity: 1; transform: scale(1) rotate(35deg); }
+      60% { opacity: 0.3; transform: scale(0.75) rotate(70deg); }
+    }
+
+    /* Grain */
+    .grain { position: relative; isolation: isolate; }
+    .grain::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+      mix-blend-mode: overlay;
+      z-index: 1;
+    }
+    .grain > * { position: relative; z-index: 2; }
+
+    /* ═══ CONTENIDO ═══ */
+    .legal {
+      background: var(--crema);
+      padding-block: clamp(2.5rem, 5vw, 4rem);
+    }
+
+    /* ═══ PANELES ═══ */
+    .panel {
+      background: #fff;
+      border-radius: var(--r-xl);
+      padding: clamp(1.75rem, 3.5vw, 2.5rem);
+      border: 1px solid var(--gris-claro);
+      box-shadow: 0 8px 32px rgba(29, 56, 28, 0.06);
+      margin-bottom: 1.5rem;
+    }
+    .panel__title {
+      font-size: 1.4rem;
+      color: var(--verde-oscuro);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--amarillo-suave);
+    }
+    .panel__intro {
+      font-size: 0.98rem;
+      color: var(--gris-oscuro);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    /* ═══ THANKS ═══ */
+    .thanks {
+      text-align: center;
+    }
+    .thanks__icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.25rem;
+      border-radius: 50%;
+      background: var(--verde-suave);
+      display: grid;
+      place-items: center;
+      animation: float 3.5s var(--ease) infinite;
+    }
+    .thanks__icon img {
+      width: 48px;
+      height: auto;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .thanks__actions {
+      display: flex;
+      justify-content: center;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+      margin-top: 1.75rem;
+    }
+
+    /* ═══ BOTONES ═══ */
+    .btn {
+      position: relative; overflow: hidden;
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.55rem;
+      font-family: var(--font-body); font-weight: 600; font-size: 0.95rem;
+      padding: 0.85rem 1.6rem; border-radius: var(--r-pill);
+      transition: transform 0.22s var(--ease), box-shadow 0.22s var(--ease),
+                  background 0.22s var(--ease), color 0.22s var(--ease);
+      will-change: transform; text-align: center; line-height: 1.2;
+      isolation: isolate;
+    }
+    .btn--primary { background: var(--verde-marca); color: #fff; box-shadow: 0 8px 24px rgba(69,155,91,0.32); }
+    .btn--primary:hover { background: #3d8c52; color: #fff; transform: translateY(-3px); box-shadow: 0 16px 38px rgba(69,155,91,0.42); }
+    .btn--outline {
+      background: rgba(255,255,255,0.6);
+      color: var(--verde-oscuro);
+      box-shadow: inset 0 0 0 2px rgba(69,155,91,0.3);
+      backdrop-filter: blur(10px);
+    }
+    .btn--outline:hover {
+      background: rgba(255,255,255,0.9);
+      color: var(--verde-oscuro);
+      transform: translateY(-3px);
+      box-shadow: inset 0 0 0 2px rgba(69,155,91,0.5), 0 8px 24px rgba(69,155,91,0.15);
+    }
+
+    /* ═══ ALERTAS ═══ */
+    .alert {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      padding: 1.1rem 1.25rem;
+      border-radius: var(--r-md);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      text-align: left;
+    }
+    .alert__icon {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .alert--ok {
+      background: var(--verde-suave);
+      color: var(--verde-texto);
+    }
+
+    /* ═══ CONTACTO ═══ */
+    .contact-box {
+      background: var(--amarillo-suave);
+      border-radius: var(--r-md);
+      padding: 1.25rem;
+      border-left: 3px solid var(--amarillo);
+    }
+    .contact-box p {
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+    .contact-box p:last-child {
+      margin-bottom: 0;
+    }
+    .contact-box a {
+      color: var(--oro-texto);
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    /* ═══ FOOTER (NUEVO) ═══ */
+    .footer {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      background: var(--crema);
+      color: var(--texto-suave);
+      padding-top: clamp(3rem, 6vw, 4.5rem);
+    }
+    .footer::before {
+      content: '';
+      position: absolute; inset: 0; z-index: -2;
+      background: url('assets/logos/Alacena_Magica_Pattern.svg') center / cover no-repeat;
+      opacity: 0.08;
+      -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 38%, transparent 72%);
+      mask-image: linear-gradient(180deg, #000 0%, #000 38%, transparent 72%);
+    }
+    .footer__brand {
+      display: flex;
+      justify-content: center;
+      padding-inline: 24px;
+    }
+    .footer__brand img {
+      height: clamp(100px, 14vw, 180px);
+      width: auto;
+      transition: transform var(--t-med);
+    }
+    .footer__brand a:hover img {
+      transform: translateY(-4px);
+    }
+    .footer__legal {
+      margin-top: clamp(2rem, 4vw, 3rem);
+      padding-block: clamp(1.5rem, 3vw, 2rem);
+    }
+    .footer__legal-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem clamp(1.5rem, 4vw, 3.5rem);
+    }
+    .footer__legal-links a {
+      color: var(--verde-texto);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color var(--t-fast);
+    }
+    .footer__legal-links a:hover {
+      color: var(--verde-marca);
+    }
+    .footer__stores {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.75rem;
+    }
+    .footer__stores img {
+      height: 46px;
+      width: auto;
+      transition: transform var(--t-fast);
+    }
+    .footer__stores a:hover img {
+      transform: translateY(-3px);
+    }
+    .footer__copy {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--texto-suave);
+      margin-top: 1.75rem;
+    }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 480px) {
+      .navbar__back span {
+        display: none;
+      }
+      .navbar__logo {
+        height: 45px;
+      }
+      .legal-hero__title {
+        font-size: 1.8rem;
+      }
+      .panel {
+        padding: 1.25rem;
+        border-radius: var(--r-lg);
+      }
+      .thanks__actions {
+        flex-direction: column;
+      }
+      .thanks__actions .btn {
+        width: 100%;
+      }
+      .footer__legal-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.9rem;
+      }
+      .footer__stores img {
+        height: 42px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido principal</a>
+
+  <!-- ══════════ NAVBAR ══════════ -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a class="navbar__brand" href="index.html" aria-label="Alacena Mágica, ir al inicio">
+        <img
+          src="assets/logos/Alacena_Magica_Alacena_Magica_Logo_Color.webp"
+          alt="Alacena Mágica"
+          class="navbar__logo"
+          width="180" height="56"
+        />
+      </a>
+      <a class="navbar__back" href="index.html">← <span>Volver al inicio</span></a>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ══════════ CABECERA ══════════ -->
+    <section class="legal-hero grain">
+      <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="sparkle-layer" data-sparkles="16" aria-hidden="true"></div>
+      <div class="container legal-hero__inner">
+        <span class="pill pill--dark">✅ Solicitud enviada</span>
+        <h1 class="legal-hero__title">Gracias</h1>
+        <p class="legal-hero__sub">
+          Hemos recibido tu solicitud correctamente. Revisaremos tu petición lo antes posible.
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════ CONTENIDO ══════════ -->
+    <section class="legal">
+      <div class="container" style="max-width: 52rem">
+
+        <article class="panel thanks">
+          <div class="thanks__icon" aria-hidden="true">
+            <img src="assets/logos/Isotipo.svg" alt="" width="50" height="61" />
+          </div>
+          <h2 class="panel__title">Tu solicitud ha sido registrada</h2>
+
+          <p class="panel__intro">
+            Si has solicitado la eliminación de tu cuenta o de tus datos, procesaremos la
+            petición con la mayor brevedad posible.
+          </p>
+          <p class="panel__intro">
+            Si necesitamos información adicional para localizar tu cuenta, te contactaremos
+            en el correo que nos has indicado.
+          </p>
+
+          <div class="alert alert--ok" style="margin-top: 1.5rem">
+            <span class="alert__icon" aria-hidden="true">ℹ️</span>
+            <p>
+              <strong>Importante:</strong> si además tienes una suscripción activa, recuerda
+              que debes cancelarla desde <strong>Google Play</strong> o desde la
+              <strong>App Store</strong>.
+            </p>
+          </div>
+
+          <div class="thanks__actions">
+            <a href="index.html" class="btn btn--primary">Volver a la página principal</a>
+            <a href="mailto:franciscorueda2602@gmail.com" class="btn btn--outline">Contactar por email</a>
+          </div>
+        </article>
+
+        <article class="panel">
+          <h2 class="panel__title">Contacto</h2>
+          <div class="contact-box">
+            <p>
+              <strong>Email de soporte:</strong>
+              <a href="mailto:franciscorueda2602@gmail.com">franciscorueda2602@gmail.com</a>
+            </p>
+            <p>
+              <strong>Política de privacidad:</strong>
+              <a href="privacidad.html">www.alacenamagica.com/privacidad.html</a>
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ══════════ FOOTER NUEVO ══════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__brand">
+        <a href="index.html" aria-label="Alacena Mágica · Inicio">
+          <img src="assets/logos/Alacena_Magica_Alacena_Magica_Logo_Color.webp" alt="Alacena Mágica · Crea magia con lo que tienes" loading="lazy" />
+        </a>
+      </div>
+
+      <div class="footer__legal">
+        <nav class="footer__legal-links" aria-label="Legal">
+          <a href="privacidad.html">Política de Privacidad</a>
+          <a href="terminos.html">Términos y Condiciones</a>
+          <a href="cancelar-suscripcion.html">Cancelar suscripción</a>
+          <a href="soporte.html">Soporte</a>
+        </nav>
+
+        <div class="footer__stores">
+          <a href="#" aria-label="Descargar en App Store">
+            <img src="assets/images/app-store.webp" alt="" loading="lazy" />
+          </a>
+          <a href="#" aria-label="Descargar en Google Play">
+            <img src="assets/images/google-play.webp" alt="" loading="lazy" />
+          </a>
+        </div>
+
+        <p class="footer__copy">
+          Copyright © <span data-year>2026</span> Alacena Mágica. Todos los derechos reservados.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      'use strict';
+      
+      // ── Generar destellos ──
+      document.querySelectorAll('.sparkle-layer').forEach((layer) => {
+        const count = parseInt(layer.dataset.sparkles, 10) || 16;
+        const frag = document.createDocumentFragment();
+        
+        for (let i = 0; i < count; i++) {
+          const s = document.createElement('span');
+          s.className = 'sparkle';
+          s.style.left = Math.random() * 100 + '%';
+          s.style.top = Math.random() * 100 + '%';
+          s.style.setProperty('--s', (3 + Math.random() * 6) + 'px');
+          s.style.setProperty('--dur', (3 + Math.random() * 4) + 's');
+          s.style.setProperty('--delay', (Math.random() * 6) + 's');
+          frag.appendChild(s);
+        }
+        
+        layer.appendChild(frag);
+      });
+      
+      // ── Año del copyright ──
+      document.querySelectorAll('[data-year]').forEach((el) => {
+        el.textContent = new Date().getFullYear();
+      });
+    })();
+  </script>
+</body>
+</html>
