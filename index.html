@@ -687,131 +687,125 @@
     .confetti{position:fixed;top:-14px;width:10px;height:14px;border-radius:3px;z-index:999;pointer-events:none;animation:confettiFall 2.3s ease-in forwards}
     @keyframes confettiFall{to{transform:translateY(105vh) rotate(720deg)}}
     /* ══════════════════════════════════════════
-       SECCIÓN PROBLEMA — Bento Pinterest
+       SECCIÓN PROBLEMA — Bento Mobile Optimized
        ══════════════════════════════════════════ */
     .problemas {
-      padding-block: clamp(4rem, 8vw, 7rem);
+      padding-block: clamp(3.5rem, 8vw, 7rem);
       background: var(--blanco);
     }
     
+    /* BENTO GRID BASE (mobile-first) */
     .bento {
       display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      grid-auto-rows: minmax(120px, auto);
-      gap: clamp(1rem, 2vw, 1.5rem);
+      grid-template-columns: 1fr;
+      gap: 1rem;
     }
     
-    /* ── Imagen vertical grande (izquierda) ── */
-    .bento__vertical {
-      grid-column: span 5;
-      grid-row: span 3;
+    .bento__right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    
+    /* CARDS CON IMAGEN */
+    .bento__card--image {
       position: relative;
       overflow: hidden;
-      border-radius: var(--r-xl, 40px);
-      box-shadow: 0 30px 70px rgba(29, 56, 28, 0.15);
+      border-radius: var(--r-lg);
+      cursor: pointer;
+      transition: transform var(--t-med), box-shadow var(--t-med);
+      min-height: 240px;
     }
-    .bento__vertical img {
+    
+    .bento__card--image img {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
-      transition: transform var(--t-slow, 0.8s);
+      transition: transform var(--t-slow);
     }
-    .bento__vertical:hover img {
-      transform: scale(1.03);
-    }
-    .bento__vertical::after {
+    
+    .bento__card--image::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, transparent 40%, rgba(29,56,28,0.5));
-    }
-    .bento__vertical-caption {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 2;
-      padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2.25rem) clamp(1.5rem, 2vw, 1.75rem);
-      color: #fff;
-    }
-    .bento__vertical-caption h3 {
-      color: #fff;
-      font-size: clamp(1.3rem, 2vw + 0.5rem, 1.8rem);
-      margin-bottom: 0.5rem;
-    }
-    .bento__vertical-caption p {
-      color: rgba(255, 255, 255, 0.8);
-      font-size: 0.95rem;
-      line-height: 1.5;
+      background: linear-gradient(180deg, rgba(29,56,28,0) 0%, rgba(29,56,28,0.85) 100%);
+      z-index: 1;
     }
     
-    /* ── Tarjetas pequeñas (derecha) ── */
-    .bento__card {
+    .bento__card-content {
       position: relative;
-      overflow: hidden;
-      background: #fff;
-      border: 1px solid var(--gris-claro, #e8e4dc);
-      border-radius: var(--r-lg, 28px);
-      padding: clamp(1.5rem, 2.5vw, 2rem);
-      transition: transform var(--t-med, 0.45s), box-shadow var(--t-med, 0.45s), border-color var(--t-med, 0.45s);
+      z-index: 2;
+      color: #fff;
+      padding: 1.5rem;
+      margin-top: auto;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-    }
-    .bento__card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(29, 56, 28, 0.1);
-      border-color: rgba(69, 155, 91, 0.3);
+      justify-content: flex-end;
+      height: 100%;
     }
     
-    .bento__card--top {
-      grid-column: span 7;
-      grid-row: span 1;
-      background: linear-gradient(135deg, #fff 0%, var(--crema, #f5f1e8) 100%);
+    .bento__card-content h3 {
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 3.5vw, 1.35rem);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.35rem;
+      color: #fff;
     }
     
-    .bento__card--middle {
-      grid-column: span 7;
-      grid-row: span 1;
-      background: linear-gradient(135deg, #fff 0%, var(--amarillo-suave, #fbf4cf) 100%);
+    .bento__card-content p {
+      font-size: 0.85rem;
+      line-height: 1.4;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 0.75rem;
     }
     
-    .bento__card--bottom {
-      grid-column: span 7;
-      grid-row: span 1;
-      background: linear-gradient(135deg, #fff 0%, var(--terracota-suave, #fbeadb) 100%);
+    .bento__tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.7rem;
+      border-radius: var(--r-pill);
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      backdrop-filter: blur(8px);
+      width: fit-content;
+      border: 1px solid rgba(255,255,255,0.1);
     }
     
-    /* ── Tarjeta verde con efectos mágicos ── */
+    /* CARD VERTICAL */
+    .bento__card--vertical {
+      min-height: 280px;
+    }
+    
+    /* CARD SOLUCIÓN VERDE */
     .bento__card--solution {
-      grid-column: span 12;
-      grid-row: span 1;
-      background: linear-gradient(135deg, var(--verde-marca, #459b5b), #245c33);
+      order: -1;
+      background: linear-gradient(135deg, var(--verde-marca), #245c33);
       border: none;
       color: #fff;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      align-items: center;
-      padding: clamp(2rem, 4vw, 3rem);
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 2rem 1.5rem;
       position: relative;
       overflow: hidden;
-    }
-    .bento__card--solution:hover {
-      box-shadow: 0 30px 70px rgba(69, 155, 91, 0.3);
-      border-color: transparent;
+      border-radius: var(--r-xl);
+      margin-bottom: 0.5rem;
+      transition: transform var(--t-med), box-shadow var(--t-med);
     }
     
-    /* Isotipo como fondo decorativo transparente */
     .bento__solution-bg-isotipo {
       position: absolute;
-      top: 50%;
-      left: 0;
-      transform: translateY(-50%);
-      width: 350px;
-      height: 350px;
-      z-index: 0;
+      top: 1.5rem;
+      left: 1.5rem;
+      width: 100px;
+      height: 100px;
+      z-index: 1;
       pointer-events: none;
       opacity: 0.12;
       filter: brightness(0) invert(1);
@@ -822,22 +816,39 @@
       object-fit: contain;
     }
     
-    .bento__card--solution h3 {
-      color: #fff;
-      font-size: clamp(1.5rem, 2.5vw + 0.5rem, 2.2rem);
-      margin-bottom: 1rem;
-      position: relative;
-      z-index: 2;
-    }
-    .bento__card--solution p {
-      color: rgba(255, 255, 255, 0.85);
-      font-size: 1.1rem;
-      line-height: 1.6;
+    .bento__solution-text {
       position: relative;
       z-index: 2;
     }
     
-    /* Efectos mágicos */
+    .bento__card--solution h3 {
+      color: #fff;
+      font-size: clamp(1.4rem, 5vw, 2rem);
+      line-height: 1.15;
+      margin-bottom: 0.5rem;
+    }
+    
+    .bento__card--solution p {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    
+    .bento__solution-image {
+      border-radius: var(--r-md);
+      overflow: hidden;
+      aspect-ratio: 16 / 10;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      position: relative;
+      z-index: 2;
+    }
+    .bento__solution-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    /* EFECTOS MÁGICOS */
     .solution-sparkles {
       position: absolute;
       inset: 0;
@@ -846,11 +857,11 @@
     }
     .solution-sparkle {
       position: absolute;
-      width: var(--s, 6px);
-      height: var(--s, 6px);
-      color: var(--amarillo, #eacc34);
+      width: var(--s, 4px);
+      height: var(--s, 4px);
+      color: var(--amarillo);
       opacity: 0;
-      animation: solution-twinkle var(--dur, 4s) var(--ease, cubic-bezier(0.22,1,0.36,1)) var(--delay, 0s) infinite;
+      animation: solution-twinkle var(--dur, 4s) var(--ease) var(--delay, 0s) infinite;
       filter: drop-shadow(0 0 6px rgba(234, 204, 52, 0.6));
     }
     .solution-sparkle::before,
@@ -865,14 +876,8 @@
       transform: rotate(45deg) scale(0.6);
       opacity: 0.7;
     }
-    .solution-sparkle--white {
-      color: #fff;
-      filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.7));
-    }
-    .solution-sparkle--gold {
-      color: var(--amarillo, #eacc34);
-      filter: drop-shadow(0 0 8px rgba(234, 204, 52, 0.8));
-    }
+    .solution-sparkle--white { color: #fff; filter: drop-shadow(0 0 4px rgba(255,255,255,0.7)); }
+    .solution-sparkle--gold { color: var(--amarillo); filter: drop-shadow(0 0 8px rgba(234,204,52,0.8)); }
     
     @keyframes solution-twinkle {
       0%, 100% { opacity: 0; transform: scale(0.4) rotate(0deg); }
@@ -889,84 +894,98 @@
     .solution-aurora span {
       position: absolute;
       border-radius: 50%;
-      filter: blur(60px);
-      opacity: 0.3;
+      filter: blur(50px);
+      opacity: 0.25;
     }
     .solution-aurora span:nth-child(1) {
-      width: 300px;
-      height: 300px;
-      top: -50%;
+      width: 180px;
+      height: 180px;
+      top: -20%;
       right: -10%;
       background: radial-gradient(circle, rgba(234, 204, 52, 0.5), transparent 70%);
-      animation: solution-drift-a 8s var(--ease, cubic-bezier(0.22,1,0.36,1)) infinite alternate;
+      animation: solution-drift-a 8s var(--ease) infinite alternate;
     }
     .solution-aurora span:nth-child(2) {
-      width: 250px;
-      height: 250px;
-      bottom: -30%;
+      width: 160px;
+      height: 160px;
+      bottom: -20%;
       left: -5%;
       background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent 70%);
-      animation: solution-drift-b 10s var(--ease, cubic-bezier(0.22,1,0.36,1)) infinite alternate;
+      animation: solution-drift-b 10s var(--ease) infinite alternate;
     }
+    @keyframes solution-drift-a { to { transform: translate(-15px, 10px) scale(1.1); } }
+    @keyframes solution-drift-b { to { transform: translate(10px, -8px) scale(1.15); } }
     
-    @keyframes solution-drift-a { to { transform: translate(-20px, 15px) scale(1.1); } }
-    @keyframes solution-drift-b { to { transform: translate(15px, -10px) scale(1.15); } }
-    
-    .bento__solution-image {
-      border-radius: var(--r-lg, 28px);
-      overflow: hidden;
-      aspect-ratio: 16 / 9;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
-      position: relative;
-      z-index: 2;
-    }
-    .bento__solution-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    
-    .bento__title {
-      font-size: 1.3rem;
-      margin-bottom: 0.5rem;
-      color: var(--verde-oscuro, #1d381c);
-    }
-    .bento__copy {
-      font-size: 0.95rem;
-      color: var(--texto-suave, #6b6862);
-      line-height: 1.5;
-    }
-    .bento__tag {
-      display: inline-block;
-      margin-top: 0.9rem;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      padding: 0.25rem 0.7rem;
-      border-radius: var(--r-pill, 999px);
-      background: var(--crema-profunda, #ece6d8);
-      color: var(--verde-texto, #2f7044);
-    }
-    
-    /* Responsive */
-    @media (max-width: 968px) {
-      .bento__vertical {
-        grid-column: span 12;
-        grid-row: span 1;
-        aspect-ratio: 16 / 9;
+    /* ═══ DESKTOP BREAKPOINT ═══ */
+    @media (min-width: 969px) {
+      .bento {
+        grid-template-columns: 5fr 7fr;
+        gap: 1.5rem;
       }
-      .bento__card--top,
-      .bento__card--middle,
-      .bento__card--bottom {
-        grid-column: span 12;
+      .bento__right {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
       }
       .bento__card--solution {
-        grid-template-columns: 1fr;
+        order: 0;
+        grid-column: span 2;
+        flex-direction: row;
+        align-items: center;
+        padding: clamp(2rem, 4vw, 3rem);
+        gap: 2rem;
+      }
+      .bento__card--vertical {
+        min-height: 520px;
+        grid-row: span 2;
+      }
+      .bento__card--small {
+        aspect-ratio: 4/3;
+        min-height: auto;
+      }
+      .bento__card--wide {
+        grid-column: span 2;
+        aspect-ratio: 16/6;
+        min-height: auto;
       }
       .bento__solution-bg-isotipo {
-        width: 250px;
-        height: 250px;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        width: 350px;
+        height: 350px;
+        opacity: 0.12;
+      }
+      .bento__card--solution h3 {
+        font-size: clamp(1.5rem, 2.5vw + 0.5rem, 2.2rem);
+      }
+      .bento__card--vertical h3 {
+        font-size: clamp(1.4rem, 2vw + 0.5rem, 1.8rem);
+      }
+      .bento__card--image:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 50px rgba(29, 56, 28, 0.15);
+      }
+      .bento__card--image:hover img {
+        transform: scale(1.05);
+      }
+      .bento__card--solution:hover {
+        box-shadow: 0 30px 70px rgba(69, 155, 91, 0.3);
+        transform: translateY(-6px);
+      }
+    }
+    
+    @media (max-width: 968px) {
+      .bento__right {
+        grid-template-columns: 1fr;
+      }
+      .bento__card--small,
+      .bento__card--wide {
+        grid-column: span 1;
+        min-height: 200px;
+      }
+      .bento__card--solution {
+        order: -1;
       }
     }
         /* ══════════════════════════════════════════
@@ -3062,47 +3081,56 @@
           </p>
         </div>
         
-        <!-- Bento Grid estilo Pinterest -->
+        <!-- Bento Grid -->
         <div class="bento">
           
-          <!-- Imagen vertical grande (izquierda) -->
-          <div class="bento__vertical reveal">
+          <!-- Card 1: Vertical grande (izquierda) -->
+          <article class="bento__card--image bento__card--vertical reveal">
             <img src="assets/images/Alacena Magica 6.webp" alt="Plato delicioso preparado con ingredientes frescos" loading="lazy" />
-            <div class="bento__vertical-caption">
+            <div class="bento__card-content">
               <h3>Tu despensa merece una segunda oportunidad</h3>
               <p>Alacena Mágica convierte el caos en creatividad.</p>
+              <span class="bento__tag">La solución</span>
             </div>
+          </article>
+          
+          <!-- Columna derecha -->
+          <div class="bento__right">
+            
+            <!-- Card 2: Nevera vacía -->
+            <article class="bento__card--image bento__card--small reveal reveal--delay">
+              <img src="assets/images/Abres la nevera y... nada te inspira.webp" alt="Nevera abierta sin inspiración para cocinar" loading="lazy" />
+              <div class="bento__card-content">
+                <h3>Abres la nevera y... nada te inspira</h3>
+                <p>Está llena, pero no ves una comida ahí dentro.</p>
+                <span class="bento__tag">Sin ideas</span>
+              </div>
+            </article>
+            
+            <!-- Card 3: Desperdicio -->
+            <article class="bento__card--image bento__card--small reveal reveal--delay-2">
+              <img src="assets/images/Ingredientes que se echan a perder.webp" alt="Ingredientes que se van a echar a perder" loading="lazy" />
+              <div class="bento__card-content">
+                <h3>Ingredientes que se echan a perder</h3>
+                <p>Cada semana, comida (y dinero) acaba en la basura.</p>
+                <span class="bento__tag">Desperdicio</span>
+              </div>
+            </article>
+            
+            <!-- Card 4: Dietas complicadas -->
+            <article class="bento__card--image bento__card--wide reveal reveal--delay-3">
+              <img src="assets/images/Las dietas parecen complicadas.webp" alt="Plato saludable con dieta especial complicada" loading="lazy" />
+              <div class="bento__card-content">
+                <h3>Las dietas parecen complicadas</h3>
+                <p>Keto, paleo, sin gluten... ¿tan fácil como activar un interruptor?</p>
+                <span class="bento__tag">Complejidad</span>
+              </div>
+            </article>
+            
           </div>
           
-          <!-- Tarjeta 1 (derecha arriba) -->
-          <article class="bento__card bento__card--top reveal reveal--delay">
-            <h3 class="bento__title">Abres la nevera y... nada te inspira</h3>
-            <p class="bento__copy">
-              Está llena, pero no ves una comida ahí dentro. Y acabas pidiendo comida otra vez.
-            </p>
-            <span class="bento__tag">Sin ideas</span>
-          </article>
-          
-          <!-- Tarjeta 2 (derecha medio) -->
-          <article class="bento__card bento__card--middle reveal reveal--delay-2">
-            <h3 class="bento__title">Ingredientes que se echan a perder</h3>
-            <p class="bento__copy">
-              Cada semana, comida (y dinero) acaba en la basura sin que te des cuenta.
-            </p>
-            <span class="bento__tag">Desperdicio</span>
-          </article>
-          
-          <!-- Tarjeta 3 (derecha abajo) -->
-          <article class="bento__card bento__card--bottom reveal reveal--delay-3">
-            <h3 class="bento__title">Las dietas parecen complicadas</h3>
-            <p class="bento__copy">
-              Keto, paleo, sin gluten... ¿Y si fuera tan fácil como activar un interruptor?
-            </p>
-            <span class="bento__tag">Complejidad</span>
-          </article>
-          
-          <!-- Tarjeta 4: Solución verde con isotipo de fondo y efectos mágicos -->
-          <article class="bento__card bento__card--solution reveal reveal--delay-3">
+          <!-- Card 5: Solución verde con efectos mágicos -->
+          <article class="bento__card--solution reveal reveal--delay-3">
             <!-- Aurora interna -->
             <div class="solution-aurora" aria-hidden="true">
               <span></span><span></span>
@@ -3116,13 +3144,13 @@
               <img src="assets/logos/Isotipo.svg" alt="" loading="lazy" />
             </div>
             
-            <div>
+            <div class="bento__solution-text">
               <h3>Alacena Mágica convierte ese caos en creatividad.</h3>
               <p>Crea magia con lo que tienes.</p>
             </div>
             
             <div class="bento__solution-image">
-              <img src="assets/images/Alacena Magica 4.webp" alt="Plato delicioso creado con ingredientes de la nevera" loading="lazy" />
+              <img src="assets/images/Alacena Magica 6.webp" alt="Plato delicioso creado con ingredientes de la nevera" loading="lazy" />
             </div>
           </article>
           
@@ -3809,7 +3837,7 @@
         entries.forEach(function(en){
           if (en.isIntersecting){ en.target.classList.add('is-visible'); io.unobserve(en.target); }
         });
-      }, {threshold:.15});
+      }, {threshold:.1, rootMargin:'0px 0px -50px 0px'});
       reveals.forEach(function(el){ io.observe(el); });
     }
     
@@ -3979,7 +4007,8 @@
     
     /* ── Generar destellos mágicos en tarjeta verde ── */
     document.querySelectorAll('.solution-sparkles').forEach(function(layer) {
-      var count = parseInt(layer.dataset.sparkles, 10) || 15;
+      var isMobile = window.innerWidth < 969;
+      var count = isMobile ? 8 : 15;
       var frag = document.createDocumentFragment();
       
       for (var i = 0; i < count; i++) {
@@ -3994,7 +4023,7 @@
         
         s.style.left = Math.random() * 100 + '%';
         s.style.top = Math.random() * 100 + '%';
-        s.style.setProperty('--s', (4 + Math.random() * 8) + 'px');
+        s.style.setProperty('--s', (isMobile ? 3 + Math.random() * 4 : 4 + Math.random() * 8) + 'px');
         s.style.setProperty('--dur', (3.5 + Math.random() * 4) + 's');
         s.style.setProperty('--delay', (Math.random() * 6) + 's');
         
