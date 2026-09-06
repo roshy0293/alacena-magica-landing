@@ -784,23 +784,26 @@
       background: linear-gradient(135deg, var(--verde-marca), #245c33);
       border: none;
       color: #fff;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      padding: 2rem 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      align-items: center;
+      padding: clamp(2rem, 4vw, 3rem);
       position: relative;
       overflow: hidden;
-      border-radius: var(--r-xl);
-      margin-bottom: 0.5rem;
-      transition: transform var(--t-med), box-shadow var(--t-med);
+      border-radius: var(--r-lg);
+    }
+    .bento__card--solution:hover {
+      box-shadow: 0 30px 70px rgba(69, 155, 91, 0.3);
     }
     .bento__solution-bg-isotipo {
       position: absolute;
-      top: 1.5rem;
-      left: 1.5rem;
-      width: 100px;
-      height: 100px;
-      z-index: 1;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      width: 250px;
+      height: 250px;
+      z-index: 0;
       pointer-events: none;
       opacity: 0.12;
       filter: brightness(0) invert(1);
@@ -816,23 +819,25 @@
     }
     .bento__card--solution h3 {
       color: #fff;
-      font-size: clamp(1.4rem, 5vw, 1.6rem);
-      line-height: 1.15;
-      margin-bottom: 0.5rem;
-    }
-    .bento__card--solution p {
-      color: rgba(255, 255, 255, 0.9);
-      font-size: 1rem;
-      line-height: 1.5;
-    }
-    .bento__solution-image {
-      border-radius: var(--r-md);
-      overflow: hidden;
-      aspect-ratio: 16 / 10;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      font-size: clamp(1.5rem, 2.5vw + 0.5rem, 2.2rem);
+      margin-bottom: 1rem;
       position: relative;
       z-index: 2;
-      margin-top: 0.5rem;
+    }
+    .bento__card--solution p {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 1.1rem;
+      line-height: 1.6;
+      position: relative;
+      z-index: 2;
+    }
+    .bento__solution-image {
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      position: relative;
+      z-index: 2;
     }
     .bento__solution-image img {
       width: 100%;
@@ -922,7 +927,7 @@
       .bento__card--solution {
         order: 0;
         grid-column: span 2;
-        flex-direction: row;
+        grid-template-columns: 1fr 1fr;
         align-items: center;
         padding: clamp(2rem, 4vw, 3rem);
         gap: 2rem;
@@ -3093,7 +3098,7 @@
             </div>
             
             <div class="bento__solution-image">
-              <img src="assets/images/Alacena Magica 6.webp" alt="Plato delicioso creado con ingredientes de la nevera" loading="lazy" />
+              <img src="assets/images/Alacena Magica 4.webp" alt="Plato delicioso creado con ingredientes de la nevera" loading="lazy" />
             </div>
           </article>
           
