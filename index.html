@@ -1395,23 +1395,22 @@
     .carousel__slide {
       flex: 0 0 auto;
       width: 280px;
-      transition: all var(--t-slow, 0.6s);
+      transition: transform var(--t-slow, 0.6s), opacity var(--t-slow, 0.6s);
       cursor: pointer;
-      opacity: 0.4;
-      transform: scale(0.75);
+      opacity: 0.45;
+      transform: scale(0.8);
       margin: 0 8px;
     }
     
     .carousel__slide.is-active {
       opacity: 1;
-      transform: scale(1);
+      transform: scale(1.15);
       z-index: 3;
-      width: 340px;
     }
     
     .carousel__slide.is-adjacent {
-      opacity: 0.6;
-      transform: scale(0.85);
+      opacity: 0.65;
+      transform: scale(0.92);
     }
     
     /* Phone mini */
@@ -1596,9 +1595,6 @@
       .carousel__slide {
         width: 220px;
       }
-      .carousel__slide.is-active {
-        width: 260px;
-      }
     }
     @media (max-width: 480px) {
       .carousel__btn {
@@ -1606,9 +1602,6 @@
       }
       .carousel__slide {
         width: 180px;
-      }
-      .carousel__slide.is-active {
-        width: 220px;
       }
     }
 
@@ -3791,95 +3784,127 @@
     /* ── Carrusel de galería ── */
     (function() {
       var track = document.getElementById('carouselTrack');
-      var slides = Array.from(document.querySelectorAll('.carousel__slide'));
+      var realSlides = Array.from(document.querySelectorAll('.carousel__slide'));
       var dotsContainer = document.getElementById('carouselDots');
       var prevBtn = document.querySelector('.carousel__btn--prev');
       var nextBtn = document.querySelector('.carousel__btn--next');
       var viewport = document.getElementById('carouselViewport');
       
-      if (!track || !slides.length || !viewport) return;
+      if (!track || !realSlides.length || !viewport) return;
       
-      var currentIndex = 0;
+      var N = realSlides.length;
+      
+      // Clonar extremos para lograr un bucle infinito
+      var firstClone = realSlides[0].cloneNode(true);
+      var lastClone = realSlides[N - 1].cloneNode(true);
+      track.insertBefore(lastClone, realSlides[0]);
+      track.appendChild(firstClone);
+      
+      var slides = Array.from(track.children);
+      var current = 1;  // el slide real i está en la posición i + 1
+      var origin = 0;
+      var step = 0;
+      var slideWidth = 0;
+      var animating = false;
+      var resetTimer = null;
       
       // Crear dots
-      slides.forEach(function(_, i) {
+      realSlides.forEach(function(_, i) {
         var dot = document.createElement('button');
         dot.className = 'carousel__dot' + (i === 0 ? ' is-active' : '');
         dot.setAttribute('aria-label', 'Ir a la pantalla ' + (i + 1));
-        dot.addEventListener('click', function() { goToSlide(i); });
+        dot.addEventListener('click', function() { goTo(i + 1); });
         dotsContainer.appendChild(dot);
       });
       
       var dots = Array.from(document.querySelectorAll('.carousel__dot'));
       
-      function updateSlides() {
+      function measure() {
+        slideWidth = slides[0].offsetWidth;
+        origin = slides[0].offsetLeft;
+        step = slides[1].offsetLeft - slides[0].offsetLeft;
+      }
+      
+      function realIndex() {
+        return ((current - 1) % N + N) % N;
+      }
+      
+      function setActiveClasses() {
         slides.forEach(function(slide, i) {
           slide.classList.remove('is-active', 'is-adjacent');
-          
-          if (i === currentIndex) {
-            slide.classList.add('is-active');
-          } else if (i === currentIndex - 1 || i === currentIndex + 1 ||
-                     (currentIndex === 0 && i === slides.length - 1) ||
-                     (currentIndex === slides.length - 1 && i === 0)) {
-            slide.classList.add('is-adjacent');
-          }
+          if (i === current) slide.classList.add('is-active');
+          else if (i === current - 1 || i === current + 1) slide.classList.add('is-adjacent');
         });
-        
         dots.forEach(function(dot, i) {
-          dot.classList.toggle('is-active', i === currentIndex);
+          dot.classList.toggle('is-active', i === realIndex());
         });
-        
-        // Centrar el slide activo
-        var slideWidth = slides[currentIndex].offsetWidth;
-        var viewportWidth = viewport.offsetWidth;
-        var slideOffset = slides[currentIndex].offsetLeft;
-        var centerOffset = slideOffset - (viewportWidth / 2) + (slideWidth / 2);
-        
-        track.style.transform = 'translateX(' + (-centerOffset) + 'px)';
       }
       
-      function goToSlide(index) {
-        currentIndex = index;
-        if (currentIndex < 0) currentIndex = slides.length - 1;
-        if (currentIndex >= slides.length) currentIndex = 0;
-        updateSlides();
+      function position(animate) {
+        track.style.transition = animate ? '' : 'none';
+        var center = origin + current * step + slideWidth / 2;
+        track.style.transform = 'translateX(' + (viewport.offsetWidth / 2 - center) + 'px)';
       }
       
-      if (prevBtn) prevBtn.addEventListener('click', function() { goToSlide(currentIndex - 1); });
-      if (nextBtn) nextBtn.addEventListener('click', function() { goToSlide(currentIndex + 1); });
+      function goTo(index) {
+        if (animating) return;
+        current = index;
+        animating = true;
+        setActiveClasses();
+        position(true);
+        clearTimeout(resetTimer);
+        resetTimer = setTimeout(function() { animating = false; }, 900);
+      }
       
-      // Touch swipe
+      track.addEventListener('transitionend', function(e) {
+        if (e.target !== track) return;
+        animating = false;
+        clearTimeout(resetTimer);
+        if (current === 0) {
+          current = N;
+          setActiveClasses();
+          position(false);
+        } else if (current === slides.length - 1) {
+          current = 1;
+          setActiveClasses();
+          position(false);
+        }
+      });
+      
+      if (prevBtn) prevBtn.addEventListener('click', function() { goTo(current - 1); });
+      if (nextBtn) nextBtn.addEventListener('click', function() { goTo(current + 1); });
+      
+      // Deslizar con el dedo
       var startX = 0;
-      
       viewport.addEventListener('touchstart', function(e) {
         startX = e.touches[0].clientX;
       }, { passive: true });
       
       viewport.addEventListener('touchend', function(e) {
-        var endX = e.changedTouches[0].clientX;
-        var diff = startX - endX;
-        
+        var diff = startX - e.changedTouches[0].clientX;
         if (Math.abs(diff) > 50) {
-          if (diff > 0) {
-            goToSlide(currentIndex + 1);
-          } else {
-            goToSlide(currentIndex - 1);
-          }
+          goTo(diff > 0 ? current + 1 : current - 1);
         }
       }, { passive: true });
       
-      // Click en slide
+      // Clic en un slide
       slides.forEach(function(slide, i) {
         slide.addEventListener('click', function() {
-          if (i !== currentIndex) goToSlide(i);
+          if (i !== current) goTo(i);
         });
       });
       
       // Iniciar
-      updateSlides();
+      measure();
+      setActiveClasses();
+      position(false);
       
-      // Recalcular en resize
-      window.addEventListener('resize', updateSlides);
+      // Recalcular al redimensionar
+      window.addEventListener('resize', function() {
+        measure();
+        animating = false;
+        position(false);
+      });
       
       // Destellos
       document.querySelectorAll('.galeria__sparkles').forEach(function(layer) {
