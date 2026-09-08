@@ -2807,13 +2807,14 @@
         .card-solucion .bento-img-wrap { width: 45%; aspect-ratio: auto; height: 100%; min-height: 320px; }
         
         /* Card CTA Final */
-        .card-cta { grid-column: span 4; background: linear-gradient(135deg, var(--verde-marca), #245c33); color: #fff; text-align: center; padding: clamp(2.5rem, 5vw, 4rem); border-radius: var(--r-xl); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem; }
-        .card-cta h3 { color: #fff; font-size: clamp(1.8rem, 3vw, 2.5rem); margin: 0; }
-        .card-cta p { color: rgba(255,255,255,0.9); font-size: 1.1rem; max-width: 500px; margin: 0; }
+        .card-cta { grid-column: span 4; position: relative; background: linear-gradient(135deg, var(--amarillo) 0%, var(--terracota) 100%); color: #fff; text-align: center; padding: clamp(2.5rem, 5vw, 4rem); border-radius: var(--r-xl); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem; }
+        .card-cta h3 { color: #fff; font-size: clamp(1.8rem, 3vw, 2.5rem); margin: 0; position: relative; z-index: 1; }
+        .card-cta p { color: rgba(255,255,255,0.95); font-size: 1.1rem; max-width: 500px; margin: 0; position: relative; z-index: 1; }
+        .card-cta .sparkle-layer { z-index: 0; }
         
-        /* Botón Gradiente Amarillo-Terracota */
-        .btn-magic-gradient { display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, var(--amarillo) 0%, var(--terracota) 100%); color: #fff; font-family: var(--font-body); font-weight: 700; font-size: 1.1rem; padding: 1rem 2.5rem; border-radius: var(--r-pill); text-decoration: none; transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(226, 133, 56, 0.3); border: none; cursor: pointer; }
-        .btn-magic-gradient:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(226, 133, 56, 0.4); filter: brightness(1.05); }
+        /* Botón Verde (como CTA final) */
+        .btn-magic-gradient { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 0.5rem; background: var(--verde-marca); color: #fff; font-family: var(--font-body); font-weight: 700; font-size: 1.1rem; padding: 1rem 2.5rem; border-radius: var(--r-pill); text-decoration: none; transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(69, 155, 91, 0.32); border: none; cursor: pointer; }
+        .btn-magic-gradient:hover { transform: translateY(-3px); background: #3d8c52; box-shadow: 0 15px 35px rgba(69, 155, 91, 0.42); }
         
         /* Responsive */
         @media (max-width: 968px) {
@@ -2890,6 +2891,7 @@
           
           <!-- 5. CTA FINAL CON GRADIENTE -->
           <article class="bento-card card-cta reveal reveal--delay-3">
+            <div class="sparkle-layer" data-sparkles="20" aria-hidden="true"></div>
             <h3>¿Listo para dejar de tirar comida?</h3>
             <p>Únete a la revolución de la cocina consciente. Sin complicaciones, sin desperdicio.</p>
             <a href="#cta" class="btn-magic-gradient">✨ Descubre la magia</a>
