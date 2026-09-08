@@ -3062,90 +3062,133 @@
 
 
     <!-- PROBLEMAS — ¿Te suena familiar? -->
-    <section class="problemas" id="problemas" aria-labelledby="problem-title">
-      <div class="container">
+    <section class="problemas" id="problemas">
+      <style>
+        /* Estilos específicos para esta sección */
+        .problemas { padding-block: clamp(4rem, 8vw, 7rem); background: var(--blanco); }
+        .problemas .section__head { text-align: center; max-width: 44rem; margin: 0 auto clamp(3rem, 6vw, 5rem); }
+        .problemas .pill { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.4rem 0.9rem; border-radius: var(--r-pill); background: rgba(69, 155, 91, 0.1); color: var(--verde-marca); margin-bottom: 1rem; }
+        .problemas .section__title { font-size: clamp(2rem, 5vw, 3.2rem); margin-bottom: 0.75rem; }
+        .problemas .section__sub { font-size: 1.05rem; color: var(--texto-suave); max-width: 38rem; margin: 0 auto; }
         
-        <!-- Cabecera -->
+        .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+        
+        /* Tarjeta Base */
+        .bento-card { background: var(--crema); border-radius: var(--r-lg); overflow: hidden; display: flex; flex-direction: column; transition: transform var(--t-med), box-shadow var(--t-med); border: 1px solid rgba(29, 56, 28, 0.05); }
+        .bento-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(29, 56, 28, 0.08); }
+        
+        /* Imagen Superior 3:2 */
+        .bento-img-wrap { width: 100%; aspect-ratio: 3 / 2; overflow: hidden; position: relative; background: #e8e4dc; }
+        .bento-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease); }
+        .bento-card:hover .bento-img-wrap img { transform: scale(1.05); }
+        
+        .bento-content { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+        .bento-tag { display: inline-block; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.25rem 0.7rem; border-radius: var(--r-pill); background: rgba(29, 56, 28, 0.08); color: var(--verde-oscuro); width: fit-content; margin-bottom: 0.75rem; }
+        .bento-card h3 { font-size: clamp(1.1rem, 1.5vw, 1.35rem); line-height: 1.2; margin-bottom: 0.5rem; }
+        .bento-card p { font-size: 0.9rem; color: var(--texto-suave); line-height: 1.5; }
+        
+        /* Asignación Grid */
+        .card-sin-ideas { grid-column: span 2; }
+        .card-desperdicio { grid-column: span 1; }
+        .card-complejidad { grid-column: span 1; }
+        
+        /* Card Solución (Verde Oscura) */
+        .card-solucion { grid-column: span 4; background: var(--verde-oscuro); color: #fff; flex-direction: row; align-items: center; padding: 0; }
+        .card-solucion:hover { transform: translateY(-4px); box-shadow: 0 30px 60px rgba(29, 56, 28, 0.2); }
+        .card-solucion .bento-content { padding: clamp(2rem, 4vw, 3.5rem); flex: 1; }
+        .card-solucion .bento-tag { background: rgba(255,255,255,0.15); color: #fff; }
+        .card-solucion h3 { color: #fff; font-size: clamp(1.6rem, 2.5vw, 2.2rem); margin-bottom: 1rem; }
+        .card-solucion p { color: rgba(255,255,255,0.85); font-size: 1.1rem; max-width: 480px; }
+        .card-solucion .bento-img-wrap { width: 45%; aspect-ratio: auto; height: 100%; min-height: 320px; }
+        
+        /* Card CTA Final */
+        .card-cta { grid-column: span 4; background: linear-gradient(135deg, var(--verde-marca), #245c33); color: #fff; text-align: center; padding: clamp(2.5rem, 5vw, 4rem); border-radius: var(--r-xl); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem; }
+        .card-cta h3 { color: #fff; font-size: clamp(1.8rem, 3vw, 2.5rem); margin: 0; }
+        .card-cta p { color: rgba(255,255,255,0.9); font-size: 1.1rem; max-width: 500px; margin: 0; }
+        
+        /* Botón Gradiente Amarillo-Terracota */
+        .btn-magic-gradient { display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg, var(--amarillo) 0%, var(--terracota) 100%); color: #fff; font-family: var(--font-body); font-weight: 700; font-size: 1.1rem; padding: 1rem 2.5rem; border-radius: var(--r-pill); text-decoration: none; transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(226, 133, 56, 0.3); border: none; cursor: pointer; }
+        .btn-magic-gradient:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(226, 133, 56, 0.4); filter: brightness(1.05); }
+        
+        /* Responsive */
+        @media (max-width: 968px) {
+          .bento-grid { grid-template-columns: 1fr 1fr; }
+          .card-sin-ideas { grid-column: span 2; }
+          .card-desperdicio, .card-complejidad { grid-column: span 1; }
+          .card-solucion { grid-column: span 2; flex-direction: column; }
+          .card-solucion .bento-img-wrap { width: 100%; height: 250px; min-height: auto; }
+          .card-cta { grid-column: span 2; }
+        }
+        @media (max-width: 600px) {
+          .bento-grid { grid-template-columns: 1fr; }
+          .card-sin-ideas, .card-desperdicio, .card-complejidad, .card-solucion, .card-cta { grid-column: span 1; }
+          .card-solucion .bento-img-wrap { height: 200px; }
+        }
+      </style>
+
+      <div class="container">
         <div class="section__head reveal">
           <span class="pill">Seguro que te pasa</span>
-          <h2 id="problem-title" class="section__title">¿Te suena familiar?</h2>
-          <p class="section__sub">
-            Si alguna vez has vivido esto, Alacena Mágica está hecha para ti.
-          </p>
+          <h2 class="section__title">¿Te suena familiar?</h2>
+          <p class="section__sub">Si alguna vez has vivido esto, Alacena Mágica está hecha para ti.</p>
         </div>
         
-        <!-- Bento Grid -->
-        <div class="bento">
+        <div class="bento-grid">
           
-          <!-- Card Solución Verde (orden -1 en móvil) -->
-          <article class="bento__card--solution reveal">
-            <!-- Aurora interna -->
-            <div class="solution-aurora" aria-hidden="true">
-              <span></span><span></span>
+          <!-- 1. SIN IDEAS -->
+          <article class="bento-card card-sin-ideas reveal">
+            <div class="bento-img-wrap">
+              <img src="assets/images/Alacena Magica 4.webp" alt="Persona mirando la nevera sin inspiración" loading="lazy" />
             </div>
-            
-            <!-- Destellos flotantes -->
-            <div class="solution-sparkles" data-sparkles="15" aria-hidden="true"></div>
-            
-            <!-- Isotipo decorativo de fondo -->
-            <div class="bento__solution-bg-isotipo" aria-hidden="true">
-              <img src="assets/logos/Isotipo.svg" alt="" loading="lazy" />
+            <div class="bento-content">
+              <span class="bento-tag">Sin ideas</span>
+              <h3>Abres la nevera y... nada te inspira</h3>
+              <p>Está llena, pero no ves una comida ahí dentro. Y acabas pidiendo comida otra vez.</p>
             </div>
-            
-            <div class="bento__solution-text">
+          </article>
+          
+          <!-- 2. DESPERDICIO -->
+          <article class="bento-card card-desperdicio reveal reveal--delay">
+            <div class="bento-img-wrap">
+              <img src="assets/images/Alacena Magica 5.webp" alt="Ingredientes echándose a perder" loading="lazy" />
+            </div>
+            <div class="bento-content">
+              <span class="bento-tag">Desperdicio</span>
+              <h3>Ingredientes que se echan a perder</h3>
+              <p>Cada semana, comida (y dinero) acaba en la basura sin que te des cuenta.</p>
+            </div>
+          </article>
+          
+          <!-- 3. COMPLEJIDAD -->
+          <article class="bento-card card-complejidad reveal reveal--delay-2">
+            <div class="bento-img-wrap">
+              <img src="assets/images/Las dietas parecen complicadas.webp" alt="Cocinando con dietas complicadas" loading="lazy" />
+            </div>
+            <div class="bento-content">
+              <span class="bento-tag">Complejidad</span>
+              <h3>Las dietas parecen complicadas</h3>
+              <p>Keto, paleo, sin gluten... ¿Y si fuera tan fácil como activar un interruptor?</p>
+            </div>
+          </article>
+          
+          <!-- 4. LA SOLUCIÓN -->
+          <article class="bento-card card-solucion reveal reveal--delay-3">
+            <div class="bento-content">
+              <span class="bento-tag">La solución</span>
               <h3>Alacena Mágica convierte ese caos en creatividad.</h3>
-              <p>Crea magia con lo que tienes.</p>
+              <p>Tu despensa merece una segunda oportunidad. Crea magia con lo que tienes, sin listas de compra imposibles ni culpa.</p>
             </div>
-            
-            <div class="bento__solution-image">
-              <img src="assets/images/Alacena Magica 4.webp" alt="Plato delicioso creado con ingredientes de la nevera" loading="lazy" />
-            </div>
-          </article>
-          
-          <!-- Card 1: Vertical grande (izquierda) -->
-          <article class="bento__card--image bento__card--vertical reveal reveal--delay">
-            <img src="assets/images/Alacena Magica 6.webp" alt="Plato delicioso preparado con ingredientes frescos" loading="lazy" />
-            <div class="bento__card-content">
-              <h3>Tu despensa merece una segunda oportunidad</h3>
-              <p>Alacena Mágica convierte el caos en creatividad.</p>
-              <span class="bento__tag">La solución</span>
+            <div class="bento-img-wrap">
+              <img src="assets/images/Alacena Magica 6.webp" alt="Plato delicioso creado con ingredientes de la nevera" loading="lazy" />
             </div>
           </article>
           
-          <!-- Columna derecha -->
-          <div class="bento__right">
-            
-            <!-- Card 2: Nevera vacía -->
-            <article class="bento__card--image bento__card--small reveal reveal--delay-2">
-              <img src="assets/images/Abres la nevera y... nada te inspira.webp" alt="Nevera abierta sin inspiración para cocinar" loading="lazy" />
-              <div class="bento__card-content">
-                <h3>Abres la nevera y... nada te inspira</h3>
-                <p>Está llena, pero no ves una comida ahí dentro.</p>
-                <span class="bento__tag">Sin ideas</span>
-              </div>
-            </article>
-            
-            <!-- Card 3: Desperdicio -->
-            <article class="bento__card--image bento__card--small reveal reveal--delay-2">
-              <img src="assets/images/Ingredientes que se echan a perder.webp" alt="Ingredientes que se van a echar a perder" loading="lazy" />
-              <div class="bento__card-content">
-                <h3>Ingredientes que se echan a perder</h3>
-                <p>Cada semana, comida (y dinero) acaba en la basura.</p>
-                <span class="bento__tag">Desperdicio</span>
-              </div>
-            </article>
-            
-            <!-- Card 4: Dietas complicadas -->
-            <article class="bento__card--image bento__card--wide reveal reveal--delay-3">
-              <img src="assets/images/Las dietas parecen complicadas.webp" alt="Plato saludable con dieta especial complicada" loading="lazy" />
-              <div class="bento__card-content">
-                <h3>Las dietas parecen complicadas</h3>
-                <p>Keto, paleo, sin gluten... ¿tan fácil como activar un interruptor?</p>
-                <span class="bento__tag">Complejidad</span>
-              </div>
-            </article>
-            
-          </div>
+          <!-- 5. CTA FINAL CON GRADIENTE -->
+          <article class="bento-card card-cta reveal reveal--delay-3">
+            <h3>¿Listo para dejar de tirar comida?</h3>
+            <p>Únete a la revolución de la cocina consciente. Sin complicaciones, sin desperdicio.</p>
+            <a href="#cta" class="btn-magic-gradient">✨ Descubre la magia</a>
+          </article>
           
         </div>
       </div>
