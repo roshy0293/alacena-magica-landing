@@ -100,20 +100,9 @@ El formulario tiene el atributo `data-endpoint=""` vacío. Comportamiento actual
 - **Sin endpoint:** al enviar, se abre el programa de correo del usuario con un mensaje prellenado dirigido al correo de contacto (`data-fallback-email`).
 - **Con endpoint:** si se añade una URL en `data-endpoint`, el formulario envía los datos por POST y, si todo va bien, redirige a `gracias.html`. Si falla, vuelve al método del correo.
 
-## Pendientes antes del lanzamiento
+## Imágenes
 
-- [ ] Conectar el formulario de la lista de espera a un servicio que guarde los correos.
-- [ ] Sustituir los `#` de los botones de App Store / Google Play por las URL reales cuando la app esté publicada.
-- [ ] Añadir el enlace real de redes sociales en `soporte.html`.
-- [ ] Revisar el contenido de `#opiniones`: las cifras (500+ recetas, 80 % menos desperdicio, 3 h/semana), los testimonios (María, Carlos) y el contador "1.247 personas" son valores de ejemplo hasta que la app tenga usuarios reales. Deben sustituirse por datos reales o confirmarse con el cliente antes de promocionar el sitio.
-- [ ] Confirmar que el correo de contacto es el definitivo.
-- [ ] Revisar con el cliente los textos legales (`privacidad.html`, `terminos.html`), que describen funcionalidades de la app como el uso de la cámara.
-- [ ] En `index.html`, cambiar `og:image` a una URL absoluta (por ejemplo `https://www.alacenamagica.com/assets/images/frittata-alacena-magica.webp`) para que la vista previa al compartir en redes funcione.
-- [ ] Opcional: añadir `robots.txt` y `sitemap.xml`.
-
-## Rendimiento
-
-El proyecto pesa unos 27 MB, la mayor parte en imágenes. Las cinco imágenes de `assets/images/recetas/` pesan entre 1 y 3,5 MB cada una, y unos 16 archivos de `assets/` (cerca de 11 MB) no se usan en ninguna página. Para una carga más rápida conviene comprimir las imágenes grandes (por ejemplo con [Squoosh](https://squoosh.app)) y eliminar los archivos que no se referencian.
+Las imágenes están optimizadas en formato WebP. Si agregas o reemplazas alguna, conviene comprimirla antes (por ejemplo con [Squoosh](https://squoosh.app)) y no subir fotos de más de 1600 px de ancho: se ven igual y el sitio carga mucho más rápido.
 
 ## Soporte
 
