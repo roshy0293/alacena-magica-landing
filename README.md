@@ -102,9 +102,15 @@ El formulario tiene el atributo `data-endpoint=""` vacío. Comportamiento actual
 - **Sin endpoint:** al enviar, se abre el programa de correo del usuario con un mensaje prellenado dirigido al correo de contacto (`data-fallback-email`).
 - **Con endpoint:** si se añade una URL en `data-endpoint`, el formulario envía los datos por POST y, si todo va bien, redirige a `gracias.html`. Si falla, vuelve al método del correo.
 
-## Imágenes
+## Pendientes antes del lanzamiento
 
-Las imágenes están optimizadas en formato WebP. Si agregas o reemplazas alguna, conviene comprimirla antes (por ejemplo con [Squoosh](https://squoosh.app)) y no subir fotos de más de 1600 px de ancho: se ven igual y el sitio carga mucho más rápido.
+- [ ] **Lista de espera:** conectar el formulario de `index.html` a un servicio que guarde los correos (Formspree, Netlify Forms, Mailchimp, Brevo o un backend propio). Hasta entonces muestra el mensaje de confirmación, pero no recoge ningún registro.
+- [ ] **Cifras, testimonios y contador de ejemplo:** en la sección `#opiniones` (500+ recetas generadas, 80 % menos desperdicio, 3 h ahorradas por semana, los testimonios de María y Carlos) y en el texto "1.247 personas ya están en la lista". Mientras la app no tenga usuarios, no son datos reales. Conviene sustituirlos por datos reales o retirarlos antes de promocionar el sitio: la normativa de consumo en la UE no permite presentar reseñas o cifras que no sean reales como si lo fueran.
+- [ ] **Botones de App Store y Google Play:** apuntan a `#`. Poner las URL reales cuando la app esté publicada.
+- [ ] **Redes sociales:** el enlace "Síguenos" de `soporte.html` apunta a `#`.
+- [ ] **Correo de contacto:** confirmar que `franciscorueda2602@gmail.com` es el definitivo.
+- [ ] **Textos legales:** revisar `privacidad.html` y `terminos.html`, que describen funciones de la app (uso de la cámara, procesamiento de fotos). Ambas páginas llevan la etiqueta `noindex`, así que no aparecerán en Google; las tiendas piden una URL pública de política de privacidad, que funciona igual.
+- [ ] **Publicar en el dominio definitivo:** la vista previa al compartir en redes (`og:image`) y el sitemap solo funcionan cuando el sitio está en `https://www.alacenamagica.com`. Una vez publicado, enviar el sitemap en Google Search Console.
 
 ## Soporte
 
