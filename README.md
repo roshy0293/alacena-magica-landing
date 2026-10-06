@@ -33,6 +33,8 @@ Es un sitio **estático**: HTML, CSS y JavaScript puro, sin frameworks, sin depe
 ├── gracias.html
 ├── privacidad.html
 ├── terminos.html
+├── robots.txt       # Reglas para buscadores y enlace al sitemap
+├── sitemap.xml      # Páginas que deben aparecer en Google
 └── assets/
     ├── images/      # Fotografías, capturas y botones de tiendas
     │   └── recetas/ # Imágenes de las recetas de la demo
@@ -72,7 +74,7 @@ Sube los archivos por FTP/cPanel a la carpeta pública (`public_html`, `www` o s
 
 ### Dominio propio
 
-El sitio está configurado para `https://www.alacenamagica.com` (meta `og:url` en `index.html`). Si usas GitHub Pages, añade el dominio en *Settings → Pages → Custom domain* y crea los registros DNS que indica GitHub. Si cambia el dominio, actualiza ese valor.
+El sitio está configurado para `https://www.alacenamagica.com` (meta `og:url` en `index.html`). Si usas GitHub Pages, añade el dominio en *Settings → Pages → Custom domain* y crea los registros DNS que indica GitHub. Si cambia el dominio, actualiza ese valor y también las direcciones que aparecen en `robots.txt`, `sitemap.xml` y en las etiquetas `og:image` / `twitter:image` de `index.html`.
 
 ## Cómo editar el contenido
 
